@@ -30,9 +30,9 @@ public class Car : MonoBehaviour
         transform.Translate(Vector3.forward * currentSpeed * Time.deltaTime);
     }
 
-    private void OnTriggerEnter(Collider other)
+    void OnCollisionEnter(Collision other)
     {
-        if (other.CompareTag("Obstacle"))
+        if (other.collider.CompareTag("Obstacle"))
         {
             SceneManager.LoadScene(0);
         }
