@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.Notifications.Android;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -12,7 +13,7 @@ public class MainMenuScript : MonoBehaviour
     [SerializeField] private TMP_Text energyText;
     [SerializeField] private TMP_Text energyReadyText;
     [SerializeField] private int maxEnergy;
-    [SerializeField] private int energyRechargeTime;
+    [SerializeField] private int energyRechargeTimeInMinutes = 15;
     [SerializeField] private Button goButton;
     [SerializeField] private GameObject rechargeButton;
 
@@ -44,13 +45,15 @@ public class MainMenuScript : MonoBehaviour
             if (energyReadyString.Equals(String.Empty)){return;}
 
             DateTime energyReady = DateTime.Parse(energyReadyString);
+#if UNITY_ANDROID
+            AndroidNotificationCenter.CancelAllNotifications();
+            notificationHandler.ScheduleNotification(energyReady);
+#endif
             if (DateTime.Now > energyReady)
             {
                 RechargeEnergy();
             }
-        #if UNITY_ANDROID
-            notificationHandler.ScheduleNotification(energyReady);
-        #endif
+       
             SetEnergyReadyText();
         }
     }
@@ -69,6 +72,12 @@ public class MainMenuScript : MonoBehaviour
                                    $"{timeUntilRecharge.Seconds} Seconds";
             return;
         }
+        else
+        {
+#if UNITY_ANDROID
+            AndroidNotificationCenter.CancelAllNotifications();
+#endif
+        }
         energyReadyText.text = String.Empty;
     }
 
@@ -80,6 +89,12 @@ public class MainMenuScript : MonoBehaviour
         SetEnergyReadyText();
         energyText.text = $"{energy}";
         rechargeButton.SetActive(false);
+        
+    }
+
+    public void ShowAd()
+    {
+        FindObjectOfType<AdManagerScript>().ShowAd(this);
     }
 
     public void StartGame()
@@ -90,7 +105,7 @@ public class MainMenuScript : MonoBehaviour
             PlayerPrefs.SetInt(EnergyKey,energy);
             if (energy == 0)
             {
-                DateTime rechargeTime = DateTime.Now.AddMinutes(energyRechargeTime);
+                DateTime rechargeTime = DateTime.Now.AddMinutes(energyRechargeTimeInMinutes);
                 PlayerPrefs.SetString(EnergyReadyKey,rechargeTime.ToString());
             }
             SceneManager.LoadScene(1);
