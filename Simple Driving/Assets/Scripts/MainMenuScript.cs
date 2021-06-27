@@ -29,7 +29,7 @@ public class MainMenuScript : MonoBehaviour
         rechargeButton.SetActive(false);
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         energy = PlayerPrefs.GetInt(EnergyKey, maxEnergy);
 
@@ -37,26 +37,35 @@ public class MainMenuScript : MonoBehaviour
         {
             goButton.interactable = false;
             rechargeButton.SetActive(true);
-            Invoke(nameof(SetEnergyReadyText),0.5f);
             string energyReadyString = PlayerPrefs.GetString(EnergyReadyKey, string.Empty);
             if (energyReadyString.Equals(String.Empty)){return;}
+
             DateTime energyReady = DateTime.Parse(energyReadyString);
             if (DateTime.Now > energyReady)
             {
                 RechargeEnergy();
             }
+
+            SetEnergyReadyText();
         }
     }
 
     private void SetEnergyReadyText()
     {
-        string energyReadyString = PlayerPrefs.GetString(EnergyReadyKey, string.Empty);
-        if (energyReadyString.Equals(String.Empty)){return;}
-        DateTime energyReady = DateTime.Parse(energyReadyString);
-        TimeSpan timeUntilRecharge = energyReady - DateTime.Now;
-        energyReadyText.text = $"Recharge in\n" +
-                               $"{timeUntilRecharge.Minutes} Minutes\n" +
-                               $"{timeUntilRecharge.Seconds} Seconds";
+        if (energy == 0)
+        {
+            string energyReadyString = PlayerPrefs.GetString(EnergyReadyKey, string.Empty);
+            if (energyReadyString.Equals(String.Empty)){return;}
+
+            DateTime energyReady = DateTime.Parse(energyReadyString);
+            TimeSpan timeUntilRecharge = energyReady - DateTime.Now;
+            energyReadyText.text = $"Recharge in\n" +
+                                   $"{timeUntilRecharge.Minutes} Minutes\n" +
+                                   $"{timeUntilRecharge.Seconds} Seconds";
+            return;
+        }
+        energyReadyText.text = String.Empty;
+
     }
 
     public void RechargeEnergy()
@@ -64,7 +73,7 @@ public class MainMenuScript : MonoBehaviour
         energy = maxEnergy;
         PlayerPrefs.SetInt(EnergyKey, maxEnergy);
         goButton.interactable = true;
-        energyReadyText.text = "";
+        SetEnergyReadyText();
         energyText.text = $"{energy}";
         rechargeButton.SetActive(false);
     }
@@ -80,17 +89,10 @@ public class MainMenuScript : MonoBehaviour
                 DateTime rechargeTime = DateTime.Now.AddMinutes(energyRechargeTime);
                 PlayerPrefs.SetString(EnergyReadyKey,rechargeTime.ToString());
             }
-
             SceneManager.LoadScene(1);
         }
     }
-
-    public void ToggleControls()
-    {
-        
-    }
     
-
     public void QuitGame()
     {
         Application.Quit(0);
