@@ -16,12 +16,14 @@ public class MainMenuScript : MonoBehaviour
     [SerializeField] private Button goButton;
     [SerializeField] private GameObject rechargeButton;
 
+    private AndroidNotificationHandler notificationHandler;
     private const string EnergyKey = "Energy";
     private const string EnergyReadyKey = "EnergyReady";
     private int energy;
 
     public void Start()
     {
+        notificationHandler = GetComponent<AndroidNotificationHandler>();
         int highScore = PlayerPrefs.GetInt(ScoreSystem.highScoreKey,0);
         energy = PlayerPrefs.GetInt(EnergyKey, maxEnergy);
         highscoreText.text = $"HighScore - {highScore}";
@@ -35,6 +37,7 @@ public class MainMenuScript : MonoBehaviour
 
         if (energy == 0)
         {
+            
             goButton.interactable = false;
             rechargeButton.SetActive(true);
             string energyReadyString = PlayerPrefs.GetString(EnergyReadyKey, string.Empty);
@@ -45,7 +48,9 @@ public class MainMenuScript : MonoBehaviour
             {
                 RechargeEnergy();
             }
-
+        #if UNITY_ANDROID
+            notificationHandler.ScheduleNotification(energyReady);
+        #endif
             SetEnergyReadyText();
         }
     }
@@ -65,7 +70,6 @@ public class MainMenuScript : MonoBehaviour
             return;
         }
         energyReadyText.text = String.Empty;
-
     }
 
     public void RechargeEnergy()
@@ -93,6 +97,7 @@ public class MainMenuScript : MonoBehaviour
         }
     }
     
+
     public void QuitGame()
     {
         Application.Quit(0);

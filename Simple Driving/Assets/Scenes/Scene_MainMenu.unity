@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1259,6 +1259,7 @@ GameObject:
   - component: {fileID: 1586123115}
   - component: {fileID: 1586123114}
   - component: {fileID: 1586123118}
+  - component: {fileID: 1586123119}
   m_Layer: 5
   m_Name: MainMenuUI
   m_TagString: Untagged
@@ -1369,9 +1370,21 @@ MonoBehaviour:
   energyText: {fileID: 1846038550}
   energyReadyText: {fileID: 1645616679}
   maxEnergy: 5
-  energyRechargeTime: 15
+  energyRechargeTime: 1
   goButton: {fileID: 1165800213}
   rechargeButton: {fileID: 573077615}
+--- !u!114 &1586123119
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1586123113}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f62625bd1283a1149af1fc54b57f6ce9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1645616676
 GameObject:
   m_ObjectHideFlags: 0
