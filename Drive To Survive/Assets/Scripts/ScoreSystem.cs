@@ -32,8 +32,15 @@ public class ScoreSystem : MonoBehaviour
         }
     }
 
-    public void AddScoreBonus(float scorePickupAmount)
+    public void ScoreUpPickup(float scoreUpPercentage)
     {
-        score += scorePickupAmount;
+        float amountToAdd = score * (scoreUpPercentage / 100);
+        score += amountToAdd;
+    }
+
+    internal void ScoreDownPickup(float scoreDownPercentage)
+    {
+        float amountToRemove = score * (scoreDownPercentage / 100);
+        score -= amountToRemove;
     }
 }

@@ -46,11 +46,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e7d46911669bab42913c0ca609fc5ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startSpeed: 30
+  startSpeed: 40
   speedGainPerSecond: 0.5
   currentSpeed: 0
-  turnSpeed: 110
-  _steerValue: 0
+  turnSpeed: 125
+  steerValue: 0
 --- !u!65 &7701055860778361826
 BoxCollider:
   m_ObjectHideFlags: 0

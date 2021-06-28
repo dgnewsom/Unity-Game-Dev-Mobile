@@ -13,7 +13,7 @@ public class PickupGroup : MonoBehaviour
         Reset(0);
     }
 
-    public void Reset(float delay = 2f)
+    public void Reset(float delay = 10f)
     {
         StartCoroutine(ResetDelayed(delay));
     }

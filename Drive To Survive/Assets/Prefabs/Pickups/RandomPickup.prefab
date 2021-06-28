@@ -1,0 +1,67 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3834025930023376405
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3834025930023376403}
+  - component: {fileID: 3834025930023376404}
+  - component: {fileID: 3431389403615334693}
+  m_Layer: 0
+  m_Name: RandomPickup
+  m_TagString: Pickup
+  m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3834025930023376403
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3834025930023376405}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3834025930023376404
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3834025930023376405}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b3876b6362eaca45a9cf5e78ad641f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scoreUpPercent: 10
+  scoreDownPercent: 10
+  speedUpPercent: 10
+  speedDownPercent: 10
+  scoreUpPrefab: {fileID: 740779340544457835, guid: 81dad1364d18c91459dc7501630b9a1a, type: 3}
+  scoreDownPrefab: {fileID: 8978513625520323246, guid: bf14884f9018230488e6fce50545b5f8, type: 3}
+  speedUpPrefab: {fileID: 4984846810947013682, guid: 6da5e26a728cd2b4db934d8fbbddf8ab, type: 3}
+  speedDownPrefab: {fileID: 2769380069859443106, guid: f94fba5bb227258469f742e174fdcb74, type: 3}
+--- !u!135 &3431389403615334693
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3834025930023376405}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 2.5
+  m_Center: {x: 0, y: 2.5, z: 0}

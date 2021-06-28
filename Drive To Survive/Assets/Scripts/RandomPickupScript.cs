@@ -4,16 +4,18 @@ using System.Collections.Generic;
 using UnityEngine;using UnityEngine.SocialPlatforms.Impl;
 using Random = UnityEngine.Random;
 
-public enum PickupType{Score, SpeedUp, SpeedDown};
+public enum PickupType{ScoreUp, ScoreDown, SpeedUp, SpeedDown};
 
 public class RandomPickupScript : MonoBehaviour
 {
     [Header("Pickup Parameters")]
-    [SerializeField] private float scorePickupAmount = 1000f;
+    [SerializeField] private float scoreUpPercent = 10f;
+    [SerializeField] private float scoreDownPercent = 10f;
     [SerializeField] private float speedUpPercent = 10f;
     [SerializeField] private float speedDownPercent = 10f;
     [Header("Model Prefabs")]
-    [SerializeField] private GameObject scorePrefab;
+    [SerializeField] private GameObject scoreUpPrefab;
+    [SerializeField] private GameObject scoreDownPrefab;
     [SerializeField] private GameObject speedUpPrefab;
     [SerializeField] private GameObject speedDownPrefab;
 
@@ -36,7 +38,7 @@ public class RandomPickupScript : MonoBehaviour
 
     private void SetPickupType()
     {
-        pickupType = (PickupType) Random.Range(0, 3);
+        pickupType = (PickupType) Random.Range(0, 4);
         GameObject.Destroy(pickupModel);
         pickupModel = Instantiate(GetPickupPrefab(),transform.position,Quaternion.identity,this.transform);
     }
@@ -46,8 +48,10 @@ public class RandomPickupScript : MonoBehaviour
     {
         switch (pickupType)
         {
-            case PickupType.Score:
-                return scorePrefab;
+            case PickupType.ScoreUp:
+                return scoreUpPrefab;
+            case PickupType.ScoreDown:
+                return scoreDownPrefab;
             case PickupType.SpeedUp:
                 return speedUpPrefab;
             case PickupType.SpeedDown:
@@ -61,9 +65,13 @@ public class RandomPickupScript : MonoBehaviour
     {
         switch (pickupType)
         {
-            case PickupType.Score:
+            case PickupType.ScoreUp:
                 SoundManager.Instance.PlayScorePickupSound();
-                scoreSystem.AddScoreBonus(scorePickupAmount);
+                scoreSystem.ScoreUpPickup(scoreUpPercent);
+                break;
+            case PickupType.ScoreDown:
+                SoundManager.Instance.PlayScorePickupSound();
+                scoreSystem.ScoreDownPickup(scoreDownPercent);
                 break;
             case PickupType.SpeedUp:
                 SoundManager.Instance.PlaySpeedUpPickupSound();
