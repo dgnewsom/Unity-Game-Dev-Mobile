@@ -27,8 +27,8 @@ public class MainMenuScript : MonoBehaviour
     {
         notificationHandler = GetComponent<AndroidNotificationHandler>();
         int highScore = PlayerPrefs.GetInt(ScoreSystem.highScoreKey,0);
-        energy = PlayerPrefs.GetInt(EnergyKey, maxEnergy);
         highscoreText.text = $"HighScore - {highScore}";
+        energy = PlayerPrefs.GetInt(EnergyKey, maxEnergy);
         energyText.text = $"{energy}";
         rechargeButton.SetActive(false);
         
@@ -114,8 +114,6 @@ public class MainMenuScript : MonoBehaviour
         }
     }
 
-    
-
     public void OptionsButton()
     {
         print("Options Menu");
@@ -124,5 +122,12 @@ public class MainMenuScript : MonoBehaviour
     public void QuitGame()
     {
         Application.Quit(0);
+    }
+
+    public void ClearHighScore()
+    {
+        int highscore = 0;
+        PlayerPrefs.SetInt(ScoreSystem.highScoreKey,highscore);
+        highscoreText.text = $"HighScore - {highscore}";
     }
 }

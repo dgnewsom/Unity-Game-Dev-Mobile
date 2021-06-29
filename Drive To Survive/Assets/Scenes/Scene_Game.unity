@@ -1798,6 +1798,26 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 398967854, guid: 22b744fb8b695aa4a902c821a72fec1a, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0.6035156
+      objectReference: {fileID: 0}
+    - target: {fileID: 1869078134, guid: 22b744fb8b695aa4a902c821a72fec1a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 460162922688021786, guid: 22b744fb8b695aa4a902c821a72fec1a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 460162922688021786, guid: 22b744fb8b695aa4a902c821a72fec1a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SetActive
+      objectReference: {fileID: 0}
+    - target: {fileID: 4006919410072664369, guid: 22b744fb8b695aa4a902c821a72fec1a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4856605837196898750, guid: 22b744fb8b695aa4a902c821a72fec1a, type: 3}
       propertyPath: m_Name
       value: UI
@@ -1975,6 +1995,10 @@ PrefabInstance:
     - target: {fileID: 7701055860778361854, guid: 30f097b08468f044e8c32f979a5f7b2f, type: 3}
       propertyPath: m_Name
       value: Car
+      objectReference: {fileID: 0}
+    - target: {fileID: 7701055860778361855, guid: 30f097b08468f044e8c32f979a5f7b2f, type: 3}
+      propertyPath: turnSpeed
+      value: 135
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 30f097b08468f044e8c32f979a5f7b2f, type: 3}
