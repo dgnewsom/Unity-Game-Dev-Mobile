@@ -18,18 +18,17 @@ public class ScoreSystem : MonoBehaviour
 
         scoreText.text = ((int)score).ToString();
     }
+    
 
-    private void OnDestroy()
-    {
-        CheckHighScore((int)score);
-    }
-
-    internal void CheckHighScore(int score)
+    public bool CheckHighScore(int score)
     {
         if (PlayerPrefs.GetInt(highScoreKey,0) < score)
         {
             PlayerPrefs.SetInt(highScoreKey,score);
+            return true;
         }
+
+        return false;
     }
 
     public void ScoreUpPickup(float scoreUpPercentage)
@@ -42,5 +41,10 @@ public class ScoreSystem : MonoBehaviour
     {
         float amountToRemove = score * (scoreDownPercentage / 100);
         score -= amountToRemove;
+    }
+
+    public int GetScore()
+    {
+        return (int)score;
     }
 }

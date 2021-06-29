@@ -16,6 +16,8 @@ public class Car : MonoBehaviour
 
     [SerializeField]private int steerValue;
 
+    private bool gameOver = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -25,6 +27,7 @@ public class Car : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(gameOver){return;}
         currentSpeed += speedGainPerSecond * Time.deltaTime;
 
         transform.Rotate(0f,steerValue * turnSpeed * Time.deltaTime,0f) ;
@@ -35,7 +38,14 @@ public class Car : MonoBehaviour
     {
         if (other.collider.CompareTag("Obstacle"))
         {
-            SceneManager.LoadScene(0);
+            gameOver = true;
+            currentSpeed = 0;
+            FindObjectOfType<GameOverScript>().DisplayGameOver();
+        }
+
+        if (other.collider.CompareTag("Cone"))
+        {
+            other.gameObject.GetComponent<ConeScript>().HitCone();
         }
     }
 
@@ -44,6 +54,11 @@ public class Car : MonoBehaviour
         if (other.CompareTag("Pickup"))
         {
             other.GetComponent<RandomPickupScript>().CollectPickup(this);
+        }
+
+        if (other.CompareTag("Checkpoint"))
+        {
+            other.GetComponent<CheckpointScript>().HitCheckpoint();
         }
     }
 

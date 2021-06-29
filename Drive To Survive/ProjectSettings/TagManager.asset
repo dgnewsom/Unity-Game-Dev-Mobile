@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Obstacle
   - Pickup
+  - Cone
+  - Checkpoint
   layers:
   - Default
   - TransparentFX
