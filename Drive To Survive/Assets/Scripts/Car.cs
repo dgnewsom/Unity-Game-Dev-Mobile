@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -15,6 +16,7 @@ public class Car : MonoBehaviour
     [SerializeField] private float turnSpeed = 200f;
 
     [SerializeField]private int steerValue;
+    [SerializeField] private TMP_Text Speedometer;
 
     private bool gameOver = false;
 
@@ -25,13 +27,14 @@ public class Car : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         if(gameOver){return;}
         currentSpeed += speedGainPerSecond * Time.deltaTime;
+        Speedometer.text = $"{(int) currentSpeed}";
 
         transform.Rotate(0f,steerValue * turnSpeed * Time.deltaTime,0f) ;
-        transform.Translate(Vector3.forward * currentSpeed * Time.deltaTime);
+        transform.Translate(Vector3.forward * currentSpeed / 5f * Time.deltaTime);
     }
 
     void OnCollisionEnter(Collision other)

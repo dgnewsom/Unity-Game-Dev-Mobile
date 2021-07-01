@@ -197,7 +197,7 @@ Transform:
   m_GameObject: {fileID: 7701055860778361854}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children:
   - {fileID: 8754514855899091335}
   m_Father: {fileID: 0}
@@ -215,10 +215,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e7d46911669bab42913c0ca609fc5ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startSpeed: 50
-  speedGainPerSecond: 0.5
+  startSpeed: 15
+  speedGainPerSecond: 0.1
   currentSpeed: 0
-  turnSpeed: 135
+  turnSpeed: 125
   steerValue: 0
 --- !u!54 &7701055860778361853
 Rigidbody:

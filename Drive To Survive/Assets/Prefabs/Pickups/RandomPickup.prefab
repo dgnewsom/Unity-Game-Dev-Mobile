@@ -44,10 +44,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b3876b6362eaca45a9cf5e78ad641f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scoreUpPercent: 10
-  scoreDownPercent: 10
-  speedUpPercent: 10
-  speedDownPercent: 10
+  scoreUpPercent: 20
+  scoreDownPercent: 20
+  speedUpPercent: 20
+  speedDownPercent: 20
   scoreUpPrefab: {fileID: 740779340544457835, guid: 81dad1364d18c91459dc7501630b9a1a, type: 3}
   scoreDownPrefab: {fileID: 8978513625520323246, guid: bf14884f9018230488e6fce50545b5f8, type: 3}
   speedUpPrefab: {fileID: 4984846810947013682, guid: 6da5e26a728cd2b4db934d8fbbddf8ab, type: 3}

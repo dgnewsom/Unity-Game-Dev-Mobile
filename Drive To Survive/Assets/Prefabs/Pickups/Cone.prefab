@@ -75,8 +75,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b839a4a9f315d446bbfd6ee204e62b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ScoreDeductionPercentage: 20
-  ResetDelay: 2
+  ScoreDeductionPercentage: 30
+  ResetDelay: 10
 --- !u!1001 &78995840657099223
 PrefabInstance:
   m_ObjectHideFlags: 0
