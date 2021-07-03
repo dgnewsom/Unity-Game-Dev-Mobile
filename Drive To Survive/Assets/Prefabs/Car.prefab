@@ -215,11 +215,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e7d46911669bab42913c0ca609fc5ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startSpeed: 15
-  speedGainPerSecond: 0.1
-  currentSpeed: 0
+  startSpeed: 50
+  speedGainPerSecond: 0.5
   turnSpeed: 125
   steerValue: 0
+  topSpeed: 0
 --- !u!54 &7701055860778361853
 Rigidbody:
   m_ObjectHideFlags: 0

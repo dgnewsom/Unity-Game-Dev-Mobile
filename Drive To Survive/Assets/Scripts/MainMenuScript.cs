@@ -51,7 +51,7 @@ public class MainMenuScript : MonoBehaviour
         {
             DateTime energyReady = DateTime.Parse(energyReadyString);
 
-            if (PlayerPrefs.GetInt(FirstLoadKey,1) != 1 && DateTime.Now > energyReady)
+            if (DateTime.Now > energyReady)
             {
                 if (PlayerPrefs.GetInt(FirstLoadKey,1) == 1) {return;}
                 RechargeEnergy(true);

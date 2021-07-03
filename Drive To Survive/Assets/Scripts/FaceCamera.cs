@@ -13,7 +13,7 @@ public class FaceCamera : MonoBehaviour
 
     private void Update()
     {
-        Vector3 lookPos = mainCamera.transform.position - transform.position;
+        Vector3 lookPos = transform.position - mainCamera.transform.position;
         lookPos.y = 0;
         var rotation = Quaternion.LookRotation(lookPos);
         transform.rotation = rotation;

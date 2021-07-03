@@ -3,6 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Singleton sound manager class 
+/// </summary>
 public class SoundManager : MonoBehaviour
 {
     public static SoundManager Instance;
