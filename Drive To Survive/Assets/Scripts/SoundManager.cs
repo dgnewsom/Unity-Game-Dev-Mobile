@@ -28,8 +28,8 @@ public class SoundManager : MonoBehaviour
             Instance = this;
             DontDestroyOnLoad(gameObject);
             BackgroundMusic = GetComponent<AudioSource>();
-            playBGM = PlayerPrefs.GetInt(PlayBGMKey, 1);
-            playSFX = PlayerPrefs.GetInt(PlaySFXKey, 1);
+            playBGM = PlayerPrefs.GetInt(PlayBGMKey, 0);
+            playSFX = PlayerPrefs.GetInt(PlaySFXKey, 0);
             if (playBGM == 1)
             {
                 SetBackgroundMusic();

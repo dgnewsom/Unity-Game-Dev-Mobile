@@ -8,21 +8,21 @@ using UnityEngine.SceneManagement;
 
 public class Car : MonoBehaviour
 {
+    [Header("Car Parameters")]
     [SerializeField] private float startSpeed = 1f;
     [SerializeField] private float speedGainPerSecond = 0.1f;
-
-    [SerializeField] private float currentSpeed = 0f;
-
     [SerializeField] private float turnSpeed = 200f;
+    [SerializeField] private int steerValue;
 
-    [SerializeField]private int steerValue;
-    [SerializeField] private TMP_Text Speedometer;
-
+    private UIControllerScript uiController;
     private bool gameOver = false;
+    private float currentSpeed = 0f;
+    public float topSpeed = 0f;
 
     // Start is called before the first frame update
     void Start()
     {
+        uiController = FindObjectOfType<UIControllerScript>();
         currentSpeed = startSpeed;
     }
 
@@ -31,12 +31,18 @@ public class Car : MonoBehaviour
     {
         if(gameOver){return;}
         currentSpeed += speedGainPerSecond * Time.deltaTime;
-        Speedometer.text = $"{(int) currentSpeed}";
+        uiController.SetSpeedometerText((int) currentSpeed);
+
+        if (topSpeed < currentSpeed)
+        {
+            topSpeed = currentSpeed;
+            uiController.SetTopSpeedText((int) topSpeed);
+        }
 
         transform.Rotate(0f,steerValue * turnSpeed * Time.deltaTime,0f) ;
         transform.Translate(Vector3.forward * currentSpeed / 5f * Time.deltaTime);
     }
-
+    
     void OnCollisionEnter(Collision other)
     {
         if (other.collider.CompareTag("Obstacle"))

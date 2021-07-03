@@ -5,14 +5,18 @@ using UnityEngine;
 
 public class LapController : MonoBehaviour
 {
-    [SerializeField] private TMP_Text lapText;
+    private UIControllerScript uiController;
     private CheckpointScript[] checkpoints;
-    private int laps;
+    private int lapsCompleted;
+
+    public int LapsCompleted => lapsCompleted;
+
     private void Start()
     {
-        laps = 1;
-        lapText.text = $"{laps}";
+        uiController = FindObjectOfType<UIControllerScript>();
         checkpoints = GetComponentsInChildren<CheckpointScript>();
+        lapsCompleted = 1;
+        uiController.SetLapText(lapsCompleted);
     }
 
     public void CheckLapComplete()
@@ -28,8 +32,8 @@ public class LapController : MonoBehaviour
 
         if (numberOfCheckpointsleft <= 1)
         {
-            laps++;
-            lapText.text = $"{laps}";
+            lapsCompleted++;
+            uiController.SetLapText(lapsCompleted);
             ResetCheckpoints();
         }
         else
@@ -46,8 +50,4 @@ public class LapController : MonoBehaviour
         }
     }
 
-    public int GetLaps()
-    {
-        return laps;
-    }
 }

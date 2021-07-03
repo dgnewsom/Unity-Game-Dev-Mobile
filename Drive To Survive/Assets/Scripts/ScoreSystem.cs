@@ -6,19 +6,23 @@ using UnityEngine;
 
 public class ScoreSystem : MonoBehaviour
 {
-    [SerializeField] private TMP_Text scoreText;
     [SerializeField] private float scoreMultiplier = 10f;
+
+    private UIControllerScript uiController;
     public const string highScoreKey = "HighScore";
     private float score;
 
-    // Update is called once per frame
-    void Update()
+    private void Start()
+    {
+        uiController = FindObjectOfType<UIControllerScript>();
+    }
+
+    
+    void FixedUpdate()
     {
         score += Time.deltaTime * scoreMultiplier;
-
-        scoreText.text = ((int)score).ToString();
+        uiController.SetScoreText((int)score);
     }
-    
 
     public bool CheckHighScore(int score)
     {

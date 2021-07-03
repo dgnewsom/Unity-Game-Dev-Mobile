@@ -25,7 +25,7 @@ public class GameOverScript : MonoBehaviour
         //Time.timeScale = 0f;
         gameOverPanel.SetActive(true);
         int score = scoreSystem.GetScore();
-        int laps = lapController.GetLaps();
+        int laps = lapController.LapsCompleted;
         int totalScore = score * laps;
         bool isHighScore = scoreSystem.CheckHighScore(totalScore);
 

@@ -58,7 +58,7 @@ public class AdManagerScript : MonoBehaviour, IUnityAdsListener
                 Debug.LogWarning("Ad Failed");
                 break;
             case ShowResult.Skipped:
-                Debug.LogWarning("Ad Skipped");
+                mainMenu.RechargeEnergy();
                 break;
 
         }
