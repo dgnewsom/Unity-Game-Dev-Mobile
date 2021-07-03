@@ -39,8 +39,8 @@ public class Car : MonoBehaviour
             uiController.SetTopSpeedText((int) topSpeed);
         }
 
-        transform.Rotate(0f,steerValue * turnSpeed * Time.deltaTime,0f) ;
-        transform.Translate(Vector3.forward * currentSpeed / 5f * Time.deltaTime);
+        /*transform.Rotate(0f,steerValue * turnSpeed * Time.deltaTime,0f) ;
+        transform.Translate(Vector3.forward * currentSpeed / 5f * Time.deltaTime);*/
     }
     
     void OnCollisionEnter(Collision other)

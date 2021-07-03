@@ -5,7 +5,7 @@ using TMPro;
 using UnityEngine;using UnityEngine.SocialPlatforms.Impl;
 using Random = UnityEngine.Random;
 
-public enum PickupType{ScoreUp, ScoreDown, SpeedUp, SpeedDown};
+public enum PickupType{ScoreDown, ScoreUp, SpeedUp, SpeedDown};
 
 public class RandomPickupScript : MonoBehaviour
 {
@@ -15,6 +15,7 @@ public class RandomPickupScript : MonoBehaviour
     [SerializeField] private GameObject scoreDownPrefab;
     [SerializeField] private GameObject speedUpPrefab;
     [SerializeField] private GameObject speedDownPrefab;
+    [SerializeField] private TMP_Text percentageText;
 
     private int[] scorePercentages = {5, 10, 15, 20, 25, 30, 35, 40, 45, 50};
     private int[] speedPercentages = {5, 10, 15, 20};
@@ -23,7 +24,6 @@ public class RandomPickupScript : MonoBehaviour
     private PickupType pickupType;
     private GameObject pickupModel;
     private PickupGroup pickupGroup;
-    private TMP_Text percentageText;
 
     // Start is called before the first frame update
     void Start()

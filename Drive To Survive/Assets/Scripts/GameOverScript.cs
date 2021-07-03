@@ -13,11 +13,13 @@ public class GameOverScript : MonoBehaviour
 
     private ScoreSystem scoreSystem;
     private LapController lapController;
+    private Car player;
 
     public void Start()
     {
         scoreSystem = FindObjectOfType<ScoreSystem>();
         lapController = FindObjectOfType<LapController>();
+        player = FindObjectOfType<Car>();
     }
 
     public void DisplayGameOver()
@@ -26,10 +28,11 @@ public class GameOverScript : MonoBehaviour
         gameOverPanel.SetActive(true);
         int score = scoreSystem.GetScore();
         int laps = lapController.LapsCompleted;
-        int totalScore = score * laps;
+        int topSpeedBonus = (int) player.topSpeed / 10;
+        int totalScore = score * laps * topSpeedBonus;
         bool isHighScore = scoreSystem.CheckHighScore(totalScore);
 
-        scoreValuesText.text = $"{score}\n\n{laps}\n\n{totalScore}";
+        scoreValuesText.text = $"{score}\nX\n{laps}\nX\n{topSpeedBonus}\n=\n{totalScore}";
         
         if (isHighScore)
         {

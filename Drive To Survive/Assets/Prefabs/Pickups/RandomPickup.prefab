@@ -49,6 +49,7 @@ MonoBehaviour:
   scoreDownPrefab: {fileID: 8978513625520323246, guid: bf14884f9018230488e6fce50545b5f8, type: 3}
   speedUpPrefab: {fileID: 4984846810947013682, guid: 6da5e26a728cd2b4db934d8fbbddf8ab, type: 3}
   speedDownPrefab: {fileID: 2769380069859443106, guid: f94fba5bb227258469f742e174fdcb74, type: 3}
+  percentageText: {fileID: 1938351274003726219}
 --- !u!135 &3431389403615334693
 SphereCollider:
   m_ObjectHideFlags: 0
