@@ -13,14 +13,15 @@ public class Car : MonoBehaviour
     [SerializeField] private float maxSpeed = 200f;
     [SerializeField] private float speedGainPerSecond = 0.5f;
     [SerializeField] private float turnSpeed = 150f;
-    [SerializeField] private int steerValue;
 
+    private int steerValue;
     private UIControllerScript uiController;
     private bool gameOver = false;
     private float currentSpeed = 0f;
-    public float topSpeed = 0f;
+    private float topSpeed = 0f;
 
     public float CurrentSpeed => currentSpeed;
+    public float TopSpeed => topSpeed;
 
     // Start is called before the first frame update
     void Start()
@@ -34,7 +35,7 @@ public class Car : MonoBehaviour
     {
         if(gameOver){return;}
         currentSpeed += speedGainPerSecond * Time.deltaTime;
-        currentSpeed = Mathf.Clamp(currentSpeed, 0f, 200f);
+        currentSpeed = Mathf.Clamp(currentSpeed, 0f, maxSpeed);
         uiController.SetSpeedometerText((int) currentSpeed);
 
         if (topSpeed < currentSpeed)

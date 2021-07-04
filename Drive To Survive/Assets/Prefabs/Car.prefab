@@ -216,7 +216,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startSpeed: 50
-  speedGainPerSecond: 0.5
+  maxSpeed: 200
+  speedGainPerSecond: 10
   turnSpeed: 125
   steerValue: 0
   topSpeed: 0

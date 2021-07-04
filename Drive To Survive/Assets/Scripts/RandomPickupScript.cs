@@ -79,7 +79,7 @@ public class RandomPickupScript : MonoBehaviour
         index = Mathf.Clamp(index, 0, percentageArray.Length - 1);
         pickupPercentage = percentageArray[index];
         percentageText.text = $"{pickupPercentage}%";
-        print($"{pickupType} - {pickupPercentage}%");
+        //print($"{pickupType} - {pickupPercentage}%");
     }
 
     private GameObject GetPickupPrefab()

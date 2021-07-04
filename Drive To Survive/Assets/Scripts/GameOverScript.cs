@@ -28,7 +28,7 @@ public class GameOverScript : MonoBehaviour
         gameOverPanel.SetActive(true);
         int score = scoreSystem.GetScore();
         int laps = lapController.LapsCompleted;
-        int topSpeedBonus = (int) player.topSpeed / 10;
+        int topSpeedBonus = (int) player.TopSpeed / 10;
         int totalScore = score * laps * topSpeedBonus;
         bool isHighScore = scoreSystem.CheckHighScore(totalScore);
 

@@ -2411,7 +2411,7 @@ MonoBehaviour:
   energyText: {fileID: 1846038550}
   energyReadyText: {fileID: 1645616679}
   maxEnergy: 5
-  energyRechargeTimeInMinutes: 1
+  energyRechargeTimeInMinutes: 15
   startButton: {fileID: 1165800213}
   rechargeButton: {fileID: 573077615}
 --- !u!114 &1586123119
