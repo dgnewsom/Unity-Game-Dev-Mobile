@@ -9,15 +9,18 @@ using UnityEngine.SceneManagement;
 public class Car : MonoBehaviour
 {
     [Header("Car Parameters")]
-    [SerializeField] private float startSpeed = 1f;
-    [SerializeField] private float speedGainPerSecond = 0.1f;
-    [SerializeField] private float turnSpeed = 200f;
+    [SerializeField] private float startSpeed = 50f;
+    [SerializeField] private float maxSpeed = 200f;
+    [SerializeField] private float speedGainPerSecond = 0.5f;
+    [SerializeField] private float turnSpeed = 150f;
     [SerializeField] private int steerValue;
 
     private UIControllerScript uiController;
     private bool gameOver = false;
     private float currentSpeed = 0f;
     public float topSpeed = 0f;
+
+    public float CurrentSpeed => currentSpeed;
 
     // Start is called before the first frame update
     void Start()
@@ -31,6 +34,7 @@ public class Car : MonoBehaviour
     {
         if(gameOver){return;}
         currentSpeed += speedGainPerSecond * Time.deltaTime;
+        currentSpeed = Mathf.Clamp(currentSpeed, 0f, 200f);
         uiController.SetSpeedometerText((int) currentSpeed);
 
         if (topSpeed < currentSpeed)
@@ -39,8 +43,8 @@ public class Car : MonoBehaviour
             uiController.SetTopSpeedText((int) topSpeed);
         }
 
-        /*transform.Rotate(0f,steerValue * turnSpeed * Time.deltaTime,0f) ;
-        transform.Translate(Vector3.forward * currentSpeed / 5f * Time.deltaTime);*/
+        transform.Rotate(0f,steerValue * turnSpeed * Time.deltaTime,0f) ;
+        transform.Translate(Vector3.forward * currentSpeed / 5f * Time.deltaTime);
     }
     
     void OnCollisionEnter(Collision other)

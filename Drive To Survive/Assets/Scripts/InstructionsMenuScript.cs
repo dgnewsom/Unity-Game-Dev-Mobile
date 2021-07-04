@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class InstructionsMenuScript : MonoBehaviour
 {
-    [SerializeField] private Sprite[] InstructionImages;
+    [SerializeField] private InstructionImage[] InstructionImages;
+    [SerializeField] private TMP_Text titleText;
     [SerializeField] private GameObject nextButton;
     [SerializeField] private GameObject previousButton;
     [SerializeField] private Image instructionImage;
@@ -15,7 +17,8 @@ public class InstructionsMenuScript : MonoBehaviour
     private void OnEnable()
     {
         imageIndex = 0;
-        instructionImage.sprite = InstructionImages[imageIndex];
+        instructionImage.sprite = InstructionImages[imageIndex].Image;
+        titleText.text = InstructionImages[imageIndex].Title;
         SetButtonsEnabled();
     }
 
@@ -24,7 +27,8 @@ public class InstructionsMenuScript : MonoBehaviour
         if (imageIndex < InstructionImages.Length - 1)
         {
             imageIndex++;
-            instructionImage.sprite = InstructionImages[imageIndex];
+            instructionImage.sprite = InstructionImages[imageIndex].Image;
+            titleText.text = InstructionImages[imageIndex].Title;
             SetButtonsEnabled();
         }
     }
@@ -34,7 +38,8 @@ public class InstructionsMenuScript : MonoBehaviour
         if (imageIndex > 0)
         {
             imageIndex--;
-            instructionImage.sprite = InstructionImages[imageIndex];
+            instructionImage.sprite = InstructionImages[imageIndex].Image;
+            titleText.text = InstructionImages[imageIndex].Title;
             SetButtonsEnabled();
         }
     }

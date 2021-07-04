@@ -6,21 +6,21 @@ using UnityEngine;
 
 public class ScoreSystem : MonoBehaviour
 {
-    [SerializeField] private float scoreMultiplier = 10f;
-
     private UIControllerScript uiController;
     public const string highScoreKey = "HighScore";
     private float score;
+    private Car playerCar;
 
     private void Start()
     {
         uiController = FindObjectOfType<UIControllerScript>();
+        playerCar = FindObjectOfType<Car>();
     }
 
     
     void FixedUpdate()
     {
-        score += Time.deltaTime * scoreMultiplier;
+        score += Time.deltaTime * playerCar.CurrentSpeed;
         uiController.SetScoreText((int)score);
     }
 

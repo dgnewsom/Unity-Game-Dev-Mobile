@@ -182,7 +182,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 28303167}
-  m_LocalRotation: {x: 0.10468331, y: -0.000000027800317, z: 0.0000000029263074, w: 0.99450564}
+  m_LocalRotation: {x: 0.10468333, y: -0.000000001899038, z: 1.9989589e-10, w: 0.99450564}
   m_LocalPosition: {x: 56.83, y: 2.2, z: -3.33}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -879,7 +879,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: 0.10468331, y: -0.000000027800317, z: 0.0000000029263074, w: 0.99450564}
+  m_LocalRotation: {x: 0.10468333, y: -0.000000001899038, z: 1.9989589e-10, w: 0.99450564}
   m_LocalPosition: {x: 56.83, y: 2.2, z: -3.33}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -4877,7 +4877,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0be3f04be7eecb54b8c77ad5474f2827, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scoreMultiplier: 10
 --- !u!224 &5725991761887870914
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5806,12 +5805,8 @@ PrefabInstance:
       value: Car
       objectReference: {fileID: 0}
     - target: {fileID: 7701055860778361855, guid: 30f097b08468f044e8c32f979a5f7b2f, type: 3}
-      propertyPath: startSpeed
-      value: 97
-      objectReference: {fileID: 0}
-    - target: {fileID: 7701055860778361855, guid: 30f097b08468f044e8c32f979a5f7b2f, type: 3}
       propertyPath: speedGainPerSecond
-      value: 0
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 30f097b08468f044e8c32f979a5f7b2f, type: 3}
