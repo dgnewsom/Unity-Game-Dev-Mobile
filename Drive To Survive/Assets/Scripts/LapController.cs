@@ -7,7 +7,7 @@ public class LapController : MonoBehaviour
 {
     private UIControllerScript uiController;
     private CheckpointScript[] checkpoints;
-    private int lapsCompleted;
+    [SerializeField] private int lapsCompleted;
 
     public int LapsCompleted => lapsCompleted;
 
@@ -18,6 +18,16 @@ public class LapController : MonoBehaviour
         lapsCompleted = 1;
         uiController.SetLapText(lapsCompleted);
     }
+
+    /*/*
+     * Delete - for testing
+     #1#
+    private void FixedUpdate()
+    {
+        uiController.SetLapText(lapsCompleted);
+    }*/
+
+
 
     public void CheckLapComplete()
     {

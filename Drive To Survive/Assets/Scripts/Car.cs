@@ -12,12 +12,13 @@ public class Car : MonoBehaviour
     [SerializeField] private float startSpeed = 50f;
     [SerializeField] private float maxSpeed = 200f;
     [SerializeField] private float speedGainPerSecond = 0.5f;
-    [SerializeField] private float turnSpeed = 150f;
+    [SerializeField] private float baseTurnSpeed = 115f;
 
+    private float turnSpeed;
     private int steerValue;
     private UIControllerScript uiController;
     private bool gameOver = false;
-    private float currentSpeed = 0f;
+    [SerializeField] private float currentSpeed = 0f;
     private float topSpeed = 0f;
 
     public float CurrentSpeed => currentSpeed;
@@ -28,6 +29,12 @@ public class Car : MonoBehaviour
     {
         uiController = FindObjectOfType<UIControllerScript>();
         currentSpeed = startSpeed;
+        SetTurnSpeedFromCurrentSpeed();
+    }
+
+    private void SetTurnSpeedFromCurrentSpeed()
+    {
+        turnSpeed = baseTurnSpeed + (currentSpeed / 10f);
     }
 
     // Update is called once per frame
@@ -36,6 +43,7 @@ public class Car : MonoBehaviour
         if(gameOver){return;}
         currentSpeed += speedGainPerSecond * Time.deltaTime;
         currentSpeed = Mathf.Clamp(currentSpeed, 0f, maxSpeed);
+        SetTurnSpeedFromCurrentSpeed();
         uiController.SetSpeedometerText((int) currentSpeed);
 
         if (topSpeed < currentSpeed)
@@ -44,7 +52,7 @@ public class Car : MonoBehaviour
             uiController.SetTopSpeedText((int) topSpeed);
         }
 
-        transform.Rotate(0f,steerValue * turnSpeed * Time.deltaTime,0f) ;
+        transform.Rotate(0f,steerValue * baseTurnSpeed * Time.deltaTime,0f) ;
         transform.Translate(Vector3.forward * currentSpeed / 5f * Time.deltaTime);
     }
     
@@ -74,6 +82,11 @@ public class Car : MonoBehaviour
         {
             other.GetComponent<CheckpointScript>().HitCheckpoint();
         }
+
+        if (other.CompareTag("Pickup Group"))
+        {
+            other.GetComponent<PickupGroup>().Reset(15f);
+        }
     }
 
     public void Steer(int value)
@@ -83,7 +96,7 @@ public class Car : MonoBehaviour
 
     internal void SpeedUpPickup(float speedUpPercent)
     {
-        float speedUpAmount = currentSpeed * (speedUpPercent / 100);
+        float speedUpAmount = Mathf.Clamp(currentSpeed * (speedUpPercent / 100),currentSpeed, maxSpeed);
         currentSpeed += speedUpAmount;
     }
 

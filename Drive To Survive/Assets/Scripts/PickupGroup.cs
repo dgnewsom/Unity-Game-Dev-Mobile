@@ -28,4 +28,6 @@ public class PickupGroup : MonoBehaviour
         yield return new WaitForSeconds(delay);
         pickups[Random.Range(0, pickups.Length)].gameObject.SetActive(true);
     }
+
+    
 }

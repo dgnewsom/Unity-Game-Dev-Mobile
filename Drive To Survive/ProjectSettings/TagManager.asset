@@ -8,6 +8,7 @@ TagManager:
   - Pickup
   - Cone
   - Checkpoint
+  - Pickup Group
   layers:
   - Default
   - TransparentFX

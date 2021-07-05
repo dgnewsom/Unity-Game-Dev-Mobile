@@ -3,12 +3,27 @@ guid: 4f45fe4a9fd54fe439214d77dc33daea
 ModelImporter:
   serializedVersion: 20200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Sign_Metal
+    second: {fileID: 2100000, guid: 80943f8fca32de8428759123a10e728a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Sign_Red
+    second: {fileID: 2100000, guid: 3d4d8315f64fb134eae3993e6591906c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Sign_White
+    second: {fileID: 2100000, guid: 954a9f500d315dc4388e47c48f9e191d, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
     materialSearch: 1
-    materialLocation: 1
+    materialLocation: 0
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
