@@ -31,12 +31,13 @@ public class PickupGroup : MonoBehaviour
     /// <returns></returns>
     IEnumerator ResetDelayed(float delay)
     {
+        yield return new WaitForSeconds(delay);
+
         foreach (RandomPickupScript pickup in pickups)
         {
             pickup.Reset();
         }
 
-        yield return new WaitForSeconds(delay);
         pickups[Random.Range(0, pickups.Length)].gameObject.SetActive(true);
     }
 
