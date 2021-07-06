@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// Class to set Music / SFX on and off and update UI.
+/// </summary>
 public class SoundButtonsScript : MonoBehaviour
 {
     [SerializeField] private Image MusicImage;

@@ -1,7 +1,5 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 
 /// <summary>
 /// Singleton sound manager class 
@@ -61,7 +59,7 @@ public class SoundManager : MonoBehaviour
     {
         if (playSFX == 1)
         {
-            BackgroundMusic.PlayOneShot(ScorePickupSound);
+            BackgroundMusic.PlayOneShot(ScorePickupSound,1);
         }
     }
 
@@ -69,7 +67,7 @@ public class SoundManager : MonoBehaviour
     {
         if (playSFX == 1)
         {
-            BackgroundMusic.PlayOneShot(SpeedUpPickupSound);
+            BackgroundMusic.PlayOneShot(SpeedUpPickupSound,1);
         }
     }
 
@@ -77,7 +75,7 @@ public class SoundManager : MonoBehaviour
     {
         if (playSFX == 1)
         {
-            BackgroundMusic.PlayOneShot(SpeedDownPickupSound);
+            BackgroundMusic.PlayOneShot(SpeedDownPickupSound,1);
         }
     }
 

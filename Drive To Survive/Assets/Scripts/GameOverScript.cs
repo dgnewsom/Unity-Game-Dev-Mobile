@@ -1,9 +1,10 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
+/// <summary>
+/// Game over script to calculate, display and check Score / HighScore
+/// </summary>
 public class GameOverScript : MonoBehaviour
 {
     [SerializeField] private GameObject gameOverPanel;
@@ -22,29 +23,47 @@ public class GameOverScript : MonoBehaviour
         player = FindObjectOfType<Car>();
     }
 
+    /// <summary>
+    /// Calculate and display score parameters and high score, 
+    /// </summary>
     public void DisplayGameOver()
     {
-        //Time.timeScale = 0f;
         gameOverPanel.SetActive(true);
-        int score = scoreSystem.GetScore();
-        int laps = lapController.LapsCompleted;
-        int topSpeedBonus = (int) player.TopSpeed / 10;
-        int totalScore = score * laps * topSpeedBonus;
-        bool isHighScore = scoreSystem.CheckHighScore(totalScore);
-
-        scoreValuesText.text = $"{score}\nX\n{laps}\nX\n{topSpeedBonus}\n=\n{totalScore}";
+        int[] Scores = CalculateScore();
         
+        bool isHighScore = scoreSystem.CheckHighScore(Scores[3]);
+
+        scoreValuesText.text = $"{Scores[0]}\nX\n{Scores[1]}\nX\n{Scores[2]}\n=\n{Scores[3]}";
+        
+        //If new HighScore, flash HighScore text
         if (isHighScore)
         {
-            highScoresText.text = $"New Highscore!\n{PlayerPrefs.GetInt(ScoreSystem.highScoreKey)}";
+            highScoresText.text = $"New Highscore!\n{PlayerPrefs.GetInt(ScoreSystem.HighScoreKey)}";
             StartCoroutine(FlashHighscoreText());
         }
         else
         {
-            highScoresText.text = $"Highscore\n{PlayerPrefs.GetInt(ScoreSystem.highScoreKey)}";
+            highScoresText.text = $"Highscore\n{PlayerPrefs.GetInt(ScoreSystem.HighScoreKey)}";
         }
     }
 
+    /// <summary>
+    /// Calculates and returns score as in array
+    /// </summary>
+    /// <returns>int array containing (initial score, laps completed, topSpeedBonus, total score)</returns>
+    private int[] CalculateScore()
+    {
+        int[] ScoresOut = new int[4];
+        ScoresOut[0] = scoreSystem.Score;
+        ScoresOut[1] = lapController.LapsCompleted;
+        ScoresOut[2] = (int) player.TopSpeed / 10;
+        ScoresOut[3] = ScoresOut[0] * ScoresOut[1] * ScoresOut[2];
+        return ScoresOut;
+    }
+
+    /// <summary>
+    /// Method to continually flash HighScore text
+    /// </summary>
     IEnumerator FlashHighscoreText()
     {
         while (true)

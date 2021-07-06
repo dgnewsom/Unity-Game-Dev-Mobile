@@ -1,8 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+/// <summary>
+/// Basic pause menu script
+/// </summary>
 public class PauseMenuScript : MonoBehaviour
 {
     private void OnEnable()

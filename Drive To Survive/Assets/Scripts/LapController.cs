@@ -1,13 +1,13 @@
-using System.Collections;
-using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 
+/// <summary>
+/// Class to handle completion of laps around the circuit
+/// </summary>
 public class LapController : MonoBehaviour
 {
     private UIControllerScript uiController;
     private CheckpointScript[] checkpoints;
-    [SerializeField] private int lapsCompleted;
+    private int lapsCompleted;
 
     public int LapsCompleted => lapsCompleted;
 
@@ -18,19 +18,13 @@ public class LapController : MonoBehaviour
         lapsCompleted = 1;
         uiController.SetLapText(lapsCompleted);
     }
-
-    /*/*
-     * Delete - for testing
-     #1#
-    private void FixedUpdate()
-    {
-        uiController.SetLapText(lapsCompleted);
-    }*/
-
-
-
+    
+    /// <summary>
+    /// Method to check if all checkpoints have been passed and increment number of laps.
+    /// </summary>
     public void CheckLapComplete()
     {
+        //Check if each checkpoint is still enabled
         int numberOfCheckpointsleft = 0;
         foreach (CheckpointScript checkpointScript in checkpoints)
         {
@@ -39,7 +33,7 @@ public class LapController : MonoBehaviour
                 numberOfCheckpointsleft++;
             }
         }
-
+        //If only start finish remains then increment laps and reset all checkpoints
         if (numberOfCheckpointsleft <= 1)
         {
             lapsCompleted++;
@@ -52,6 +46,9 @@ public class LapController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Reset all checkpoints to enabled
+    /// </summary>
     private void ResetCheckpoints()
     {
         foreach (CheckpointScript checkpointScript in checkpoints)

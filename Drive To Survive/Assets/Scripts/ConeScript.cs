@@ -1,7 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Class to handle Cone collisions
+/// </summary>
 public class ConeScript : MonoBehaviour
 {
     [SerializeField] private float ScoreDeductionPercentage = 50f;
@@ -20,6 +21,9 @@ public class ConeScript : MonoBehaviour
         ResetCone();
     }
 
+    /// <summary>
+    /// Stop cones movement then reset to original position / rotation
+    /// </summary>
     private void ResetCone()
     {
         GetComponent<Rigidbody>().velocity = new Vector3(0,0,0);
@@ -28,11 +32,13 @@ public class ConeScript : MonoBehaviour
         isHit = false;
     }
 
+    /// <summary>
+    /// Reduce score by percentage then reset after given delay.
+    /// </summary>
     public void HitCone()
     {
         if (!isHit)
         {
-            print("Hit Cone");
             isHit = true;
             scoreSystem.ScoreDownPickup(ScoreDeductionPercentage);
             Invoke(nameof(ResetCone),ResetDelay);

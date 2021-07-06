@@ -1,8 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
+/// <summary>
+/// Class to handle setting of all UI text displays
+/// </summary>
 public class UIControllerScript : MonoBehaviour
 {
     [Header("References")]

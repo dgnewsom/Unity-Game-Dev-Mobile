@@ -1,12 +1,13 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
-using UnityEngine;using UnityEngine.SocialPlatforms.Impl;
+using UnityEngine;
 using Random = UnityEngine.Random;
 
 public enum PickupType{ScoreDown, ScoreUp, SpeedUp, SpeedDown};
 
+/// <summary>
+/// Class to handle random pickups
+/// </summary>
 public class RandomPickupScript : MonoBehaviour
 {
     
@@ -32,21 +33,27 @@ public class RandomPickupScript : MonoBehaviour
         pickupGroup = GetComponentInParent<PickupGroup>();
         percentageText = GetComponentInChildren<TMP_Text>();
     }
-
+    
     private void OnEnable()
     {
         SetPickupType();
     }
 
+    /// <summary>
+    /// Choose random pickup type and percentage and the instantiate the correct model
+    /// </summary>
     private void SetPickupType()
     {
         pickupType = (PickupType) Random.Range(0, 4);
         GameObject.Destroy(pickupModel);
         pickupModel = Instantiate(GetPickupPrefab(),transform.position,Quaternion.identity,this.transform);
-        SetPickupPercentage(pickupType);
+        SetPickupPercentage();
     }
 
-    private void SetPickupPercentage(PickupType pickupType1)
+    /// <summary>
+    /// Set a pickup percentage based on current type
+    /// </summary>
+    private void SetPickupPercentage()
     {
         switch (pickupType)
         {
@@ -67,19 +74,25 @@ public class RandomPickupScript : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Calculate and set the pickups percentage from the relevant array.
+    /// (higher indexes less likely.)
+    /// </summary>
+    /// <param name="percentageArray"></param>
     private void SetPercentageAmountFromArray(int[] percentageArray)
     {
+        //Add random value between 0 and 1 for each array element 
         float random = 0;
         for (int i = 0; i < percentageArray.Length; i++)
         {
-            random += Random.Range(0f, 1f);
+            random += Random.Range(0f, 0.9f);
         }
 
+        //round the result and set value at this index as percentage.
         int index = Mathf.CeilToInt(random);
         index = Mathf.Clamp(index, 0, percentageArray.Length - 1);
         pickupPercentage = percentageArray[index];
         percentageText.text = $"{pickupPercentage}%";
-        //print($"{pickupType} - {pickupPercentage}%");
     }
 
     private GameObject GetPickupPrefab()
@@ -99,6 +112,10 @@ public class RandomPickupScript : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Trigger relevant sound and method on pickup and reset pickup group.
+    /// </summary>
+    /// <param name="player"></param>
     public void CollectPickup(Car player)
     {
         switch (pickupType)
@@ -123,10 +140,14 @@ public class RandomPickupScript : MonoBehaviour
                 throw new ArgumentOutOfRangeException();
             
         }
+
         pickupGroup.Reset();
         gameObject.SetActive(false);
     }
 
+    /// <summary>
+    /// Reset pickup
+    /// </summary>
     public void Reset()
     {
         gameObject.SetActive(false);

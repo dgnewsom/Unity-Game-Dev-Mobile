@@ -1,8 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Advertisements;
 
+/// <summary>
+/// Singleton class to handle Adverts
+/// </summary>
 public class AdManagerScript : MonoBehaviour, IUnityAdsListener
 {
     [SerializeField] private bool testAds = true;

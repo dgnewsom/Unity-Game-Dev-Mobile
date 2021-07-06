@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Face the GameObject toward the main camera
+/// </summary>
 public class FaceCamera : MonoBehaviour
 {
     private GameObject mainCamera;

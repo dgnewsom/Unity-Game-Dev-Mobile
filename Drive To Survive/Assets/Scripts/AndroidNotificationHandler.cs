@@ -4,11 +4,18 @@ using Unity.Notifications.Android;
 #endif
 using UnityEngine;
 
+/// <summary>
+/// Class to handle android notifications
+/// </summary>
 public class AndroidNotificationHandler : MonoBehaviour
 {
 #if UNITY_ANDROID
     private const string ChannelID = "driveToSurviveNotificationChannel";
 
+    /// <summary>
+    /// Schedule a notification
+    /// </summary>
+    /// <param name="dateTime">Date / time to trigger the notification</param>
     public void ScheduleNotification(DateTime dateTime)
     {
         
@@ -25,7 +32,7 @@ public class AndroidNotificationHandler : MonoBehaviour
         AndroidNotification notification = new AndroidNotification
         {
             Title = "Energy Recharged!",
-            Text = "Your energy is full, come back and try to beat your HighScore",
+            Text = "Your energy is full!\nGo for the High Score!",
             SmallIcon = "small",
             LargeIcon = "large",
             FireTime = dateTime

@@ -1,7 +1,9 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Class to handle a group of random pickups.
+/// </summary>
 public class PickupGroup : MonoBehaviour
 {
     private RandomPickupScript[] pickups;
@@ -13,11 +15,20 @@ public class PickupGroup : MonoBehaviour
         Reset(0);
     }
 
+    /// <summary>
+    /// Reset to new random pickup / location in the group
+    /// </summary>
+    /// <param name="delay">Delay before reset</param>
     public void Reset(float delay = 10f)
     {
         StartCoroutine(ResetDelayed(delay));
     }
 
+    /// <summary>
+    /// Reset all pickups, wait for delay and enable a random one in the group
+    /// </summary>
+    /// <param name="delay"></param>
+    /// <returns></returns>
     IEnumerator ResetDelayed(float delay)
     {
         foreach (RandomPickupScript pickup in pickups)
