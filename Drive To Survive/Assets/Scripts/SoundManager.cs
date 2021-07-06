@@ -9,7 +9,8 @@ public class SoundManager : MonoBehaviour
     public static SoundManager Instance;
 
     [SerializeField] private AudioSource BackgroundMusic;
-    [SerializeField] private AudioClip ScorePickupSound;
+    [SerializeField] private AudioClip ScoreUpPickupSound;
+    [SerializeField] private AudioClip ScoreDownPickupSound;
     [SerializeField] private AudioClip SpeedUpPickupSound;
     [SerializeField] private AudioClip SpeedDownPickupSound;
 
@@ -55,16 +56,27 @@ public class SoundManager : MonoBehaviour
         BackgroundMusic.Stop();
     }
 
-    public void PlayScorePickupSound()
+    public void PlayScoreUpPickupSound()
     {
+
         if (playSFX == 1)
         {
-            BackgroundMusic.PlayOneShot(ScorePickupSound,1);
+            BackgroundMusic.PlayOneShot(ScoreUpPickupSound,1);
+        }
+    }
+
+    public void PlayScoreDownPickupSound()
+    {
+
+        if (playSFX == 1)
+        {
+            BackgroundMusic.PlayOneShot(ScoreDownPickupSound,1);
         }
     }
 
     public void PlaySpeedUpPickupSound()
     {
+
         if (playSFX == 1)
         {
             BackgroundMusic.PlayOneShot(SpeedUpPickupSound,1);
@@ -73,6 +85,7 @@ public class SoundManager : MonoBehaviour
 
     public void PlaySpeedDownPickupSound()
     {
+
         if (playSFX == 1)
         {
             BackgroundMusic.PlayOneShot(SpeedDownPickupSound,1);

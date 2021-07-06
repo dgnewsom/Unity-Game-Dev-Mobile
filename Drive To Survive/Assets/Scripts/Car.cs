@@ -121,8 +121,8 @@ public class Car : MonoBehaviour
     /// <param name="speedUpPercent">Amount to increase speed by</param>
     internal void SpeedUpPickup(float speedUpPercent)
     {
-        float speedUpAmount = Mathf.Clamp(currentSpeed * (speedUpPercent / 100),currentSpeed, maxSpeed);
-        currentSpeed += speedUpAmount;
+        float speedUpAmount = currentSpeed * (speedUpPercent / 100);
+        currentSpeed = Mathf.Clamp(currentSpeed += speedUpAmount,currentSpeed, maxSpeed);
     }
 
     /// <summary>

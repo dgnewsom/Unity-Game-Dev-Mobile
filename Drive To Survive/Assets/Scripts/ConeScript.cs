@@ -40,6 +40,7 @@ public class ConeScript : MonoBehaviour
         if (!isHit)
         {
             isHit = true;
+            SoundManager.Instance.PlayScoreDownPickupSound();
             scoreSystem.ScoreDownPickup(ScoreDeductionPercentage);
             Invoke(nameof(ResetCone),ResetDelay);
         }

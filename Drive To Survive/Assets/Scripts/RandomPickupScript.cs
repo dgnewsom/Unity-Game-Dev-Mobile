@@ -121,11 +121,11 @@ public class RandomPickupScript : MonoBehaviour
         switch (pickupType)
         {
             case PickupType.ScoreUp:
-                SoundManager.Instance.PlayScorePickupSound();
+                SoundManager.Instance.PlayScoreUpPickupSound();
                 scoreSystem.ScoreUpPickup(pickupPercentage);
                 break;
             case PickupType.ScoreDown:
-                SoundManager.Instance.PlayScorePickupSound();
+                SoundManager.Instance.PlayScoreDownPickupSound();
                 scoreSystem.ScoreDownPickup(pickupPercentage);
                 break;
             case PickupType.SpeedUp:
