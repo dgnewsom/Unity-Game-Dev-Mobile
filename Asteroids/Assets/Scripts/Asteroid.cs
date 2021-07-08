@@ -34,7 +34,6 @@ public class Asteroid : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         PlayerHealth playerHealth = other.gameObject.GetComponent<PlayerHealth>();
-        print(playerHealth);
         if (playerHealth == null){return;}
             
         playerHealth.TakeDamage(damageAmount);

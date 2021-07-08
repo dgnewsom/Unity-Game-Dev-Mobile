@@ -5,7 +5,7 @@ using UnityEngine;
 public class AsteroidSpawner : MonoBehaviour
 {
     [SerializeField] private GameObject[] asteroidPrefabs;
-    [SerializeField] private float startSpawningDelay = 2f;
+    //[SerializeField] private float startSpawningDelay = 2f;
     [SerializeField] private float secondsBetweenAsteroids = 1f;
     [SerializeField] private Vector2 speedRange;
 
@@ -15,19 +15,22 @@ public class AsteroidSpawner : MonoBehaviour
 
     private void Start()
     {
-        timer = startSpawningDelay;
+        timer = secondsBetweenAsteroids;
         mainCamera = Camera.main;
     }
 
     void Update()
     {
+        if (!UIScript.IsRunning){return;}
+
         timer -= Time.deltaTime;
 
-        if (timer <= 0)
-        {
-            SpawnAsteroid();
-            timer += secondsBetweenAsteroids;
-        }
+            if (timer <= 0)
+            {
+                SpawnAsteroid();
+                timer += secondsBetweenAsteroids;
+            }
+        
     }
 
     /// <summary>

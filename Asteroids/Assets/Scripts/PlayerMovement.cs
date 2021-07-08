@@ -22,6 +22,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
+        if (!UIScript.IsRunning){return;}
         if (!playerHealth.IsDead)
         {
             ProcessInput();
@@ -32,6 +33,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (!UIScript.IsRunning){return;}
         ProcessMovement();
     }
 

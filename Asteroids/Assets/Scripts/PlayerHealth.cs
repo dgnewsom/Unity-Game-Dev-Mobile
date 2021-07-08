@@ -26,7 +26,6 @@ public class PlayerHealth : MonoBehaviour
     /// <param name="damageAmount">Amount to damage the player ship</param>
     public void TakeDamage(int damageAmount)
     {
-        print($"{damageAmount} damage taken!");
         currentHealth -= damageAmount;
         uiScript.SetHealthBarValue(currentHealth / maxHealth);
         if (currentHealth <= 0)
@@ -45,5 +44,6 @@ public class PlayerHealth : MonoBehaviour
         GetComponent<Collider>().enabled = false;
         GetComponent<Rigidbody>().velocity /= 3;
         GetComponentInChildren<ParticleSystem>().Play();
+        uiScript.ShowGameOverScreen();
     }
 }
