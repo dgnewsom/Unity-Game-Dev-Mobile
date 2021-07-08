@@ -4,19 +4,27 @@ using UnityEngine;
 
 public class PlayerHealth : MonoBehaviour
 {
-    [SerializeField] private int startHealth = 1;
+    [SerializeField] private int maxHealth = 1;
+    [SerializeField] private GameObject playerModel;
 
+    private UIScript uiScript;
     private float currentHealth;
+    private bool isDead;
+
+    public bool IsDead => isDead;
 
     void Start()
     {
-        currentHealth = startHealth;
+        currentHealth = maxHealth;
+        uiScript = FindObjectOfType<UIScript>();
+        uiScript.SetHealthBarValue(currentHealth / maxHealth);
     }
 
     public void TakeDamage(int damageAmount)
     {
         print($"{damageAmount} damage taken!");
         currentHealth -= damageAmount;
+        uiScript.SetHealthBarValue(currentHealth / maxHealth);
         if (currentHealth <= 0)
         {
             Crash();
@@ -25,7 +33,10 @@ public class PlayerHealth : MonoBehaviour
 
     private void Crash()
     {
-        print("Crashed");
-        gameObject.SetActive(false);
+        isDead = true;
+        playerModel.SetActive(false);
+        GetComponent<Collider>().enabled = false;
+        GetComponent<Rigidbody>().velocity /= 3;
+        GetComponentInChildren<ParticleSystem>().Play();
     }
 }

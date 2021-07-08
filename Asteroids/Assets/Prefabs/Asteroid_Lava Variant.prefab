@@ -132,6 +132,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Asteroid_Lava Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 5843489114687000891, guid: ba2def30b720b6c4e91041c5c051bad4, type: 3}
+      propertyPath: damageAmount
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ba2def30b720b6c4e91041c5c051bad4, type: 3}
 --- !u!4 &781230061738008965 stripped

@@ -9,29 +9,32 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private GameObject touchIndicator;
     [SerializeField] private float rotationSpeed;
 
+    private PlayerHealth playerHealth;
     private Camera mainCamera;
     private Rigidbody rb;
-
     private Vector3 movementDirection;
     
     void Start()
     {
+        playerHealth = GetComponent<PlayerHealth>();
         mainCamera = Camera.main;
         rb = GetComponent<Rigidbody>();
     }
 
     void Update()
     {
-        ProcessInput();
-        KeepPlayerOnScreen();
-        RotateToFaceVelocity();
+        if (!playerHealth.IsDead)
+        {
+            ProcessInput();
+            KeepPlayerOnScreen();
+            RotateToFaceVelocity();
+        }
     }
 
     private void FixedUpdate()
     {
         if(movementDirection == Vector3.zero){return;}
         rb.AddForce(movementDirection * forceMagnitude * Time.deltaTime, ForceMode.Force);
-
         rb.velocity = Vector3.ClampMagnitude(rb.velocity, maxVelocity);
     }
 
@@ -102,6 +105,9 @@ public class PlayerMovement : MonoBehaviour
         transform.position = newPosition;
     }
 
+    /// <summary>
+    /// Rotate to face the way that the player is moving
+    /// </summary>
     private void RotateToFaceVelocity()
     {
         if(rb.velocity == Vector3.zero){return;}

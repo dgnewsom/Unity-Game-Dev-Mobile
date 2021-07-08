@@ -9,10 +9,12 @@ public class Asteroid : MonoBehaviour
     [SerializeField] private Vector2 spinSpeedRange;
 
     private float spinSpeed;
+    private Rigidbody rb;
 
     private void Start()
     {
         spinSpeed = Random.Range(spinSpeedRange.x, spinSpeedRange.y);
+        rb = GetComponent<Rigidbody>();
     }
 
     private void Update()
@@ -33,17 +35,23 @@ public class Asteroid : MonoBehaviour
         Explode();
     }
 
-    private void OnCollisionEnter(Collision collision)
+    /*private void OnCollisionEnter(Collision collision)
     {
-        Explode();
+        //Explode();
+    }*/
+
+    private void OnBecameInvisible()
+    {
+        Destroy(gameObject);
     }
-
-
 
     private void Explode()
     {
-        //TODO add explosion effect
-        //asteroidModel.gameObject.SetActive(false);
-        Destroy(this.gameObject);
+        GetComponent<Collider>().enabled = false;
+        asteroidModel.gameObject.SetActive(false);
+        rb.velocity /= 3;
+        GetComponentInChildren<ParticleSystem>().Play();
+
+        Destroy(this.gameObject,5f);
     }
 }
