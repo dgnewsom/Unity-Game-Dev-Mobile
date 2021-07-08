@@ -28,6 +28,10 @@ public class AsteroidSpawner : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Choose random side, direction, and speed,
+    /// then instantiate random asteroid and apply force.
+    /// </summary>
     private void SpawnAsteroid()
     {
         int side = Random.Range(0, 4);
@@ -77,7 +81,5 @@ public class AsteroidSpawner : MonoBehaviour
 
         Rigidbody rb = asteroidInstance.GetComponent<Rigidbody>();
         rb.velocity = direction.normalized * Random.Range(speedRange.x, speedRange.y);
-        //rb.AddRelativeTorque(1f,1f,1f);
-
     }
 }

@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-using TouchPhase = UnityEngine.TouchPhase;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -33,9 +32,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if(movementDirection == Vector3.zero){return;}
-        rb.AddForce(movementDirection * forceMagnitude * Time.deltaTime, ForceMode.Force);
-        rb.velocity = Vector3.ClampMagnitude(rb.velocity, maxVelocity);
+        ProcessMovement();
     }
 
     /// <summary>
@@ -70,6 +67,20 @@ public class PlayerMovement : MonoBehaviour
     {
         touchIndicator.transform.position = worldPosition;
         touchIndicator.SetActive(!(worldPosition == Vector3.zero));
+    }
+
+    /// <summary>
+    /// Process the movement of the player ship
+    /// </summary>
+    private void ProcessMovement()
+    {
+        if (movementDirection == Vector3.zero)
+        {
+            return;
+        }
+
+        rb.AddForce(movementDirection * forceMagnitude * Time.deltaTime, ForceMode.Force);
+        rb.velocity = Vector3.ClampMagnitude(rb.velocity, maxVelocity);
     }
 
     /// <summary>

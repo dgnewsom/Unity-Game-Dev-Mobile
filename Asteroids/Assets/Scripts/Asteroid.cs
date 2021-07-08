@@ -19,9 +19,16 @@ public class Asteroid : MonoBehaviour
 
     private void Update()
     {
-        transform.Rotate(new Vector3(0f,0f,1f),spinSpeed);
+        ApplySpinToAsteroid();
     }
 
+    /// <summary>
+    /// Apply spin to asteroid at speed set in start.
+    /// </summary>
+    private void ApplySpinToAsteroid()
+    {
+        transform.Rotate(new Vector3(0f, 0f, 1f), spinSpeed);
+    }
 
 
     private void OnTriggerEnter(Collider other)
@@ -35,23 +42,15 @@ public class Asteroid : MonoBehaviour
         Explode();
     }
 
-    /*private void OnCollisionEnter(Collision collision)
-    {
-        //Explode();
-    }*/
-
-    private void OnBecameInvisible()
-    {
-        Destroy(gameObject);
-    }
-
+    /// <summary>
+    /// Disable model and collider, slow velocity by 2/3, start explosion effect then destroy after delay.
+    /// </summary>
     private void Explode()
     {
         GetComponent<Collider>().enabled = false;
         asteroidModel.gameObject.SetActive(false);
         rb.velocity /= 3;
         GetComponentInChildren<ParticleSystem>().Play();
-
         Destroy(this.gameObject,5f);
     }
 }

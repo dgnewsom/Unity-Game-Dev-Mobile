@@ -20,6 +20,10 @@ public class PlayerHealth : MonoBehaviour
         uiScript.SetHealthBarValue(currentHealth / maxHealth);
     }
 
+    /// <summary>
+    /// Damage the player ship and check for death
+    /// </summary>
+    /// <param name="damageAmount">Amount to damage the player ship</param>
     public void TakeDamage(int damageAmount)
     {
         print($"{damageAmount} damage taken!");
@@ -27,11 +31,14 @@ public class PlayerHealth : MonoBehaviour
         uiScript.SetHealthBarValue(currentHealth / maxHealth);
         if (currentHealth <= 0)
         {
-            Crash();
+            DeathBehaviour();
         }
     }
 
-    private void Crash()
+    /// <summary>
+    /// Behaviour to perform on death
+    /// </summary>
+    private void DeathBehaviour()
     {
         isDead = true;
         playerModel.SetActive(false);
