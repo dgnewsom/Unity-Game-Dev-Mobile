@@ -14,6 +14,7 @@ public class Asteroid : MonoBehaviour
     private void Start()
     {
         spinSpeed = Random.Range(spinSpeedRange.x, spinSpeedRange.y);
+        asteroidModel.rotation = Quaternion.Euler(new Vector3(Random.Range(0f, 360f), Random.Range(0f, 360f), Random.Range(0f, 360f)));
         rb = GetComponent<Rigidbody>();
     }
 

@@ -10,9 +10,9 @@ public class PlayerHealth : MonoBehaviour
 
     private UIScript uiScript;
     private float currentHealth;
-    private bool isDead;
+    //private bool isDead;
 
-    public bool IsDead => isDead;
+    //public bool IsDead => isDead;
 
     void Start()
     {
@@ -40,12 +40,20 @@ public class PlayerHealth : MonoBehaviour
     /// </summary>
     private void DeathBehaviour()
     {
-        isDead = true;
         playerModel.SetActive(false);
         GetComponent<Collider>().enabled = false;
         GetComponent<Rigidbody>().velocity /= 3;
         GetComponentInChildren<ParticleSystem>().Play();
+        UIScript.IsRunning = false;
         Invoke(nameof(ShowGameOverScreen),2f);
+    }
+
+    public void ResetPlayerHealth()
+    {
+        playerModel.SetActive(true);
+        GetComponent<Collider>().enabled = true;
+        currentHealth = maxHealth;
+        uiScript.SetHealthBarValue(currentHealth / maxHealth);
     }
 
     private void ShowGameOverScreen()

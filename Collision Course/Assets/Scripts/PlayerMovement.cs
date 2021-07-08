@@ -12,9 +12,13 @@ public class PlayerMovement : MonoBehaviour
     private Camera mainCamera;
     private Rigidbody rb;
     private Vector3 movementDirection;
+    private Vector3 initialPosition;
+    private Quaternion initialRotation;
     
     void Start()
     {
+        initialPosition = transform.position;
+        initialRotation = transform.rotation;
         playerHealth = GetComponent<PlayerHealth>();
         mainCamera = Camera.main;
         rb = GetComponent<Rigidbody>();
@@ -22,13 +26,16 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        if (!UIScript.IsRunning){return;}
-        if (!playerHealth.IsDead)
+        if (!UIScript.IsRunning)
         {
-            ProcessInput();
-            KeepPlayerOnScreen();
-            RotateToFaceVelocity();
+            SetTouchIndicator(Vector3.zero);
+            return;
         }
+
+        ProcessInput();
+        KeepPlayerOnScreen();
+        RotateToFaceVelocity();
+        
     }
 
     private void FixedUpdate()
@@ -126,5 +133,12 @@ public class PlayerMovement : MonoBehaviour
         if(rb.velocity == Vector3.zero){return;}
         Quaternion targetRotation = Quaternion.LookRotation(rb.velocity, Vector3.back);
         transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+    }
+
+    public void ResetPlayerMovement()
+    {
+        rb.velocity = Vector3.zero;
+        transform.position = initialPosition;
+        transform.rotation = initialRotation;
     }
 }

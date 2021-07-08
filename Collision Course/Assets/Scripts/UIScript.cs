@@ -17,6 +17,8 @@ public class UIScript : MonoBehaviour
     [Header("Game over components")]
     [SerializeField] private GameObject gameOverScreen;
     [SerializeField] private TMP_Text highscoreDisplay;
+    [SerializeField] private Button continueButton;
+    [SerializeField] private TMP_Text continueButtonText;
 
     public static bool IsRunning = false;
     private Scorer scorer;
@@ -25,7 +27,6 @@ public class UIScript : MonoBehaviour
     {
         RunCountdownTimer(secondsToCountdown);
         scorer = FindObjectOfType<Scorer>();
-        //SetScoreDisplay(scorer.Score);
     }
 
     /// <summary>
@@ -87,6 +88,13 @@ public class UIScript : MonoBehaviour
             highscoreDisplay.text = $"Score - {score:0000000000}\n" +
                                     $"HighScore - {highScore:0000000000}";
         }
+
+        continueButtonText.text = $"Continue ( {Scorer.ContinuesRemaining} )";
+        if (Scorer.ContinuesRemaining <= 0)
+        {
+            continueButton.interactable = false;
+            continueButtonText.color = Color.grey;
+        }
     }
 
     /// <summary>
@@ -135,6 +143,10 @@ public class UIScript : MonoBehaviour
 
     public void ContinueGame()
     {
-        print("Continue Game");
+        Scorer.ReduceContinues();
+        gameOverScreen.SetActive(false);
+        RunCountdownTimer(secondsToCountdown);
+        FindObjectOfType<PlayerMovement>().ResetPlayerMovement();
+        FindObjectOfType<PlayerHealth>().ResetPlayerHealth();
     }
 }
