@@ -152,7 +152,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f134bc0b9daa7c4ca53bdd2b52a22a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scoreMultiplier: 5
+  scoreMultiplier: 10
 --- !u!4 &418343958
 Transform:
   m_ObjectHideFlags: 0
@@ -571,11 +571,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1990488754468218532, guid: e79c888328ba0cc4eaa2aa1c24a89bdb, type: 3}
       propertyPath: speedRange.x
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1990488754468218532, guid: e79c888328ba0cc4eaa2aa1c24a89bdb, type: 3}
       propertyPath: speedRange.y
-      value: 7
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 1990488754468218532, guid: e79c888328ba0cc4eaa2aa1c24a89bdb, type: 3}
       propertyPath: startSpawningDelay
@@ -902,7 +902,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4020782491226056624, guid: 118d01023e3c7944d9bbd2e0bd1489c4, type: 3}
       propertyPath: maxHealth
-      value: 1
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 9006603657654357008, guid: 118d01023e3c7944d9bbd2e0bd1489c4, type: 3}
       propertyPath: m_Name
@@ -956,5 +956,17 @@ PrefabInstance:
       propertyPath: touchIndicator
       value: 
       objectReference: {fileID: 820951873}
+    - target: {fileID: 9210990602832799116, guid: 118d01023e3c7944d9bbd2e0bd1489c4, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 9210990602832799116, guid: 118d01023e3c7944d9bbd2e0bd1489c4, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 9210990602832799116, guid: 118d01023e3c7944d9bbd2e0bd1489c4, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 118d01023e3c7944d9bbd2e0bd1489c4, type: 3}

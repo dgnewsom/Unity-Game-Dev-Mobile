@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -44,6 +45,11 @@ public class PlayerHealth : MonoBehaviour
         GetComponent<Collider>().enabled = false;
         GetComponent<Rigidbody>().velocity /= 3;
         GetComponentInChildren<ParticleSystem>().Play();
+        Invoke(nameof(ShowGameOverScreen),2f);
+    }
+
+    private void ShowGameOverScreen()
+    {
         uiScript.ShowGameOverScreen();
     }
 }
