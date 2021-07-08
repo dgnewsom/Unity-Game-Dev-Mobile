@@ -8,7 +8,7 @@ public class MainMenuScript : MonoBehaviour
 
     private void OnEnable()
     {
-        highscoreText.text = $"Highscore - 0";
+        highscoreText.text = $"HighScore - {PlayerPrefs.GetInt(Scorer.HighscoreKey,0):0000000000}";
     }
 
     public void StartGame()

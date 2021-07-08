@@ -6,18 +6,26 @@ using UnityEngine.UI;
 
 public class UIScript : MonoBehaviour
 {
-    [SerializeField] private Slider healthBar;
-    [SerializeField] private GameObject gameOverScreen;
-
     [Header("Start countdown")]
-    [SerializeField] private TMP_Text countdownText;
     [SerializeField] private int secondsToCountdown = 3;
+    [SerializeField] private TMP_Text countdownText;
+
+    [Header("Overlay components")]
+    [SerializeField] private Slider healthBar;
+    [SerializeField] private TMP_Text scoreDisplay;
+
+    [Header("Game over components")]
+    [SerializeField] private GameObject gameOverScreen;
+    [SerializeField] private TMP_Text highscoreDisplay;
 
     public static bool IsRunning = false;
+    private Scorer scorer;
 
     private void Start()
     {
         RunCountdownTimer(secondsToCountdown);
+        scorer = FindObjectOfType<Scorer>();
+        //SetScoreDisplay(scorer.Score);
     }
 
     /// <summary>
@@ -58,10 +66,47 @@ public class UIScript : MonoBehaviour
         healthBar.value = currentHealthPercentage;
     }
 
+    /// <summary>
+    /// Stop player controls and spawning then show game over screen.
+    /// </summary>
     public void ShowGameOverScreen()
     {
-        gameOverScreen.SetActive(true);
         IsRunning = false;
+        gameOverScreen.SetActive(true);
+        int score = (int)scorer.Score;
+        bool isHighScore = scorer.CheckHighScore();
+        int highScore = PlayerPrefs.GetInt(Scorer.HighscoreKey, 0);
+        if (isHighScore)
+        {
+            highscoreDisplay.text = $"Score - {score:0000000000}\n" +
+                                    $"New HighScore! - {highScore:0000000000}";
+            StartCoroutine(FlashHighscoreText());
+        }
+        else
+        {
+            highscoreDisplay.text = $"Score - {score:0000000000}\n" +
+                                    $"HighScore - {highScore:0000000000}";
+        }
+    }
+
+    /// <summary>
+    /// Method to continually flash HighScore text until reset
+    /// </summary>
+    IEnumerator FlashHighscoreText()
+    {
+        while (!IsRunning)
+        {
+            highscoreDisplay.gameObject.SetActive(false);
+            yield return new WaitForSeconds(0.3f);
+            highscoreDisplay.gameObject.SetActive(true);
+            yield return new WaitForSeconds(1f);
+        }
+        highscoreDisplay.gameObject.SetActive(true);
+    }
+
+    public void SetScoreDisplay(int score)
+    {
+        scoreDisplay.text = $"Score\n{score:0000000000}";
     }
 
     public void LoadMainMenu()

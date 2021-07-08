@@ -8,6 +8,7 @@ public class AsteroidSpawner : MonoBehaviour
     //[SerializeField] private float startSpawningDelay = 2f;
     [SerializeField] private float secondsBetweenAsteroids = 1f;
     [SerializeField] private Vector2 speedRange;
+    [SerializeField] private bool isMenuScene;
 
 
     private Camera mainCamera;
@@ -21,16 +22,17 @@ public class AsteroidSpawner : MonoBehaviour
 
     void Update()
     {
-        if (!UIScript.IsRunning){return;}
+        if (isMenuScene || UIScript.IsRunning)
+        {
 
-        timer -= Time.deltaTime;
+            timer -= Time.deltaTime;
 
             if (timer <= 0)
             {
                 SpawnAsteroid();
                 timer += secondsBetweenAsteroids;
             }
-        
+        }
     }
 
     /// <summary>
