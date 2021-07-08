@@ -10,6 +10,11 @@ public class UIScript : MonoBehaviour
     [SerializeField] private int secondsToCountdown = 3;
     [SerializeField] private TMP_Text countdownText;
 
+    [Header("Collectible Active Area")] 
+    [SerializeField] private Image collectibleIconImage;
+    [SerializeField] private TMP_Text collectibleNameText;
+    [SerializeField] private TMP_Text collectibleTimerText;
+
     [Header("Overlay components")]
     [SerializeField] private Slider healthBar;
     [SerializeField] private TMP_Text scoreDisplay;
@@ -22,11 +27,15 @@ public class UIScript : MonoBehaviour
 
     public static bool IsRunning = false;
     private Scorer scorer;
+    private static bool collectibleActive = false;
+
+    public static bool CollectibleActive => collectibleActive;
 
     private void Start()
     {
         RunCountdownTimer(secondsToCountdown);
         scorer = FindObjectOfType<Scorer>();
+        ClearCollectibleDisplay();
     }
 
     /// <summary>
@@ -148,5 +157,27 @@ public class UIScript : MonoBehaviour
         RunCountdownTimer(secondsToCountdown);
         FindObjectOfType<PlayerMovement>().ResetPlayerMovement();
         FindObjectOfType<PlayerHealth>().ResetPlayerHealth();
+    }
+
+    public void SetCollectibleTimerDisplay(float timer)
+    {
+        collectibleTimerText.text = $"{timer:00.0}";
+    }
+
+    public void ClearCollectibleDisplay()
+    {
+        collectibleIconImage.enabled = false;
+        collectibleIconImage.sprite = null;
+        collectibleNameText.text = "";
+        collectibleTimerText.text = "";
+        collectibleActive = false;
+    }
+
+    public void SetCollectibleDisplay(Sprite collectibleIcon, string collectibleName)
+    {
+        collectibleIconImage.sprite = collectibleIcon;
+        collectibleIconImage.enabled = true;
+        collectibleNameText.text = collectibleName;
+        collectibleActive = true;
     }
 }
