@@ -3,7 +3,15 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - ScoreDisplay
+  - HealthDisplay
+  - LaserDisplay
+  - ShieldDisplay
+  - MultiplierDisplay
+  - Shield
+  - Asteroid
+  - Collectible
   layers:
   - Default
   - TransparentFX

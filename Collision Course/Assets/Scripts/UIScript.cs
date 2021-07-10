@@ -1,6 +1,7 @@
 using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.PlayerLoop;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -10,10 +11,13 @@ public class UIScript : MonoBehaviour
     [SerializeField] private int secondsToCountdown = 3;
     [SerializeField] private TMP_Text countdownText;
 
-    [Header("Collectible Active Area")] 
-    [SerializeField] private Image collectibleIconImage;
-    [SerializeField] private TMP_Text collectibleNameText;
-    [SerializeField] private TMP_Text collectibleTimerText;
+    [Header("Collectible Displays Area")] 
+    [SerializeField] private TMP_Text multiplierText;
+    [SerializeField] private TMP_Text multiplierTimerText;
+    [SerializeField] private Image shieldIcon;
+    [SerializeField] private TMP_Text shieldTimerText;
+    [SerializeField] private Image laserIcon;
+    [SerializeField] private TMP_Text laserTimerText;
 
     [Header("Overlay components")]
     [SerializeField] private Slider healthBar;
@@ -27,15 +31,76 @@ public class UIScript : MonoBehaviour
 
     public static bool IsRunning = false;
     private Scorer scorer;
-    private static bool collectibleActive = false;
+    private bool multiplierActive = false;
+    private bool lasersActive = false;
+    private bool shieldActive = false;
 
-    public static bool CollectibleActive => collectibleActive;
+    public bool MultiplierActive => multiplierActive;
+    public bool LasersActive => lasersActive;
+    public bool ShieldActive => shieldActive;
+
+    private float multiplierTimer;
+    private float shieldTimer;
+    private float laserTimer;
+
 
     private void Start()
     {
         RunCountdownTimer(secondsToCountdown);
         scorer = FindObjectOfType<Scorer>();
-        ClearCollectibleDisplay();
+        ClearCollectibleDisplays();
+    }
+
+    private void FixedUpdate()
+    {
+        if (lasersActive)
+        {
+            laserTimer -= Time.deltaTime;
+            SetLaserTimerText();
+            if (laserTimer <= 0)
+            {
+                StopLasers();
+            }
+        }
+        if (shieldActive)
+        {
+            shieldTimer -= Time.deltaTime;
+            SetShieldTimerText();
+            if (shieldTimer <= 0)
+            {
+                StopShield();
+            }
+        }
+        if (multiplierActive)
+        {
+            multiplierTimer -= Time.deltaTime;
+            SetMultiplierTimerText();
+            if (multiplierTimer <= 0)
+            {
+                StopMultiplier();
+            }
+        }
+    }
+
+    private void StopMultiplier()
+    {
+        multiplierActive = false;
+        FindObjectOfType<Scorer>().ResetMultiplier();
+        ClearMultiplierDisplay();
+    }
+
+    private void StopShield()
+    {
+        shieldActive = false;
+        FindObjectOfType<PlayerHealth>().SetShieldActive(shieldActive);
+        ClearShieldDisplay();
+    }
+
+    private void StopLasers()
+    {
+        lasersActive = false;
+        FindObjectOfType<PlayerHealth>().SetLasersActive(lasersActive);
+        ClearLasersDisplay();
     }
 
     /// <summary>
@@ -107,7 +172,7 @@ public class UIScript : MonoBehaviour
     }
 
     /// <summary>
-    /// Method to continually flash HighScore text until reset
+    /// Method to continually flash HighScore amountText until reset
     /// </summary>
     IEnumerator FlashHighscoreText()
     {
@@ -159,25 +224,83 @@ public class UIScript : MonoBehaviour
         FindObjectOfType<PlayerHealth>().ResetPlayerHealth();
     }
 
-    public void SetCollectibleTimerDisplay(float timer)
+    public void ClearCollectibleDisplays()
     {
-        collectibleTimerText.text = $"{timer:00.0}";
+        ClearMultiplierDisplay();
+        ClearShieldDisplay();
+        ClearLasersDisplay();
     }
 
-    public void ClearCollectibleDisplay()
+    private void ClearMultiplierDisplay()
     {
-        collectibleIconImage.enabled = false;
-        collectibleIconImage.sprite = null;
-        collectibleNameText.text = "";
-        collectibleTimerText.text = "";
-        collectibleActive = false;
+        multiplierText.text = "Multiplier x1";
+        multiplierTimerText.text = "";
+        multiplierActive = false;
     }
 
-    public void SetCollectibleDisplay(Sprite collectibleIcon, string collectibleName)
+    private void ClearShieldDisplay()
+    {
+        shieldIcon.color = new Color(1,1,1,0.25f);
+        shieldTimerText.text = "";
+        shieldActive = false;
+    }
+
+    private void ClearLasersDisplay()
+    {
+        laserIcon.color = new Color(1,1,1,0.25f);
+        laserTimerText.text = "";
+        lasersActive = false;
+    }
+
+    /*public void SetCollectibleDisplay(Sprite collectibleIcon, string collectibleName)
     {
         collectibleIconImage.sprite = collectibleIcon;
         collectibleIconImage.enabled = true;
-        collectibleNameText.text = collectibleName;
+        multiplierText.text = collectibleName;
         collectibleActive = true;
+    }*/
+    public void StartMultiplier(int multiplierAmount, float effectTime)
+    {
+        print($"{multiplierAmount}x Multiplier started for {effectTime} seconds.");
+        multiplierActive = true;
+        multiplierText.text = $"Multiplier x{multiplierAmount}";
+        multiplierTimer = effectTime;
+        FindObjectOfType<Scorer>().SetScoreMultiplier(multiplierAmount);
+        //SetMultiplierTimerText();
+    }
+
+    private void SetMultiplierTimerText()
+    {
+        multiplierTimerText.text = $"{Mathf.FloorToInt(multiplierTimer):00}";
+    }
+
+    public void StartLasers(float effectTime)
+    {
+        print($"Lasers started for {effectTime} seconds.");
+        lasersActive = true;
+        laserIcon.color = Color.white;
+        laserTimer = effectTime;
+        FindObjectOfType<PlayerHealth>().SetLasersActive(lasersActive);
+        //SetLaserTimerText();
+    }
+
+    private void SetLaserTimerText()
+    {
+        laserTimerText.text = $"{Mathf.FloorToInt(laserTimer):00}";
+    }
+
+    public void StartShield(float effectTime)
+    {
+        print($"Shield started for {effectTime} seconds.");
+        shieldActive = true;
+        shieldIcon.color = Color.white;
+        shieldTimer = effectTime;
+        FindObjectOfType<PlayerHealth>().SetShieldActive(shieldActive);
+        //SetShieldTimerText();
+    }
+
+    private void SetShieldTimerText()
+    {
+        shieldTimerText.text = $"{Mathf.FloorToInt(shieldTimer):00}";
     }
 }

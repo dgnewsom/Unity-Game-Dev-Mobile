@@ -31,13 +31,22 @@ public class Asteroid : MonoBehaviour
         transform.Rotate(new Vector3(0f, 0f, 1f), spinSpeed);
     }
 
+    private void OnParticleCollision(GameObject other)
+    {
+        //print($"Particle Collision {other.gameObject}");
+        Explode();
+    }
+
 
     private void OnTriggerEnter(Collider other)
     {
-        PlayerHealth playerHealth = other.gameObject.GetComponent<PlayerHealth>();
-        if (playerHealth == null){return;}
-            
-        playerHealth.TakeDamage(damageAmount);
+        //print($"Collided with {other.gameObject}");
+        if (other.CompareTag("Asteroid")||other.CompareTag("Collectible")){return;}
+
+        if (other.CompareTag("Player"))
+        {
+            other.gameObject.GetComponent<PlayerHealth>().TakeDamage(damageAmount);
+        }
 
         Explode();
     }

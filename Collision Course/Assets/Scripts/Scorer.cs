@@ -10,6 +10,7 @@ public class Scorer : MonoBehaviour
     private float score = 0;
     private UIScript uiscript;
     private static int continuesRemaining;
+    private float originalMultiplier;
 
     public static string HighscoreKey = "HighScore";
 
@@ -19,6 +20,7 @@ public class Scorer : MonoBehaviour
 
     private void Start()
     {
+        originalMultiplier = scoreMultiplier;
         continuesRemaining = continuesAllowed;
         uiscript = FindObjectOfType<UIScript>();
         uiscript.SetScoreDisplay((int)score);
@@ -45,5 +47,32 @@ public class Scorer : MonoBehaviour
     public static void ReduceContinues()
     {
         continuesRemaining--;
+    }
+
+    public static void IncreaseContinues()
+    {
+        continuesRemaining++;
+    }
+
+    public void IncreaseScorePercentage(int percentage)
+    {
+        float amountToIncrease = (score / 100) * percentage;
+        score += amountToIncrease;
+    }
+
+    public void DecreaseScorePercentage(int percentage)
+    {
+        float amountToDecrease = (score / 100) * percentage;
+        score -= amountToDecrease;
+    }
+
+    public void SetScoreMultiplier(int multiplierAmount)
+    {
+        scoreMultiplier = originalMultiplier * multiplierAmount;
+    }
+
+    public void ResetMultiplier()
+    {
+        scoreMultiplier = originalMultiplier;
     }
 }

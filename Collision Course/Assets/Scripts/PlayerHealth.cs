@@ -7,6 +7,8 @@ public class PlayerHealth : MonoBehaviour
 {
     [SerializeField] private int maxHealth = 1;
     [SerializeField] private GameObject playerModel;
+    [SerializeField] private GameObject shield;
+    [SerializeField] private GameObject lasers;
 
     private UIScript uiScript;
     private float currentHealth;
@@ -19,6 +21,8 @@ public class PlayerHealth : MonoBehaviour
         currentHealth = maxHealth;
         uiScript = FindObjectOfType<UIScript>();
         uiScript.SetHealthBarValue(currentHealth / maxHealth);
+        SetShieldActive(false);
+        SetLasersActive(false);
     }
 
     /// <summary>
@@ -28,11 +32,16 @@ public class PlayerHealth : MonoBehaviour
     public void TakeDamage(int damageAmount)
     {
         currentHealth -= damageAmount;
-        uiScript.SetHealthBarValue(currentHealth / maxHealth);
+        UpdateHealthBar();
         if (currentHealth <= 0)
         {
             DeathBehaviour();
         }
+    }
+
+    private void UpdateHealthBar()
+    {
+        uiScript.SetHealthBarValue(currentHealth / maxHealth);
     }
 
     /// <summary>
@@ -53,11 +62,28 @@ public class PlayerHealth : MonoBehaviour
         playerModel.SetActive(true);
         GetComponent<Collider>().enabled = true;
         currentHealth = maxHealth;
-        uiScript.SetHealthBarValue(currentHealth / maxHealth);
+        UpdateHealthBar();
     }
 
     private void ShowGameOverScreen()
     {
         uiScript.ShowGameOverScreen();
+    }
+
+    public void SetShieldActive(bool active)
+    {
+        shield.SetActive(active);
+    }
+
+    public void SetLasersActive(bool active)
+    {
+        lasers.SetActive(active);
+    }
+
+    public void IncreaseHealthPercentage(int percentage)
+    {
+        float amountToIncrease = (currentHealth / 100) * percentage;
+        currentHealth = Mathf.Clamp((currentHealth += amountToIncrease),0,maxHealth);
+        UpdateHealthBar();
     }
 }
