@@ -9,12 +9,9 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] private GameObject playerModel;
     [SerializeField] private GameObject shield;
     [SerializeField] private GameObject lasers;
-
     private UIScript uiScript;
     private float currentHealth;
-    //private bool isDead;
-
-    //public bool IsDead => isDead;
+    
 
     void Start()
     {

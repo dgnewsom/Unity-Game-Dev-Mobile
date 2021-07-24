@@ -770,7 +770,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1081558763
 Transform:
   m_ObjectHideFlags: 0
@@ -1161,20 +1161,44 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1990488754468218532, guid: e79c888328ba0cc4eaa2aa1c24a89bdb, type: 3}
-      propertyPath: speedRange.x
+      propertyPath: asteroidSpeedRange.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1990488754468218532, guid: e79c888328ba0cc4eaa2aa1c24a89bdb, type: 3}
+      propertyPath: asteroidSpeedRange.y
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1990488754468218532, guid: e79c888328ba0cc4eaa2aa1c24a89bdb, type: 3}
+      propertyPath: pickupSpawnTimeRange.y
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1990488754468218532, guid: e79c888328ba0cc4eaa2aa1c24a89bdb, type: 3}
+      propertyPath: collectibleSpeedRange.x
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1990488754468218532, guid: e79c888328ba0cc4eaa2aa1c24a89bdb, type: 3}
-      propertyPath: speedRange.y
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 1990488754468218532, guid: e79c888328ba0cc4eaa2aa1c24a89bdb, type: 3}
-      propertyPath: startSpawningDelay
-      value: 5
+      propertyPath: collectibleSpeedRange.y
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1990488754468218532, guid: e79c888328ba0cc4eaa2aa1c24a89bdb, type: 3}
       propertyPath: secondsBetweenAsteroids
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1990488754468218532, guid: e79c888328ba0cc4eaa2aa1c24a89bdb, type: 3}
+      propertyPath: asteroidSpawnTimeRange.x
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1990488754468218532, guid: e79c888328ba0cc4eaa2aa1c24a89bdb, type: 3}
+      propertyPath: asteroidSpawnTimeRange.y
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1990488754468218532, guid: e79c888328ba0cc4eaa2aa1c24a89bdb, type: 3}
+      propertyPath: collectibleSpawnTimeRange.x
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1990488754468218532, guid: e79c888328ba0cc4eaa2aa1c24a89bdb, type: 3}
+      propertyPath: collectibleSpawnTimeRange.y
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 1990488754468218533, guid: e79c888328ba0cc4eaa2aa1c24a89bdb, type: 3}
       propertyPath: m_RootOrder
@@ -1222,11 +1246,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1990488754468218535, guid: e79c888328ba0cc4eaa2aa1c24a89bdb, type: 3}
       propertyPath: m_Name
-      value: AsteroidSpawner
-      objectReference: {fileID: 0}
-    - target: {fileID: 1990488754468218535, guid: e79c888328ba0cc4eaa2aa1c24a89bdb, type: 3}
-      propertyPath: m_IsActive
-      value: 1
+      value: ObjectSpawner
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e79c888328ba0cc4eaa2aa1c24a89bdb, type: 3}
@@ -1449,6 +1469,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1801743128560204335, guid: 61e3afd80ba1f0849ab0bf212efc2f53, type: 3}
+      propertyPath: TestMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1801743128560204335, guid: 61e3afd80ba1f0849ab0bf212efc2f53, type: 3}
+      propertyPath: secondsToCountdown
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3158538322731770771, guid: 61e3afd80ba1f0849ab0bf212efc2f53, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -1476,7 +1504,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 285396490, guid: 118d01023e3c7944d9bbd2e0bd1489c4, type: 3}
       propertyPath: m_TagString
-      value: Player
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 1260643767490445857, guid: 118d01023e3c7944d9bbd2e0bd1489c4, type: 3}
       propertyPath: m_IsActive
@@ -1484,7 +1512,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1260643767490445857, guid: 118d01023e3c7944d9bbd2e0bd1489c4, type: 3}
       propertyPath: m_TagString
-      value: Player
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 2974573434837686683, guid: 118d01023e3c7944d9bbd2e0bd1489c4, type: 3}
       propertyPath: EmissionModule.rateOverTime.scalar
@@ -1492,7 +1520,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3397769963239133308, guid: 118d01023e3c7944d9bbd2e0bd1489c4, type: 3}
       propertyPath: m_TagString
-      value: Player
+      value: Untagged
+      objectReference: {fileID: 0}
+    - target: {fileID: 3410126598942046377, guid: 118d01023e3c7944d9bbd2e0bd1489c4, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4020782491226056624, guid: 118d01023e3c7944d9bbd2e0bd1489c4, type: 3}
       propertyPath: lasers

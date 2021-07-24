@@ -11,7 +11,7 @@ public class UIScript : MonoBehaviour
     [SerializeField] private int secondsToCountdown = 3;
     [SerializeField] private TMP_Text countdownText;
 
-    [Header("Collectible Displays Area")] 
+    [Header("Collectible Display Areas")] 
     [SerializeField] private TMP_Text multiplierText;
     [SerializeField] private TMP_Text multiplierTimerText;
     [SerializeField] private Image shieldIcon;
@@ -28,6 +28,9 @@ public class UIScript : MonoBehaviour
     [SerializeField] private TMP_Text highscoreDisplay;
     [SerializeField] private Button continueButton;
     [SerializeField] private TMP_Text continueButtonText;
+
+
+    [SerializeField] private bool TestMode;
 
     public static bool IsRunning = false;
     private Scorer scorer;
@@ -53,6 +56,10 @@ public class UIScript : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (TestMode) {return;}
+        /*
+         * Check if collectible timers active or finished
+         */
         if (lasersActive)
         {
             laserTimer -= Time.deltaTime;
@@ -82,27 +89,6 @@ public class UIScript : MonoBehaviour
         }
     }
 
-    private void StopMultiplier()
-    {
-        multiplierActive = false;
-        FindObjectOfType<Scorer>().ResetMultiplier();
-        ClearMultiplierDisplay();
-    }
-
-    private void StopShield()
-    {
-        shieldActive = false;
-        FindObjectOfType<PlayerHealth>().SetShieldActive(shieldActive);
-        ClearShieldDisplay();
-    }
-
-    private void StopLasers()
-    {
-        lasersActive = false;
-        FindObjectOfType<PlayerHealth>().SetLasersActive(lasersActive);
-        ClearLasersDisplay();
-    }
-
     /// <summary>
     /// Run countdown timer to start game
     /// </summary>
@@ -113,6 +99,11 @@ public class UIScript : MonoBehaviour
         StartCoroutine(CountdownTimer(seconds));
     }
 
+    /// <summary>
+    /// Coroutine for the start countdown display
+    /// </summary>
+    /// <param name="seconds"></param>
+    /// <returns></returns>
     IEnumerator CountdownTimer(int seconds)
     {
         int countdown = seconds;
@@ -133,7 +124,16 @@ public class UIScript : MonoBehaviour
     }
 
     /// <summary>
-    /// Set healthbar to players current health percentage.
+    /// Update the score display
+    /// </summary>
+    /// <param name="score"></param>
+    public void SetScoreDisplay(int score)
+    {
+        scoreDisplay.text = $"Score\n{score:0000000000}";
+    }
+
+    /// <summary>
+    /// Set HealthBar to players current health percentage.
     /// </summary>
     /// <param name="currentHealthPercentage">current health percentage (0-1)</param>
     public void SetHealthBarValue(float currentHealthPercentage)
@@ -186,21 +186,38 @@ public class UIScript : MonoBehaviour
         highscoreDisplay.gameObject.SetActive(true);
     }
 
-    public void SetScoreDisplay(int score)
+    /// <summary>
+    /// Continue game with current score
+    /// </summary>
+    public void ContinueGame()
     {
-        scoreDisplay.text = $"Score\n{score:0000000000}";
+        Scorer.ReduceContinues();
+        gameOverScreen.SetActive(false);
+        RunCountdownTimer(secondsToCountdown);
+        FindObjectOfType<PlayerMovement>().ResetPlayerMovement();
+        FindObjectOfType<PlayerHealth>().ResetPlayerHealth();
+        ClearCollectibleDisplays();
     }
 
-    public void LoadMainMenu()
-    {
-        SceneManager.LoadScene(0);
-    }
-
+    /// <summary>
+    /// Reload the Scene
+    /// </summary>
     public void RestartGame()
     {
         SceneManager.LoadScene(1);
     }
 
+    /// <summary>
+    /// Load Main menu scene
+    /// </summary>
+    public void LoadMainMenu()
+    {
+        SceneManager.LoadScene(0);
+    }
+
+    /// <summary>
+    /// Methods called by buttons - Dont delete!
+    /// </summary>
     public void ShowRestartAd()
     {
         AdManager.Instance.ShowAd(this,AdManager.restartAdString);
@@ -210,27 +227,85 @@ public class UIScript : MonoBehaviour
     {
         AdManager.Instance.ShowAd(this,AdManager.continueAdString);
     }
+
     public void ShowMainMenuAd()
     {
         AdManager.Instance.ShowAd(this,AdManager.mainMenuAdString);
     }
 
-    public void ContinueGame()
+    /// <summary>
+    /// Clears all collectibles on start / restart
+    /// </summary>
+    private void ClearCollectibleDisplays()
     {
-        Scorer.ReduceContinues();
-        gameOverScreen.SetActive(false);
-        RunCountdownTimer(secondsToCountdown);
-        FindObjectOfType<PlayerMovement>().ResetPlayerMovement();
-        FindObjectOfType<PlayerHealth>().ResetPlayerHealth();
-    }
-
-    public void ClearCollectibleDisplays()
-    {
+        StopMultiplier();
         ClearMultiplierDisplay();
-        ClearShieldDisplay();
+        StopLasers();
         ClearLasersDisplay();
+        StopShield();
+        ClearShieldDisplay();
     }
 
+    /*
+     * Methods to Deal with collectibles
+     */
+
+    /// <summary>
+    /// Start multiplier collectible
+    /// </summary>
+    /// <param name="multiplierAmount">Amount to set score multiplier to</param>
+    /// <param name="effectTime">Time to set multiplier for</param>
+    public void StartMultiplier(int multiplierAmount, float effectTime)
+    {
+        //Set timer value and texts
+        multiplierText.text = $"Multiplier x{multiplierAmount}";
+        multiplierTimer = effectTime;
+
+        //Enable timer
+        multiplierActive = true;
+        
+        //Set score multiplier on scorer script
+        FindObjectOfType<Scorer>().SetScoreMultiplier(multiplierAmount);
+        
+    }
+
+    /// <summary>
+    /// Start Shield collectible
+    /// </summary>
+    /// <param name="effectTime">Time to set Shield active for</param>
+    public void StartShield(float effectTime)
+    {
+        //Set timer value and icon visibility
+        shieldIcon.color = Color.white;
+        shieldTimer = effectTime;
+        
+        //Enable timer
+        shieldActive = true;
+
+        //Activate lasers on player
+        FindObjectOfType<PlayerHealth>().SetShieldActive(shieldActive);
+    }
+
+    /// <summary>
+    /// Start Laser collectible
+    /// </summary>
+    /// <param name="effectTime">Time to set Lasers active for</param>
+    public void StartLasers(float effectTime)
+    {
+        //Set timer value and icon visibility
+        laserIcon.color = Color.white;
+        laserTimer = effectTime;
+
+        //Enable timer
+        lasersActive = true;
+
+        //Activate lasers on player
+        FindObjectOfType<PlayerHealth>().SetLasersActive(lasersActive);
+    }
+
+    /// <summary>
+    /// Resets Multiplier ui components
+    /// </summary>
     private void ClearMultiplierDisplay()
     {
         multiplierText.text = "Multiplier x1";
@@ -238,6 +313,9 @@ public class UIScript : MonoBehaviour
         multiplierActive = false;
     }
 
+    /// <summary>
+    /// Resets shield ui components
+    /// </summary>
     private void ClearShieldDisplay()
     {
         shieldIcon.color = new Color(1,1,1,0.25f);
@@ -245,6 +323,9 @@ public class UIScript : MonoBehaviour
         shieldActive = false;
     }
 
+    /// <summary>
+    /// Resets Laser ui components
+    /// </summary>
     private void ClearLasersDisplay()
     {
         laserIcon.color = new Color(1,1,1,0.25f);
@@ -252,55 +333,57 @@ public class UIScript : MonoBehaviour
         lasersActive = false;
     }
 
-    /*public void SetCollectibleDisplay(Sprite collectibleIcon, string collectibleName)
-    {
-        collectibleIconImage.sprite = collectibleIcon;
-        collectibleIconImage.enabled = true;
-        multiplierText.text = collectibleName;
-        collectibleActive = true;
-    }*/
-    public void StartMultiplier(int multiplierAmount, float effectTime)
-    {
-        print($"{multiplierAmount}x Multiplier started for {effectTime} seconds.");
-        multiplierActive = true;
-        multiplierText.text = $"Multiplier x{multiplierAmount}";
-        multiplierTimer = effectTime;
-        FindObjectOfType<Scorer>().SetScoreMultiplier(multiplierAmount);
-        //SetMultiplierTimerText();
-    }
-
+    /// <summary>
+    /// Update the multiplier timer text
+    /// </summary>
     private void SetMultiplierTimerText()
     {
         multiplierTimerText.text = $"{Mathf.FloorToInt(multiplierTimer):00}";
     }
 
-    public void StartLasers(float effectTime)
-    {
-        print($"Lasers started for {effectTime} seconds.");
-        lasersActive = true;
-        laserIcon.color = Color.white;
-        laserTimer = effectTime;
-        FindObjectOfType<PlayerHealth>().SetLasersActive(lasersActive);
-        //SetLaserTimerText();
-    }
-
+    /// <summary>
+    /// Update the Laser timer text
+    /// </summary>
     private void SetLaserTimerText()
     {
         laserTimerText.text = $"{Mathf.FloorToInt(laserTimer):00}";
     }
 
-    public void StartShield(float effectTime)
-    {
-        print($"Shield started for {effectTime} seconds.");
-        shieldActive = true;
-        shieldIcon.color = Color.white;
-        shieldTimer = effectTime;
-        FindObjectOfType<PlayerHealth>().SetShieldActive(shieldActive);
-        //SetShieldTimerText();
-    }
-
+    /// <summary>
+    /// Update the Laser timer text
+    /// </summary>
     private void SetShieldTimerText()
     {
         shieldTimerText.text = $"{Mathf.FloorToInt(shieldTimer):00}";
+    }
+
+    /// <summary>
+    /// Reset Score Multiplier
+    /// </summary>
+    private void StopMultiplier()
+    {
+        multiplierActive = false;
+        FindObjectOfType<Scorer>().ResetMultiplier();
+        ClearMultiplierDisplay();
+    }
+
+    /// <summary>
+    /// Disable shield collectible
+    /// </summary>
+    private void StopShield()
+    {
+        shieldActive = false;
+        FindObjectOfType<PlayerHealth>().SetShieldActive(shieldActive);
+        ClearShieldDisplay();
+    }
+
+    /// <summary>
+    /// Disable laser collectible
+    /// </summary>
+    private void StopLasers()
+    {
+        lasersActive = false;
+        FindObjectOfType<PlayerHealth>().SetLasersActive(lasersActive);
+        ClearLasersDisplay();
     }
 }

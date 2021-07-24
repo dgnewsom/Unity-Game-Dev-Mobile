@@ -143,6 +143,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3967819248474092193}
+  - component: {fileID: 1153089952949673848}
   m_Layer: 0
   m_Name: CollectibleModel
   m_TagString: Collectible
@@ -165,6 +166,19 @@ Transform:
   m_Father: {fileID: 3967819249854863574}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &1153089952949673848
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3967819248474092192}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.75
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &3967819248930309792
 GameObject:
   m_ObjectHideFlags: 0
@@ -258,7 +272,7 @@ GameObject:
   - component: {fileID: 3967819249854863574}
   - component: {fileID: 3967819249854863575}
   - component: {fileID: 2141656273454256281}
-  - component: {fileID: 6653770326048717753}
+  - component: {fileID: 3782552627240574134}
   m_Layer: 0
   m_Name: Collectible
   m_TagString: Collectible
@@ -295,7 +309,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 8
+  m_Constraints: 72
   m_CollisionDetection: 0
 --- !u!114 &2141656273454256281
 MonoBehaviour:
@@ -314,7 +328,7 @@ MonoBehaviour:
   - {fileID: 2100000, guid: b2a3b003f1b7ee642bd1e710581400ef, type: 2}
   - {fileID: 2100000, guid: 4f65523d3309d694fa9318e8f69fb540, type: 2}
   - {fileID: 2100000, guid: 8393ce735688ba644990b5ab3fc8e32e, type: 2}
---- !u!135 &6653770326048717753
+--- !u!135 &3782552627240574134
 SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -322,10 +336,10 @@ SphereCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3967819249854863593}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.75
+  m_Radius: 0.1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &6536710730886478408
 GameObject:
