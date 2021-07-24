@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1990488754468218533}
   - component: {fileID: 1990488754468218532}
   m_Layer: 0
-  m_Name: AsteroidSpawner
+  m_Name: ObjectSpawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -47,5 +47,8 @@ MonoBehaviour:
   - {fileID: 2199049055960267290, guid: e566213a2095de6418add2f4d79691c8, type: 3}
   - {fileID: 3578910539393986708, guid: 05c825d640b09de4b98833337282dea7, type: 3}
   - {fileID: 6609366286081905311, guid: 67a9d86216f1e0d4cb87ec86d4c91f76, type: 3}
-  secondsBetweenAsteroids: 1
-  speedRange: {x: 4, y: 10}
+  collectiblePrefab: {fileID: 3967819249854863593, guid: 3690f9dbc1424504f8298fd8e10ceeb8, type: 3}
+  pickupSpawnTimeRange: {x: 0, y: 1}
+  secondsBetweenAsteroids: 10
+  speedRange: {x: 1, y: 10}
+  isMenuScene: 0

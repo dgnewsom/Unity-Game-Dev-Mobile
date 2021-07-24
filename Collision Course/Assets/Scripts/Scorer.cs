@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Scorer : MonoBehaviour
 {
-    [SerializeField] private float scoreMultiplier;
+    [SerializeField] private float scoreMultiplier = 50f;
     [SerializeField] private int continuesAllowed;
  
     private float score = 0;
@@ -18,9 +18,13 @@ public class Scorer : MonoBehaviour
 
     public static int ContinuesRemaining => continuesRemaining;
 
-    private void Start()
+    private void Awake()
     {
         originalMultiplier = scoreMultiplier;
+    }
+
+    private void Start()
+    {
         continuesRemaining = continuesAllowed;
         uiscript = FindObjectOfType<UIScript>();
         uiscript.SetScoreDisplay((int)score);

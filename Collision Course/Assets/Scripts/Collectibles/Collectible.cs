@@ -25,7 +25,7 @@ public class Collectible : MonoBehaviour
     private CollectibleIndicatorSpawner indicatorSpawner;
     
 
-    private void Start()
+    private void Awake()
     {
         collectibleIconImage = GetComponentInChildren<Image>();
         amountText = GetComponentInChildren<TMP_Text>();
@@ -63,24 +63,14 @@ public class Collectible : MonoBehaviour
 
     private void SetAmount()
     {
-        switch (collectibleType)
+        collectibleAmount = collectibleType switch
         {
-            case CollectibleType.ScoreUp:
-                collectibleAmount = GetRandomAmountFromArrayWithProbability(percentages);
-                break;
-            case CollectibleType.ScoreDown:
-                collectibleAmount = GetRandomAmountFromArrayWithProbability(percentages);
-                break;
-            case CollectibleType.ScoreMultiply:
-                collectibleAmount = GetRandomAmountFromArrayWithProbability(multipliers);
-                break;
-            case CollectibleType.HealthUp:
-                collectibleAmount = GetRandomAmountFromArrayWithProbability(percentages);
-                break;
-            default:
-                collectibleAmount = 0;
-                break;
-        }
+            CollectibleType.ScoreUp => GetRandomAmountFromArrayWithProbability(percentages),
+            CollectibleType.ScoreDown => GetRandomAmountFromArrayWithProbability(percentages),
+            CollectibleType.ScoreMultiply => GetRandomAmountFromArrayWithProbability(multipliers),
+            CollectibleType.HealthUp => GetRandomAmountFromArrayWithProbability(percentages),
+            _ => 0
+        };
     }
 
     private int GetRandomAmountFromArrayWithProbability(int[] intArray)
@@ -128,56 +118,33 @@ public class Collectible : MonoBehaviour
 
     private void SetEffectTime()
     {
-        switch (collectibleType)
+        effectTime = collectibleType switch
         {
-            case CollectibleType.ScoreMultiply:
-                effectTime = GetRandomAmountFromArrayWithProbability(effectTimes);
-                break;
-            case CollectibleType.Lasers:
-                effectTime = GetRandomAmountFromArrayWithProbability(effectTimes);
-                break;
-            case CollectibleType.Shield:
-                effectTime = GetRandomAmountFromArrayWithProbability(effectTimes);
-                break;
-            default:
-                effectTime = 0;
-                break;
-        }
+            CollectibleType.ScoreMultiply => GetRandomAmountFromArrayWithProbability(effectTimes),
+            CollectibleType.Lasers => GetRandomAmountFromArrayWithProbability(effectTimes),
+            CollectibleType.Shield => GetRandomAmountFromArrayWithProbability(effectTimes),
+            _ => 0
+        };
     }
 
     private void SetText()
     {
-        switch (collectibleType)
+        amountText.text = collectibleType switch
         {
-            case CollectibleType.ScoreUp:
-                amountText.text = $"{collectibleAmount}%";
-                break;
-            case CollectibleType.ScoreDown:
-                amountText.text = $"{collectibleAmount}%";
-                break;
-            case CollectibleType.ScoreMultiply:
-                amountText.text = $"x{collectibleAmount}\n{effectTime}s";
-                break;
-            case CollectibleType.HealthUp:
-                amountText.text = $"{collectibleAmount}%";
-                break;
-            case CollectibleType.Lasers:
-                amountText.text = $"{effectTime}s";
-                break;
-            case CollectibleType.Shield:
-                amountText.text = $"{effectTime}s";
-                break;
-            case CollectibleType.Continue:
-                amountText.text = $"x1";
-                break;
-            default:
-                throw new ArgumentOutOfRangeException();
-        }
+            CollectibleType.ScoreUp => $"{collectibleAmount}%",
+            CollectibleType.ScoreDown => $"{collectibleAmount}%",
+            CollectibleType.ScoreMultiply => $"x{collectibleAmount}\n{effectTime}s",
+            CollectibleType.HealthUp => $"{collectibleAmount}%",
+            CollectibleType.Lasers => $"{effectTime}s",
+            CollectibleType.Shield => $"{effectTime}s",
+            CollectibleType.Continue => $"x1",
+            _ => throw new ArgumentOutOfRangeException()
+        };
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        print($"{other.gameObject}");
+        //print($"{other.gameObject}");
         if (other.CompareTag("Player"))
         {
             print($"Collectible hit");
