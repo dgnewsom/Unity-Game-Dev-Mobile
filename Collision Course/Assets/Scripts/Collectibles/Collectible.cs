@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Timers;
 using TMPro;
 using UnityEngine;
+using UnityEngine.PlayerLoop;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
@@ -37,8 +38,20 @@ public class Collectible : MonoBehaviour
         //For Testing
         InitialiseCollectible();
     }
-    
 
+    public void FixedUpdate()
+    {
+        CheckCollectibleOnScreen();
+    }
+
+    private void CheckCollectibleOnScreen()
+    {
+        Vector3 viewportPosition = mainCamera.WorldToViewportPoint(transform.position);
+        if (viewportPosition.x > 1.2 || viewportPosition.x < -0.2 || viewportPosition.y > 1.2 || viewportPosition.y < -0.2)
+        {
+            Destroy(gameObject);
+        }
+    }
 
     public void SetCollectibleType(CollectibleType collectibleType)
     {
@@ -53,7 +66,6 @@ public class Collectible : MonoBehaviour
         SetAmount();
         SetEffectTime();
         SetText();
-
     }
 
     private void SetImage()
@@ -154,63 +166,55 @@ public class Collectible : MonoBehaviour
 
     private void ActivateCollectible()
     {
-        Vector3 indicatorPosition;
+        Vector3 indicatorPosition = FindObjectOfType<PlayerMovement>().GetPlayerScreenPosition();
         switch (collectibleType)
         {
             case CollectibleType.ScoreUp:
                 FindObjectOfType<Scorer>().IncreaseScorePercentage(collectibleAmount);
-                indicatorPosition = mainCamera.WorldToScreenPoint(this.transform.position);
                 indicatorSpawner.SpawnIndicator(collectibleType,$"{collectibleAmount}%",indicatorPosition);
-                Destroy(gameObject);
                 break;
             case CollectibleType.ScoreDown:
                 FindObjectOfType<Scorer>().DecreaseScorePercentage(collectibleAmount);
-                indicatorPosition = mainCamera.WorldToScreenPoint(this.transform.position);
                 indicatorSpawner.SpawnIndicator(collectibleType,$"{collectibleAmount}%",indicatorPosition);
-                Destroy(gameObject);
                 break;
             case CollectibleType.ScoreMultiply:
                 if (!uiScript.MultiplierActive)
                 {
                     uiScript.StartMultiplier(collectibleAmount, effectTime);
-                    indicatorPosition = mainCamera.WorldToScreenPoint(this.transform.position);
                     indicatorSpawner.SpawnIndicator(collectibleType,$"x{collectibleAmount}",indicatorPosition);
-                    Destroy(gameObject);
                 }
                 break;
             case CollectibleType.HealthUp:
                 FindObjectOfType<PlayerHealth>().IncreaseHealthPercentage(collectibleAmount);
-                indicatorPosition = mainCamera.WorldToScreenPoint(this.transform.position);
                 indicatorSpawner.SpawnIndicator(collectibleType,$"{collectibleAmount}%",indicatorPosition);
-                Destroy(gameObject);
                 break;
             case CollectibleType.Lasers:
                 if (!uiScript.LasersActive)
                 {
                     uiScript.StartLasers(effectTime);
-                    indicatorPosition = mainCamera.WorldToScreenPoint(this.transform.position);
                     indicatorSpawner.SpawnIndicator(collectibleType,$"",indicatorPosition);
-                    Destroy(gameObject);
                 }
                 break;
             case CollectibleType.Shield:
                 if (!uiScript.ShieldActive)
                 {
                     uiScript.StartShield(effectTime);
-                    indicatorPosition = mainCamera.WorldToScreenPoint(this.transform.position);
                     indicatorSpawner.SpawnIndicator(collectibleType,$"",indicatorPosition);
-                    Destroy(gameObject);
                 }
                 break;
             case CollectibleType.Continue:
                 Scorer.IncreaseContinues();
-                indicatorPosition = mainCamera.WorldToScreenPoint(this.transform.position);
                 indicatorSpawner.SpawnIndicator(collectibleType,$"",indicatorPosition);
-                Destroy(gameObject);
                 break;
             default:
                 throw new ArgumentOutOfRangeException();
         }
+        PickupCollectible();
     }
-    
+
+    private void PickupCollectible()
+    {
+        //TODO collectPickup fx
+        Destroy(gameObject);
+    }
 }

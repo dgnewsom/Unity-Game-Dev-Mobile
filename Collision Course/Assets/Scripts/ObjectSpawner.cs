@@ -7,7 +7,7 @@ using Random = UnityEngine.Random;
 public class ObjectSpawner : MonoBehaviour
 {
     [Header("Asteroid spawn parameters")]
-    [SerializeField] private GameObject[] asteroidPrefabs;
+    [SerializeField] private Transform AsteroidPoolParent;
     [SerializeField] private Vector2 asteroidSpawnTimeRange;
     [SerializeField] private Vector2 asteroidSpeedRange;
 
@@ -19,6 +19,7 @@ public class ObjectSpawner : MonoBehaviour
     [Header("Bypass need for countdown asteroidSpawnTimer in menu")]
     [SerializeField] private bool isMenuScene;
 
+    private GameObject[] asteroidPool;
     private Camera mainCamera;
     private float asteroidSpawnTimer = 0f;
     private float collectibleSpawnTimer = 0f;
@@ -27,9 +28,20 @@ public class ObjectSpawner : MonoBehaviour
 
     private void Start()
     {
-        ResetAsteroidSpawnTimer();
         ResetCollectibleSpawnTimer();
         mainCamera = Camera.main;
+        PopulateAsteroidPool();
+    }
+
+    private void PopulateAsteroidPool()
+    {
+        List<GameObject> temp = new List<GameObject>();
+        foreach (Transform asteroid in AsteroidPoolParent)
+        {
+            temp.Add(asteroid.gameObject);
+        }
+
+        asteroidPool = temp.ToArray();
     }
 
     private void ResetAsteroidSpawnTimer()
@@ -88,15 +100,23 @@ public class ObjectSpawner : MonoBehaviour
     {
         ResetAsteroidSpawnTimer();
         SetSpawnPointAndDirection();
-        GameObject asteroidInstance = Instantiate(
-            asteroidPrefabs[Random.Range(0,asteroidPrefabs.Length)], 
-            worldSpawnPoint, 
-            Quaternion.Euler(0f,0f,Random.Range(0f, 360f)), 
-            this.transform);
-
-        Rigidbody rb = asteroidInstance.GetComponent<Rigidbody>();
+        GameObject asteroid = GetAsteroidFromPool();
+        asteroid.transform.position = worldSpawnPoint;
+        asteroid.SetActive(true);
+        Rigidbody rb = asteroid.GetComponent<Rigidbody>();
         rb.velocity = spawnForceDirection.normalized * Random.Range(asteroidSpeedRange.x, asteroidSpeedRange.y);
 
+    }
+
+    private GameObject GetAsteroidFromPool()
+    {
+        GameObject toReturn = null;
+        while (toReturn == null || toReturn.activeInHierarchy)
+        {
+            toReturn = asteroidPool[Random.Range(0,asteroidPool.Length)] ;
+        }
+
+        return toReturn;
     }
 
     private void SetSpawnPointAndDirection()
@@ -112,25 +132,53 @@ public class ObjectSpawner : MonoBehaviour
             case 0:
                 spawnPoint.x = 0f;
                 spawnPoint.y = Random.value;
-                spawnForceDirection = new Vector2(1f, Random.Range(-1f, 1f));
+                if (spawnPoint.y > 0.5f)
+                {
+                    spawnForceDirection = new Vector2(1f, Random.Range(0, -1f));
+                }
+                else
+                {
+                    spawnForceDirection = new Vector2(1f, Random.Range(0, 1f));
+                }
                 break;
             //Top
             case 1:
                 spawnPoint.x = Random.value;
                 spawnPoint.y = 1f;
-                spawnForceDirection = new Vector2(Random.Range(-1f, 1f), -1f);
+                if (spawnPoint.x > 0.5f)
+                {
+                    spawnForceDirection = new Vector2(Random.Range(-1f, 0f), -1f);
+                }
+                else
+                {
+                    spawnForceDirection = new Vector2(Random.Range(1f, 0f), -1f);
+                }
                 break;
             //Right
             case 2:
                 spawnPoint.x = 1f;
                 spawnPoint.y = Random.value;
-                spawnForceDirection = new Vector2(-1f, Random.Range(-1f, 1f));
+                if (spawnPoint.y > 0.5f)
+                {
+                    spawnForceDirection = new Vector2(-1f, Random.Range(0f, -1f));
+                }
+                else
+                {
+                    spawnForceDirection = new Vector2(-1f, Random.Range(0f, 1f));
+                }
                 break;
             //Bottom
             case 3:
                 spawnPoint.x = Random.value;
                 spawnPoint.y = 0f;
-                spawnForceDirection = new Vector2(Random.Range(-1f, 1f), 1f);
+                if (spawnPoint.x > 0.5f)
+                {
+                    spawnForceDirection = new Vector2(Random.Range(-1f, 0f), 1f);
+                }
+                else
+                {
+                    spawnForceDirection = new Vector2(Random.Range(1f, 0f), 1f);
+                }
                 break;
             default:
                 break;
@@ -141,9 +189,9 @@ public class ObjectSpawner : MonoBehaviour
 
     private CollectibleType GetPickupToSpawn()
     {
-        float random = Random.Range(0,500);
+        float random = Random.Range(0,100);
 
-        if (random >= 475)
+        if (random > 98)
         {
             print($"random ({random}) - Continue ");
             return CollectibleType.Continue;
@@ -151,7 +199,14 @@ public class ObjectSpawner : MonoBehaviour
         else
         {
             print("Other");
-            return (CollectibleType)Random.Range(0, System.Enum.GetValues(typeof(CollectibleType)).Length-2);
+            return (CollectibleType)Random.Range(0, System.Enum.GetValues(typeof(CollectibleType)).Length-1);
         }
+    }
+
+    public void LevelUp()
+    {
+        asteroidSpawnTimeRange.y = Mathf.Clamp(asteroidSpawnTimeRange.y -= 0.5f,asteroidSpawnTimeRange.x,asteroidSpawnTimeRange.y);
+        asteroidSpeedRange.x = Mathf.Clamp(asteroidSpeedRange.x += 0.25f, 0, 8);
+        asteroidSpeedRange.y = asteroidSpeedRange.y += 0.5f;
     }
 }

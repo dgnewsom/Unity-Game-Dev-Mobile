@@ -1,5 +1,31 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!135 &5502050034201727503
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1834500676741115626}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.45
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!135 &2120252176009282606
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1834500676741115626}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.45
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &5535715555761446034
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -145,6 +171,10 @@ PrefabInstance:
       value: Asteroid_Lava Variant
       objectReference: {fileID: 0}
     - target: {fileID: 5843489114687000891, guid: ba2def30b720b6c4e91041c5c051bad4, type: 3}
+      propertyPath: scoreAmount
+      value: 3000
+      objectReference: {fileID: 0}
+    - target: {fileID: 5843489114687000891, guid: ba2def30b720b6c4e91041c5c051bad4, type: 3}
       propertyPath: damageAmount
       value: 3
       objectReference: {fileID: 0}
@@ -154,6 +184,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ba2def30b720b6c4e91041c5c051bad4, type: 3}
+--- !u!1 &1834500676741115626 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7017000986114052712, guid: ba2def30b720b6c4e91041c5c051bad4, type: 3}
+  m_PrefabInstance: {fileID: 8652560151246208130}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &781230061738008965 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8269573219115785479, guid: ba2def30b720b6c4e91041c5c051bad4, type: 3}

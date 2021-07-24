@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 1329746602396885454}
   - component: {fileID: 5843489114687000891}
   - component: {fileID: 853578148}
-  - component: {fileID: 378589456904405036}
   m_Layer: 0
   m_Name: Asteroid
   m_TagString: Asteroid
@@ -50,6 +49,7 @@ MonoBehaviour:
   damageAmount: 1
   asteroidModel: {fileID: 8269573219115785479}
   spinSpeedRange: {x: -5, y: 5}
+  scoreAmount: 0
 --- !u!54 &853578148
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -66,19 +66,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 8
   m_CollisionDetection: 0
---- !u!135 &378589456904405036
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5313906373258382358}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7017000986114052712
 GameObject:
   m_ObjectHideFlags: 0
@@ -88,7 +75,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8269573219115785479}
-  - component: {fileID: 676773169119762408}
   m_Layer: 0
   m_Name: AsteroidModel
   m_TagString: Untagged
@@ -110,19 +96,6 @@ Transform:
   m_Father: {fileID: 1329746602396885454}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &676773169119762408
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7017000986114052712}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &6722745087166652554
 PrefabInstance:
   m_ObjectHideFlags: 0

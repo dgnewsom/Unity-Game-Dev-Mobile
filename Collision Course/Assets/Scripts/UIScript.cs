@@ -29,6 +29,9 @@ public class UIScript : MonoBehaviour
     [SerializeField] private Button continueButton;
     [SerializeField] private TMP_Text continueButtonText;
 
+    [Header("Level Display")] 
+    [SerializeField] private TMP_Text currentLevelText;
+    [SerializeField] private TMP_Text nextLevelText;
 
     [SerializeField] private bool TestMode;
 
@@ -154,7 +157,8 @@ public class UIScript : MonoBehaviour
         if (isHighScore)
         {
             highscoreDisplay.text = $"Score - {score:0000000000}\n" +
-                                    $"New HighScore! - {highScore:0000000000}";
+                                    $"New HighScore!\n " +
+                                    $"Level {PlayerPrefs.GetInt(Scorer.LevelHighscoreKey)} - {highScore:0000000000}";
             StartCoroutine(FlashHighscoreText());
         }
         else
@@ -385,5 +389,11 @@ public class UIScript : MonoBehaviour
         lasersActive = false;
         FindObjectOfType<PlayerHealth>().SetLasersActive(lasersActive);
         ClearLasersDisplay();
+    }
+
+    public void SetLevelText(int currentLevel, int nextLevel)
+    {
+        currentLevelText.text = $"Level {currentLevel}";
+        nextLevelText.text = $"Next level - {nextLevel:#,###0}";
     }
 }

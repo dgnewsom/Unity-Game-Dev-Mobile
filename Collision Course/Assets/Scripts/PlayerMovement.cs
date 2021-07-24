@@ -14,6 +14,7 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 movementDirection;
     private Vector3 initialPosition;
     private Quaternion initialRotation;
+    private SoundManager soundManager;
     
     void Start()
     {
@@ -22,6 +23,7 @@ public class PlayerMovement : MonoBehaviour
         playerHealth = GetComponent<PlayerHealth>();
         mainCamera = Camera.main;
         rb = GetComponent<Rigidbody>();
+        soundManager = FindObjectOfType<SoundManager>();
     }
 
     void Update()
@@ -51,6 +53,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (Touchscreen.current.primaryTouch.press.IsPressed())
         {
+            soundManager.PlayBoostSound();
             Vector2 touchPosition = Touchscreen.current.primaryTouch.position.ReadValue();
             Vector3 worldPosition = mainCamera.ScreenToWorldPoint(touchPosition);
             worldPosition.z = 0f;
@@ -63,6 +66,7 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
+            soundManager.StopBoostSound();
             SetTouchIndicator(Vector3.zero);
             movementDirection = Vector3.zero;
         }
@@ -140,5 +144,10 @@ public class PlayerMovement : MonoBehaviour
         rb.velocity = Vector3.zero;
         transform.position = initialPosition;
         transform.rotation = initialRotation;
+    }
+
+    public Vector3 GetPlayerScreenPosition()
+    {
+        return mainCamera.WorldToScreenPoint(this.transform.position);
     }
 }
