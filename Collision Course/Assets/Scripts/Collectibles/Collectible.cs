@@ -167,24 +167,29 @@ public class Collectible : MonoBehaviour
     private void ActivateCollectible()
     {
         Vector3 indicatorPosition = FindObjectOfType<PlayerMovement>().GetPlayerScreenPosition();
+        SoundManager soundManager = FindObjectOfType<SoundManager>();
         switch (collectibleType)
         {
             case CollectibleType.ScoreUp:
+                soundManager.PlayPositivePickupSound();
                 FindObjectOfType<Scorer>().IncreaseScorePercentage(collectibleAmount);
                 indicatorSpawner.SpawnIndicator(collectibleType,$"{collectibleAmount}%",indicatorPosition);
                 break;
             case CollectibleType.ScoreDown:
+                soundManager.PlayNegativePickupSound();
                 FindObjectOfType<Scorer>().DecreaseScorePercentage(collectibleAmount);
                 indicatorSpawner.SpawnIndicator(collectibleType,$"{collectibleAmount}%",indicatorPosition);
                 break;
             case CollectibleType.ScoreMultiply:
                 if (!uiScript.MultiplierActive)
                 {
+                    soundManager.PlayPositivePickupSound();
                     uiScript.StartMultiplier(collectibleAmount, effectTime);
                     indicatorSpawner.SpawnIndicator(collectibleType,$"x{collectibleAmount}",indicatorPosition);
                 }
                 break;
             case CollectibleType.HealthUp:
+                soundManager.PlayPositivePickupSound();
                 FindObjectOfType<PlayerHealth>().IncreaseHealthPercentage(collectibleAmount);
                 indicatorSpawner.SpawnIndicator(collectibleType,$"{collectibleAmount}%",indicatorPosition);
                 break;
@@ -203,6 +208,7 @@ public class Collectible : MonoBehaviour
                 }
                 break;
             case CollectibleType.Continue:
+                soundManager.PlayContinuePickupSound();
                 Scorer.IncreaseContinues();
                 indicatorSpawner.SpawnIndicator(collectibleType,$"",indicatorPosition);
                 break;
