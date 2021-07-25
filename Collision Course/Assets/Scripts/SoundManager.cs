@@ -7,15 +7,16 @@ public class SoundManager : MonoBehaviour
 {
     public static SoundManager Instance;
 
-    [SerializeField] private AudioSource BackgroundMusic;
-    [SerializeField] private AudioSource RocketBoostSound;
+    [SerializeField] private AudioSource backgroundMusic;
+    [SerializeField] private AudioSource rocketBoostSound;
+    [SerializeField] private AudioSource lasersSound;
 
     [SerializeField] private AudioClip playerExplosionSound;
     [SerializeField] private AudioClip asteroidExplosionSound;
-    [SerializeField] private AudioClip ScoreUpPickupSound;
-    [SerializeField] private AudioClip ScoreDownPickupSound;
-    [SerializeField] private AudioClip LasersPickupSound;
-    [SerializeField] private AudioClip ShieldPickupSound;
+    [SerializeField] private AudioClip positivePickupSound;
+    [SerializeField] private AudioClip negativePickupSound;
+    [SerializeField] private AudioClip shieldPickupSound;
+    [SerializeField] private AudioClip shieldOffSound;
     [SerializeField] private AudioClip continuePickupSound;
 
     private int playBGM = 1;
@@ -38,11 +39,11 @@ public class SoundManager : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
-            BackgroundMusic = GetComponent<AudioSource>();
+            backgroundMusic = GetComponent<AudioSource>();
             playBGM = PlayerPrefs.GetInt(PlayBGMKey, 1);
             playSFX = PlayerPrefs.GetInt(PlaySFXKey, 1);
             BGMVolume = PlayerPrefs.GetFloat(BGMVolumeKey, 1f);
-            BackgroundMusic.volume = BGMVolume;
+            backgroundMusic.volume = BGMVolume;
             SFXVolume = Mathf.Clamp01(PlayerPrefs.GetFloat(SFXVolumeKey, 1));
             if (playBGM == 1)
             {
@@ -54,7 +55,7 @@ public class SoundManager : MonoBehaviour
     private void SetBGMVolume(float volume)
     {
         PlayerPrefs.SetFloat(BGMVolumeKey,BGMVolume);
-        BackgroundMusic.volume = BGMVolume;
+        backgroundMusic.volume = BGMVolume;
     }
     
     private void SetSFXVolume(float volume)
@@ -65,9 +66,9 @@ public class SoundManager : MonoBehaviour
     
     public void SetBackgroundMusic()
     {
-        if (!BackgroundMusic.isPlaying && playBGM == 1)
+        if (!backgroundMusic.isPlaying && playBGM == 1)
         {
-            BackgroundMusic.Play();
+            backgroundMusic.Play();
         }
         else
         {
@@ -77,47 +78,53 @@ public class SoundManager : MonoBehaviour
 
     public void StopBackgroundMusic()
     {
-        BackgroundMusic.Stop();
+        backgroundMusic.Stop();
     }
 
     public void PlayBoostSound()
     {
-        if (!RocketBoostSound.isPlaying && playSFX.Equals(1))
+        if (!rocketBoostSound.isPlaying && playSFX.Equals(1))
         {
-            RocketBoostSound.volume = SFXVolume;
-            RocketBoostSound.Play();
+            rocketBoostSound.volume = SFXVolume * 1.5f;
+            rocketBoostSound.Play();
         }
     }
 
     public void StopBoostSound()
     {
-        RocketBoostSound.Stop();
+        rocketBoostSound.Stop();
     }
 
-    public void PlayScoreUpPickupSound()
+    public void PlayLasersSound()
     {
-
-        if (playSFX == 1)
+        
+        if (!lasersSound.isPlaying && playSFX.Equals(1))
         {
-            BackgroundMusic.PlayOneShot(ScoreUpPickupSound,1);
+            lasersSound.volume = SFXVolume * 0.6f;
+            lasersSound.Play();
         }
     }
 
-    public void PlayScoreDownPickupSound()
+    public void StopLasersSound()
+    {
+        lasersSound.Stop();
+    }
+
+    public void PlayPositivePickupSound()
     {
 
         if (playSFX == 1)
         {
-            BackgroundMusic.PlayOneShot(ScoreDownPickupSound, SFXVolume);
+            backgroundMusic.PlayOneShot(positivePickupSound, SFXVolume);
         }
     }
 
-    public void PlayLasersPickupSound()
+    public void PlayNegativePickupSound()
     {
 
         if (playSFX == 1)
         {
-            BackgroundMusic.PlayOneShot(LasersPickupSound, SFXVolume);
+            backgroundMusic.PlayOneShot(negativePickupSound, SFXVolume);
         }
     }
 
@@ -126,7 +133,16 @@ public class SoundManager : MonoBehaviour
 
         if (playSFX == 1)
         {
-            BackgroundMusic.PlayOneShot(ShieldPickupSound, SFXVolume);
+            backgroundMusic.PlayOneShot(shieldPickupSound, SFXVolume);
+        }
+    }
+
+    public void PlayShieldOffSound()
+    {
+
+        if (playSFX == 1)
+        {
+            backgroundMusic.PlayOneShot(shieldOffSound, SFXVolume);
         }
     }
     
@@ -135,7 +151,7 @@ public class SoundManager : MonoBehaviour
 
         if (playSFX == 1)
         {
-            BackgroundMusic.PlayOneShot(continuePickupSound, SFXVolume);
+            backgroundMusic.PlayOneShot(continuePickupSound, SFXVolume);
         }
     }
     public void PlayPlayerExplosionSound()
@@ -143,7 +159,7 @@ public class SoundManager : MonoBehaviour
 
         if (playSFX == 1)
         {
-            BackgroundMusic.PlayOneShot(playerExplosionSound, SFXVolume);
+            backgroundMusic.PlayOneShot(playerExplosionSound, SFXVolume);
         }
     }
 
@@ -152,7 +168,7 @@ public class SoundManager : MonoBehaviour
 
         if (playSFX == 1)
         {
-            BackgroundMusic.PlayOneShot(asteroidExplosionSound, SFXVolume);
+            backgroundMusic.PlayOneShot(asteroidExplosionSound, SFXVolume);
         }
     }
 

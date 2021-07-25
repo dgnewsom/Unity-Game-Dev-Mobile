@@ -49,7 +49,6 @@ public class UIScript : MonoBehaviour
     private float shieldTimer;
     private float laserTimer;
 
-
     private void Start()
     {
         RunCountdownTimer(secondsToCountdown);
@@ -246,7 +245,7 @@ public class UIScript : MonoBehaviour
         ClearMultiplierDisplay();
         StopLasers();
         ClearLasersDisplay();
-        StopShield();
+        StopShield(false);
         ClearShieldDisplay();
     }
 
@@ -279,6 +278,9 @@ public class UIScript : MonoBehaviour
     /// <param name="effectTime">Time to set Shield active for</param>
     public void StartShield(float effectTime)
     {
+        //Play shield sound
+        FindObjectOfType<SoundManager>().PlayShieldPickupSound();
+
         //Set timer value and icon visibility
         shieldIcon.color = Color.white;
         shieldTimer = effectTime;
@@ -296,6 +298,7 @@ public class UIScript : MonoBehaviour
     /// <param name="effectTime">Time to set Lasers active for</param>
     public void StartLasers(float effectTime)
     {
+        
         //Set timer value and icon visibility
         laserIcon.color = Color.white;
         laserTimer = effectTime;
@@ -374,8 +377,12 @@ public class UIScript : MonoBehaviour
     /// <summary>
     /// Disable shield collectible
     /// </summary>
-    private void StopShield()
+    private void StopShield(bool playSound = true)
     {
+        if (playSound)
+        {
+            FindObjectOfType<SoundManager>().PlayShieldOffSound();
+        }
         shieldActive = false;
         FindObjectOfType<PlayerHealth>().SetShieldActive(shieldActive);
         ClearShieldDisplay();
@@ -388,6 +395,7 @@ public class UIScript : MonoBehaviour
     {
         lasersActive = false;
         FindObjectOfType<PlayerHealth>().SetLasersActive(lasersActive);
+        FindObjectOfType<SoundManager>().StopLasersSound();
         ClearLasersDisplay();
     }
 

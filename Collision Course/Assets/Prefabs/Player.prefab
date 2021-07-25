@@ -312,10 +312,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Laser (1)
       objectReference: {fileID: 0}
-    - target: {fileID: 6177298808596374371, guid: 97009870359f1c849af4753bdfddf2e1, type: 3}
-      propertyPath: EmissionModule.rateOverTime.scalar
-      value: 4
-      objectReference: {fileID: 0}
     - target: {fileID: 7972014577505723596, guid: 97009870359f1c849af4753bdfddf2e1, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -448,10 +444,6 @@ PrefabInstance:
     - target: {fileID: 177025710072023035, guid: 97009870359f1c849af4753bdfddf2e1, type: 3}
       propertyPath: m_Name
       value: Laser
-      objectReference: {fileID: 0}
-    - target: {fileID: 6177298808596374371, guid: 97009870359f1c849af4753bdfddf2e1, type: 3}
-      propertyPath: EmissionModule.rateOverTime.scalar
-      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 7972014577505723596, guid: 97009870359f1c849af4753bdfddf2e1, type: 3}
       propertyPath: m_RootOrder
