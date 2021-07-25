@@ -312,6 +312,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Laser (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 2233390870573954588, guid: 97009870359f1c849af4753bdfddf2e1, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5901255284623861571, guid: 97009870359f1c849af4753bdfddf2e1, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7972014577505723596, guid: 97009870359f1c849af4753bdfddf2e1, type: 3}
       propertyPath: m_RootOrder
       value: 1

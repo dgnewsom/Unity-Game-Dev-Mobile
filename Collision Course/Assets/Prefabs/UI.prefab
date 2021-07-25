@@ -3078,7 +3078,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b8492843aafdbf4d8b0c3c63e58368d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  secondsToCountdown: 1
+  secondsToCountdown: 3
   countdownText: {fileID: 653685754}
   multiplierText: {fileID: 1443016608}
   multiplierTimerText: {fileID: 440874274}

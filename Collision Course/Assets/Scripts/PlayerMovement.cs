@@ -53,7 +53,6 @@ public class PlayerMovement : MonoBehaviour
     {
         if (Touchscreen.current.primaryTouch.press.IsPressed())
         {
-            soundManager.PlayBoostSound();
             Vector2 touchPosition = Touchscreen.current.primaryTouch.position.ReadValue();
             Vector3 worldPosition = mainCamera.ScreenToWorldPoint(touchPosition);
             worldPosition.z = 0f;
@@ -63,6 +62,7 @@ public class PlayerMovement : MonoBehaviour
             movementDirection = worldPosition - transform.position;
             movementDirection.z = 0f;
             movementDirection.Normalize();
+            soundManager.PlayBoostSound();
         }
         else
         {
