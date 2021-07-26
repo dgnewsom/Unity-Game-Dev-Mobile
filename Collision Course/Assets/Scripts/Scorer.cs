@@ -96,7 +96,12 @@ public class Scorer : MonoBehaviour
 
     public void SetScoreMultiplier(int multiplierAmount)
     {
-        scoreMultiplier = originalMultiplier * multiplierAmount;
+        scoreMultiplier = (scoreMultiplier * multiplierAmount);
+    }
+
+    public int GetCurrentMultiplier()
+    {
+        return (int)(scoreMultiplier / originalMultiplier);
     }
 
     public void ResetMultiplier()

@@ -8,15 +8,17 @@ public class LaserSoundTrigger : MonoBehaviour
     private int currentParticles;
     private SoundManager soundManager;
 
-
-    void Start()
+    void OnEnable()
     {
         soundManager = FindObjectOfType<SoundManager>();
     }
 
     private void OnParticleTrigger()
     {
-        soundManager.PlayLasersSound();
+        if (soundManager != null)
+        {
+            soundManager.PlayLasersSound();
+        }
     }
     
 }

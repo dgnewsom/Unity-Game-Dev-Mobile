@@ -19,6 +19,11 @@ public class ObjectSpawner : MonoBehaviour
     [Header("Bypass need for countdown asteroidSpawnTimer in menu")]
     [SerializeField] private bool isMenuScene;
 
+    [Header("Testing")] 
+    [SerializeField] private bool asteroidsOn = true;
+    [SerializeField] private bool collectiblesOn = true;
+
+
     private GameObject[] asteroidPool;
     private Camera mainCamera;
     private float asteroidSpawnTimer = 0f;
@@ -61,11 +66,11 @@ public class ObjectSpawner : MonoBehaviour
             collectibleSpawnTimer -= Time.deltaTime;
             asteroidSpawnTimer -= Time.deltaTime;
 
-            if (collectibleSpawnTimer <= 0)
+            if (collectibleSpawnTimer <= 0 && collectiblesOn)
             {
                 SpawnCollectible();
             }
-            else if (asteroidSpawnTimer <= 0)
+            else if (asteroidSpawnTimer <= 0 && asteroidsOn)
             {
                 SpawnAsteroid();
             }
@@ -205,8 +210,8 @@ public class ObjectSpawner : MonoBehaviour
 
     public void LevelUp()
     {
-        asteroidSpawnTimeRange.y = Mathf.Clamp(asteroidSpawnTimeRange.y -= 0.5f,asteroidSpawnTimeRange.x,asteroidSpawnTimeRange.y);
-        asteroidSpeedRange.x = Mathf.Clamp(asteroidSpeedRange.x += 0.25f, 0, 8);
-        asteroidSpeedRange.y = asteroidSpeedRange.y += 0.5f;
+        asteroidSpawnTimeRange.y = Mathf.Clamp(asteroidSpawnTimeRange.y -= 0.1f,asteroidSpawnTimeRange.x,asteroidSpawnTimeRange.y);
+        asteroidSpeedRange.x = Mathf.Clamp(asteroidSpeedRange.x += 0.1f, 0, 5);
+        asteroidSpeedRange.y = asteroidSpeedRange.y += 0.1f;
     }
 }

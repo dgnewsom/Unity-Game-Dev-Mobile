@@ -260,16 +260,15 @@ public class UIScript : MonoBehaviour
     /// <param name="effectTime">Time to set multiplier for</param>
     public void StartMultiplier(int multiplierAmount, float effectTime)
     {
+        //Set score multiplier on scorer script
+        FindObjectOfType<Scorer>().SetScoreMultiplier(multiplierAmount);
+
         //Set timer value and texts
-        multiplierText.text = $"Multiplier x{multiplierAmount}";
-        multiplierTimer = effectTime;
+        multiplierText.text = $"Multiplier x{GetComponentInChildren<Scorer>().GetCurrentMultiplier()}";
+        multiplierTimer += effectTime;
 
         //Enable timer
         multiplierActive = true;
-        
-        //Set score multiplier on scorer script
-        FindObjectOfType<Scorer>().SetScoreMultiplier(multiplierAmount);
-        
     }
 
     /// <summary>
@@ -283,12 +282,12 @@ public class UIScript : MonoBehaviour
 
         //Set timer value and icon visibility
         shieldIcon.color = Color.white;
-        shieldTimer = effectTime;
+        shieldTimer += effectTime;
         
         //Enable timer
         shieldActive = true;
 
-        //Activate lasers on player
+        //Activate shield on player
         FindObjectOfType<PlayerHealth>().SetShieldActive(shieldActive);
     }
 
@@ -301,7 +300,7 @@ public class UIScript : MonoBehaviour
         
         //Set timer value and icon visibility
         laserIcon.color = Color.white;
-        laserTimer = effectTime;
+        laserTimer += effectTime;
 
         //Enable timer
         lasersActive = true;

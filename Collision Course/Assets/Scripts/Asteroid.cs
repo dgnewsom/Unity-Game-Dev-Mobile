@@ -60,9 +60,9 @@ public class Asteroid : MonoBehaviour
 
     private void OnParticleCollision(GameObject other)
     {
-        scorer.AddToScore(scoreAmount);
+        scorer.AddToScore(scoreAmount * scorer.GetCurrentMultiplier());
         Vector3 indicatorPosition = Camera.main.WorldToScreenPoint(this.transform.position);
-        indicatorSpawner.SpawnIndicator(CollectibleType.ScoreUp,$"+{scoreAmount}",indicatorPosition);
+        indicatorSpawner.SpawnIndicator(CollectibleType.ScoreUp,$"+{scoreAmount * scorer.GetCurrentMultiplier()}",indicatorPosition);
         Explode();
 
     }
@@ -75,20 +75,20 @@ public class Asteroid : MonoBehaviour
 
         if (other.CompareTag("Shield"))
         {
-            scorer.AddToScore(scoreAmount);
+            scorer.AddToScore(scoreAmount * scorer.GetCurrentMultiplier());
             indicatorSpawner.SpawnIndicator(
                 CollectibleType.ScoreUp, 
-                $"-{scoreAmount}",
+                $"-{scoreAmount * scorer.GetCurrentMultiplier()}",
                 FindObjectOfType<PlayerMovement>().GetPlayerScreenPosition()
             );
         }
         else if (other.CompareTag("Player"))
         {
             other.gameObject.GetComponent<PlayerHealth>().TakeDamage(damageAmount);
-            scorer.RemoveFromScore(scoreAmount);
+            scorer.RemoveFromScore(scoreAmount * scorer.GetCurrentMultiplier());
             indicatorSpawner.SpawnIndicator(
                                             CollectibleType.ScoreDown, 
-                                            $"-{scoreAmount}",
+                                            $"-{scoreAmount * scorer.GetCurrentMultiplier()}",
                                             FindObjectOfType<PlayerMovement>().GetPlayerScreenPosition()
                                             );
         }

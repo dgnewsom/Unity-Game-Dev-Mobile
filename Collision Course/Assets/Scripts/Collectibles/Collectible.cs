@@ -12,6 +12,9 @@ public class Collectible : MonoBehaviour
 {
     [SerializeField] private CollectibleType collectibleType;
     [SerializeField] private Material[] forceFieldMaterials;
+    [SerializeField] private Material[] particleMaterials;
+    [SerializeField] private GameObject pickupModel;
+    [SerializeField] private ParticleSystem pickupEffect;
     [SerializeField] private readonly int[] percentages = new[] {10, 15, 20, 25, 30, 35, 40, 50};
     [SerializeField] private readonly int[] multipliers = new[] {2, 3, 4, 5, 10, 15, 20, 25};
     [SerializeField] private readonly int[] effectTimes = new[] {10, 15, 20, 30, 45, 60};
@@ -34,7 +37,6 @@ public class Collectible : MonoBehaviour
         uiScript = FindObjectOfType<UIScript>();
         mainCamera = Camera.main;
         indicatorSpawner = FindObjectOfType<CollectibleIndicatorSpawner>();
-
         //For Testing
         InitialiseCollectible();
     }
@@ -107,6 +109,7 @@ public class Collectible : MonoBehaviour
         if (collectibleType.Equals(CollectibleType.Lasers) || collectibleType.Equals(CollectibleType.Shield))
         {
             forceFieldMeshRenderer.material = forceFieldMaterials[0];
+            pickupEffect.GetComponent<Renderer>().material = particleMaterials[0];
             collectibleIconImage.color = Color.white;
             return;
         }
@@ -115,16 +118,19 @@ public class Collectible : MonoBehaviour
         if (colour.Equals(Color.green))
         {
             forceFieldMeshRenderer.material = forceFieldMaterials[0];
+            pickupEffect.GetComponent<Renderer>().material = particleMaterials[0];
         }
 
         if (colour.Equals(Color.red))
         {
             forceFieldMeshRenderer.material = forceFieldMaterials[1];
+            pickupEffect.GetComponent<Renderer>().material = particleMaterials[1];
         }
 
         if (colour.Equals(Color.yellow))
         {
             forceFieldMeshRenderer.material = forceFieldMaterials[2];
+            pickupEffect.GetComponent<Renderer>().material = particleMaterials[2];
         }
     }
 
@@ -181,12 +187,9 @@ public class Collectible : MonoBehaviour
                 indicatorSpawner.SpawnIndicator(collectibleType,$"{collectibleAmount}%",indicatorPosition);
                 break;
             case CollectibleType.ScoreMultiply:
-                if (!uiScript.MultiplierActive)
-                {
-                    soundManager.PlayPositivePickupSound();
-                    uiScript.StartMultiplier(collectibleAmount, effectTime);
-                    indicatorSpawner.SpawnIndicator(collectibleType,$"x{collectibleAmount}",indicatorPosition);
-                }
+                soundManager.PlayPositivePickupSound();
+                uiScript.StartMultiplier(collectibleAmount, effectTime);
+                indicatorSpawner.SpawnIndicator(collectibleType,$"x{collectibleAmount}",indicatorPosition);
                 break;
             case CollectibleType.HealthUp:
                 soundManager.PlayPositivePickupSound();
@@ -194,18 +197,12 @@ public class Collectible : MonoBehaviour
                 indicatorSpawner.SpawnIndicator(collectibleType,$"{collectibleAmount}%",indicatorPosition);
                 break;
             case CollectibleType.Lasers:
-                if (!uiScript.LasersActive)
-                {
-                    uiScript.StartLasers(effectTime);
-                    indicatorSpawner.SpawnIndicator(collectibleType,$"",indicatorPosition);
-                }
+                uiScript.StartLasers(effectTime);
+                indicatorSpawner.SpawnIndicator(collectibleType,$"",indicatorPosition);
                 break;
             case CollectibleType.Shield:
-                if (!uiScript.ShieldActive)
-                {
-                    uiScript.StartShield(effectTime);
-                    indicatorSpawner.SpawnIndicator(collectibleType,$"",indicatorPosition);
-                }
+                uiScript.StartShield(effectTime);
+                indicatorSpawner.SpawnIndicator(collectibleType,$"",indicatorPosition);
                 break;
             case CollectibleType.Continue:
                 soundManager.PlayContinuePickupSound();
@@ -220,7 +217,15 @@ public class Collectible : MonoBehaviour
 
     private void PickupCollectible()
     {
-        //TODO collectPickup fx
-        Destroy(gameObject);
+        pickupEffect.Play();
+        pickupModel.SetActive(false);
+        DisableColliders();
+        Destroy(gameObject,1f);
+    }
+
+    private void DisableColliders()
+    {
+        GetComponent<Collider>().enabled = false;
+        GetComponentInChildren<Collider>().enabled = false;
     }
 }
