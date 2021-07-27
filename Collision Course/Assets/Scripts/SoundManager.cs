@@ -39,12 +39,11 @@ public class SoundManager : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
-            backgroundMusic = GetComponent<AudioSource>();
             playBGM = PlayerPrefs.GetInt(PlayBGMKey, 1);
             playSFX = PlayerPrefs.GetInt(PlaySFXKey, 1);
-            BGMVolume = PlayerPrefs.GetFloat(BGMVolumeKey, 1f);
+            BGMVolume = Mathf.Clamp01(PlayerPrefs.GetFloat(BGMVolumeKey, 1f));
             backgroundMusic.volume = BGMVolume;
-            SFXVolume = Mathf.Clamp01(PlayerPrefs.GetFloat(SFXVolumeKey, 1));
+            SFXVolume = Mathf.Clamp01(PlayerPrefs.GetFloat(SFXVolumeKey, 1f));
             if (playBGM == 1)
             {
                 SetBackgroundMusic();
@@ -52,18 +51,96 @@ public class SoundManager : MonoBehaviour
         }
     }
 
-    private void SetBGMVolume(float volume)
+    public int ToggleBGM()
     {
-        PlayerPrefs.SetFloat(BGMVolumeKey,BGMVolume);
-        backgroundMusic.volume = BGMVolume;
+        playBGM = PlayerPrefs.GetInt(PlayBGMKey);
+
+        if (playBGM == 1)
+        {
+            playBGM = 0;
+        }
+        else
+        {
+            playBGM = 1;
+        }
+        SetBackgroundMusic();
+        PlayerPrefs.SetInt(PlayBGMKey, playBGM);
+        return playBGM;
     }
-    
-    private void SetSFXVolume(float volume)
+
+    public int ToggleSFX()
+    {
+        playSFX = PlayerPrefs.GetInt(PlaySFXKey);
+
+        if (playSFX == 1)
+        {
+            playSFX = 0;
+        }
+        else
+        {
+            playSFX = 1;
+        }
+        PlayerPrefs.SetInt(PlaySFXKey,playSFX);
+        return playSFX;
+    }
+
+    /*public void SetBGMActive(bool isActive)
+    {
+        if (isActive)
+        {
+            if (playBGM != 1)
+            {
+                BGMVolume = savedBGMVolume;
+                playBGM = 1;
+            }
+        }
+        else
+        {
+            savedBGMVolume = BGMVolume;
+            BGMVolume = 0f;
+            playBGM = 0;
+        }
+        PlayerPrefs.SetInt(PlayBGMKey, playBGM);
+        
+    }
+
+    public void SetSFXActive(bool isActive)
+    {
+        if (isActive)
+        {
+            if (playSFX != 1)
+            {
+                SFXVolume = savedSFXVolume;
+                playSFX = 1;
+            }
+        }
+        else
+        {
+            savedSFXVolume = SFXVolume;
+            SFXVolume = 0f;
+            playSFX = 0;
+        }
+        PlayerPrefs.SetInt(PlaySFXKey, playSFX);
+    }*/
+
+    public void SetBGMVolume(float volume)
+    {
+        BGMVolume = Mathf.Clamp01(volume);
+        backgroundMusic.volume = BGMVolume;
+        PlayerPrefs.SetFloat(BGMVolumeKey,BGMVolume);
+        
+            if (!backgroundMusic.isPlaying)
+            {
+                SetBackgroundMusic();
+            }
+    }
+
+    public void SetSFXVolume(float volume)
     {
         SFXVolume = Mathf.Clamp01(volume);
         PlayerPrefs.SetFloat(SFXVolumeKey,SFXVolume);
     }
-    
+
     public void SetBackgroundMusic()
     {
         if (!backgroundMusic.isPlaying && playBGM == 1)
@@ -85,7 +162,7 @@ public class SoundManager : MonoBehaviour
     {
         if (!rocketBoostSound.isPlaying && playSFX.Equals(1))
         {
-            rocketBoostSound.volume = SFXVolume * 1.5f;
+            rocketBoostSound.volume = SFXVolume;
             rocketBoostSound.Play();
         }
     }
@@ -100,7 +177,7 @@ public class SoundManager : MonoBehaviour
         
         if (!lasersSound.isPlaying && playSFX.Equals(1))
         {
-            lasersSound.volume = SFXVolume * 0.6f;
+            lasersSound.volume = SFXVolume;
             lasersSound.Play();
         }
     }
@@ -145,7 +222,7 @@ public class SoundManager : MonoBehaviour
             backgroundMusic.PlayOneShot(shieldOffSound, SFXVolume);
         }
     }
-    
+
     public void PlayContinuePickupSound()
     {
 
@@ -154,6 +231,7 @@ public class SoundManager : MonoBehaviour
             backgroundMusic.PlayOneShot(continuePickupSound, SFXVolume);
         }
     }
+
     public void PlayPlayerExplosionSound()
     {
 
@@ -170,40 +248,5 @@ public class SoundManager : MonoBehaviour
         {
             backgroundMusic.PlayOneShot(asteroidExplosionSound, SFXVolume);
         }
-    }
-
-
-
-    public int ToggleBGM()
-    {
-        playBGM = PlayerPrefs.GetInt(PlayBGMKey);
-
-        if (playBGM == 1)
-        {
-            playBGM = 0;
-        }
-        else
-        {
-            playBGM = 1;
-        }
-        PlayerPrefs.SetInt(PlayBGMKey,playBGM);
-        SetBackgroundMusic();
-        return playBGM;
-    }
-
-    public int ToggleSFX()
-    {
-        playSFX = PlayerPrefs.GetInt(PlaySFXKey);
-
-        if (playSFX == 1)
-        {
-            playSFX = 0;
-        }
-        else
-        {
-            playSFX = 1;
-        }
-        PlayerPrefs.SetInt(PlaySFXKey, playSFX);
-        return playSFX;
     }
 }

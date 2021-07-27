@@ -49,7 +49,7 @@ public class PlayerHealth : MonoBehaviour
         playerModel.SetActive(false);
         GetComponent<Collider>().enabled = false;
         GetComponent<Rigidbody>().velocity /= 3;
-        FindObjectOfType<SoundManager>().PlayPlayerExplosionSound();
+        SoundManager.Instance.PlayPlayerExplosionSound();
         GetComponentInChildren<ParticleSystem>().Play();
         UIScript.IsRunning = false;
         Invoke(nameof(ShowGameOverScreen),2f);

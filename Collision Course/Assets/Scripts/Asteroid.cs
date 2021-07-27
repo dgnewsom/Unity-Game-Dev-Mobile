@@ -101,7 +101,7 @@ public class Asteroid : MonoBehaviour
     /// </summary>
     private void Explode()
     {
-        FindObjectOfType<SoundManager>().PlayAsteroidExplosionSound();
+        SoundManager.Instance.PlayAsteroidExplosionSound();
         EnableColliders(false);
         asteroidModel.gameObject.SetActive(false);
         rb.velocity /= 3;

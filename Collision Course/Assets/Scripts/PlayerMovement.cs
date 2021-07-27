@@ -14,7 +14,6 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 movementDirection;
     private Vector3 initialPosition;
     private Quaternion initialRotation;
-    private SoundManager soundManager;
     
     void Start()
     {
@@ -23,7 +22,6 @@ public class PlayerMovement : MonoBehaviour
         playerHealth = GetComponent<PlayerHealth>();
         mainCamera = Camera.main;
         rb = GetComponent<Rigidbody>();
-        soundManager = FindObjectOfType<SoundManager>();
     }
 
     void Update()
@@ -62,11 +60,11 @@ public class PlayerMovement : MonoBehaviour
             movementDirection = worldPosition - transform.position;
             movementDirection.z = 0f;
             movementDirection.Normalize();
-            soundManager.PlayBoostSound();
+            SoundManager.Instance.PlayBoostSound();
         }
         else
         {
-            soundManager.StopBoostSound();
+            SoundManager.Instance.StopBoostSound();
             SetTouchIndicator(Vector3.zero);
             movementDirection = Vector3.zero;
         }

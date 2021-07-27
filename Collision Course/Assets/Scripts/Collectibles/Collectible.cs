@@ -173,26 +173,25 @@ public class Collectible : MonoBehaviour
     private void ActivateCollectible()
     {
         Vector3 indicatorPosition = FindObjectOfType<PlayerMovement>().GetPlayerScreenPosition();
-        SoundManager soundManager = FindObjectOfType<SoundManager>();
         switch (collectibleType)
         {
             case CollectibleType.ScoreUp:
-                soundManager.PlayPositivePickupSound();
+                SoundManager.Instance.PlayPositivePickupSound();
                 FindObjectOfType<Scorer>().IncreaseScorePercentage(collectibleAmount);
                 indicatorSpawner.SpawnIndicator(collectibleType,$"{collectibleAmount}%",indicatorPosition);
                 break;
             case CollectibleType.ScoreDown:
-                soundManager.PlayNegativePickupSound();
+                SoundManager.Instance.PlayNegativePickupSound();
                 FindObjectOfType<Scorer>().DecreaseScorePercentage(collectibleAmount);
                 indicatorSpawner.SpawnIndicator(collectibleType,$"{collectibleAmount}%",indicatorPosition);
                 break;
             case CollectibleType.ScoreMultiply:
-                soundManager.PlayPositivePickupSound();
+                SoundManager.Instance.PlayPositivePickupSound();
                 uiScript.StartMultiplier(collectibleAmount, effectTime);
                 indicatorSpawner.SpawnIndicator(collectibleType,$"x{collectibleAmount}",indicatorPosition);
                 break;
             case CollectibleType.HealthUp:
-                soundManager.PlayPositivePickupSound();
+                SoundManager.Instance.PlayPositivePickupSound();
                 FindObjectOfType<PlayerHealth>().IncreaseHealthPercentage(collectibleAmount);
                 indicatorSpawner.SpawnIndicator(collectibleType,$"{collectibleAmount}%",indicatorPosition);
                 break;
@@ -205,7 +204,7 @@ public class Collectible : MonoBehaviour
                 indicatorSpawner.SpawnIndicator(collectibleType,$"",indicatorPosition);
                 break;
             case CollectibleType.Continue:
-                soundManager.PlayContinuePickupSound();
+                SoundManager.Instance.PlayContinuePickupSound();
                 Scorer.IncreaseContinues();
                 indicatorSpawner.SpawnIndicator(collectibleType,$"",indicatorPosition);
                 break;

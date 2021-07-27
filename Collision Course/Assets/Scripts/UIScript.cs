@@ -278,7 +278,7 @@ public class UIScript : MonoBehaviour
     public void StartShield(float effectTime)
     {
         //Play shield sound
-        FindObjectOfType<SoundManager>().PlayShieldPickupSound();
+        SoundManager.Instance.PlayShieldPickupSound();
 
         //Set timer value and icon visibility
         shieldIcon.color = Color.white;
@@ -380,7 +380,7 @@ public class UIScript : MonoBehaviour
     {
         if (playSound)
         {
-            FindObjectOfType<SoundManager>().PlayShieldOffSound();
+            SoundManager.Instance.PlayShieldOffSound();
         }
         shieldActive = false;
         FindObjectOfType<PlayerHealth>().SetShieldActive(shieldActive);
@@ -394,7 +394,7 @@ public class UIScript : MonoBehaviour
     {
         lasersActive = false;
         FindObjectOfType<PlayerHealth>().SetLasersActive(lasersActive);
-        FindObjectOfType<SoundManager>().StopLasersSound();
+        SoundManager.Instance.StopLasersSound();
         ClearLasersDisplay();
     }
 

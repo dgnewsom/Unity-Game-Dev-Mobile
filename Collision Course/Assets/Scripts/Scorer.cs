@@ -8,7 +8,7 @@ public class Scorer : MonoBehaviour
     [SerializeField] private int continuesAllowed;
     [SerializeField] private float levelUpIncrements;
 
-    private float score = 0;
+    [SerializeField] private float score = 0;
     private int level = 1;
     private UIScript uiscript;
     private static int continuesRemaining;
