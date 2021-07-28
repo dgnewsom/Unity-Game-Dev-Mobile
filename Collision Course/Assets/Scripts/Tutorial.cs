@@ -8,24 +8,34 @@ using UnityEngine.Video;
 public class Tutorial : MonoBehaviour
 {
     [SerializeField] private TutorialVideo[] InstructionImages;
+    [SerializeField] private RenderTexture renderTexture;
     [SerializeField] private VideoPlayer videoPlayer;
     [SerializeField] private TMP_Text titleText;
     [SerializeField] private Button nextButton;
     [SerializeField] private Button previousButton;
 
     private int imageIndex = 0;
+    private Animator animator;
+
+    private void Awake()
+    {
+        animator = GetComponentInChildren<Animator>();
+    }
+
 
     private void OnEnable()
     {
         imageIndex = 0;
         videoPlayer.clip = InstructionImages[imageIndex].Video;
         titleText.text = InstructionImages[imageIndex].Title;
+        animator.SetBool("ShowVideo",true);
         SetButtonsEnabled();
     }
 
     private void OnDisable()
     {
-        videoPlayer.clip = null;
+        animator.SetBool("ShowVideo",false);
+        renderTexture.Release();
     }
 
     /// <summary>
@@ -35,11 +45,20 @@ public class Tutorial : MonoBehaviour
     {
         if (imageIndex < InstructionImages.Length - 1)
         {
-            imageIndex++;
-            videoPlayer.clip = InstructionImages[imageIndex].Video;
-            titleText.text = InstructionImages[imageIndex].Title;
-            SetButtonsEnabled();
+            StartCoroutine(SwitchNextVideo(0.00f));
         }
+    }
+
+    IEnumerator SwitchNextVideo(float delay)
+    {
+        animator.SetBool("ShowVideo", false);
+        yield return new WaitForSeconds(delay);
+        renderTexture.Release();
+        imageIndex++;
+        videoPlayer.clip = InstructionImages[imageIndex].Video;
+        titleText.text = InstructionImages[imageIndex].Title;
+        SetButtonsEnabled();
+        animator.SetBool("ShowVideo", true);
     }
 
     /// <summary>
@@ -49,11 +68,20 @@ public class Tutorial : MonoBehaviour
     {
         if (imageIndex > 0)
         {
-            imageIndex--;
-            videoPlayer.clip = InstructionImages[imageIndex].Video;
-            titleText.text = InstructionImages[imageIndex].Title;
-            SetButtonsEnabled();
+            StartCoroutine(SwitchPrevVideo(0.00f));
         }
+    }
+
+    IEnumerator SwitchPrevVideo(float delay)
+    {
+        animator.SetBool("ShowVideo", false);
+        yield return new WaitForSeconds(delay);
+        renderTexture.Release();
+        imageIndex--;
+        videoPlayer.clip = InstructionImages[imageIndex].Video;
+        titleText.text = InstructionImages[imageIndex].Title;
+        SetButtonsEnabled();
+        animator.SetBool("ShowVideo", true);
     }
 
     /// <summary>

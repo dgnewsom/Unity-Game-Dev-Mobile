@@ -205,6 +205,7 @@ MonoBehaviour:
   - {fileID: 3604125311272398864, guid: 40d7057ba4ebc084fb4bf8e382bd1b20, type: 3}
   - {fileID: 3604125311272398864, guid: d23690bdc5b4dec4e8e3034b004970c8, type: 3}
   - {fileID: 3604125311272398864, guid: a544055519fa31643839b9383a8b011b, type: 3}
+  renderTexture: {fileID: 8400000, guid: ca002f05558c091469ee8487290b2ccc, type: 2}
   videoPlayer: {fileID: 302069260}
   titleText: {fileID: 2081360322}
   nextButton: {fileID: 133008952}
@@ -429,6 +430,7 @@ GameObject:
   - component: {fileID: 302069262}
   - component: {fileID: 302069260}
   - component: {fileID: 302069261}
+  - component: {fileID: 762528887}
   m_Layer: 0
   m_Name: Video Player
   m_TagString: Untagged
@@ -468,7 +470,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -490,7 +492,7 @@ VideoPlayer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 302069258}
   m_Enabled: 1
-  m_VideoClip: {fileID: 0}
+  m_VideoClip: {fileID: 32900000, guid: 63b5a14c04b2a094486704ebdc4f2019, type: 3}
   m_TargetCameraAlpha: 1
   m_TargetCamera3DLayout: 0
   m_TargetCamera: {fileID: 0}
@@ -503,16 +505,18 @@ VideoPlayer:
   m_DataSource: 0
   m_PlaybackSpeed: 1
   m_AudioOutputMode: 0
-  m_TargetAudioSources: []
-  m_DirectAudioVolumes: []
+  m_TargetAudioSources:
+  - {fileID: 0}
+  m_DirectAudioVolumes:
+  - 1
   m_Url: 
-  m_EnabledAudioTracks: 
-  m_DirectAudioMutes: 
-  m_ControlledAudioTrackCount: 0
+  m_EnabledAudioTracks: 01
+  m_DirectAudioMutes: 00
+  m_ControlledAudioTrackCount: 1
   m_PlayOnAwake: 1
-  m_SkipOnDrop: 1
+  m_SkipOnDrop: 0
   m_Looping: 1
-  m_WaitForFirstFrame: 0
+  m_WaitForFirstFrame: 1
   m_FrameReadyEventEnabled: 0
   m_VideoShaders: []
 --- !u!222 &302069261
@@ -523,6 +527,25 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 302069258}
   m_CullTransparentMesh: 1
+--- !u!95 &762528887
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 302069258}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 06d14dfa93730714e9866f6bb3d68c14, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &376569526
 GameObject:
   m_ObjectHideFlags: 0

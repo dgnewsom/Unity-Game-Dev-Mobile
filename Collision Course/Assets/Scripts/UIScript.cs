@@ -151,19 +151,21 @@ public class UIScript : MonoBehaviour
         IsRunning = false;
         gameOverScreen.SetActive(true);
         int score = (int)scorer.Score;
+        int level = scorer.Level;
         bool isHighScore = scorer.CheckHighScore();
         int highScore = PlayerPrefs.GetInt(Scorer.HighscoreKey, 0);
         if (isHighScore)
         {
             highscoreDisplay.text = $"Score - {score:0000000000}\n" +
                                     $"New HighScore!\n " +
-                                    $"Level {PlayerPrefs.GetInt(Scorer.LevelHighscoreKey)} - {highScore:0000000000}";
+                                    $"Level {level} - {highScore:0000000000}";
             StartCoroutine(FlashHighscoreText());
         }
         else
         {
             highscoreDisplay.text = $"Score - {score:0000000000}\n" +
-                                    $"HighScore - {highScore:0000000000}";
+                                    $"HighScore\n " +
+                                    $"Level {level} - {highScore:0000000000}";
         }
 
         continueButtonText.text = $"Continue ( {Scorer.ContinuesRemaining} )";

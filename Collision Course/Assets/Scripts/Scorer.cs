@@ -20,8 +20,10 @@ public class Scorer : MonoBehaviour
     public static string LevelHighscoreKey = "LevelHighcore";
 
     public float Score => score;
+    public int Level => level;
 
     public static int ContinuesRemaining => continuesRemaining;
+
 
     private void Awake()
     {
