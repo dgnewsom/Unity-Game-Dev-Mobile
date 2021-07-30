@@ -8,6 +8,7 @@ public class ObjectSpawner : MonoBehaviour
 {
     [Header("Asteroid spawn parameters")]
     [SerializeField] private Transform AsteroidPoolParent;
+    [SerializeField] private Transform activeAsteroidsParent;
     [SerializeField] private Vector2 asteroidSpawnTimeRange;
     [SerializeField] private Vector2 asteroidSpeedRange;
 
@@ -31,6 +32,7 @@ public class ObjectSpawner : MonoBehaviour
     private Vector2 spawnForceDirection = Vector2.zero;
     private Vector3 worldSpawnPoint;
 
+
     private void Start()
     {
         ResetCollectibleSpawnTimer();
@@ -44,6 +46,7 @@ public class ObjectSpawner : MonoBehaviour
         foreach (Transform asteroid in AsteroidPoolParent)
         {
             temp.Add(asteroid.gameObject);
+            asteroid.gameObject.SetActive(false);
         }
 
         asteroidPool = temp.ToArray();
@@ -79,6 +82,7 @@ public class ObjectSpawner : MonoBehaviour
 
     private void SpawnCollectible()
     {
+        
         ResetCollectibleSpawnTimer();
         SetSpawnPointAndDirection();
 
@@ -103,14 +107,15 @@ public class ObjectSpawner : MonoBehaviour
     /// </summary>
     private void SpawnAsteroid()
     {
+        if(AsteroidPoolParent.childCount <= 0){return;}
         ResetAsteroidSpawnTimer();
         SetSpawnPointAndDirection();
         GameObject asteroid = GetAsteroidFromPool();
+        asteroid.transform.parent = activeAsteroidsParent;
         asteroid.transform.position = worldSpawnPoint;
         asteroid.SetActive(true);
         Rigidbody rb = asteroid.GetComponent<Rigidbody>();
         rb.velocity = spawnForceDirection.normalized * Random.Range(asteroidSpeedRange.x, asteroidSpeedRange.y);
-
     }
 
     private GameObject GetAsteroidFromPool()

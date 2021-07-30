@@ -32,7 +32,7 @@ public class IndicatorScript : MonoBehaviour
     {
         if (UIScript.IsRunning && moving)
         {
-            rectTransform.position = Vector3.LerpUnclamped(rectTransform.position, targetRectTransform.position, Time.deltaTime * 3);
+            rectTransform.position = Vector3.LerpUnclamped(rectTransform.position, targetRectTransform.position, Time.deltaTime);
             if (Vector3.Distance(rectTransform.position, targetRectTransform.position) <= 200)
             {
                 Destroy(this.gameObject);

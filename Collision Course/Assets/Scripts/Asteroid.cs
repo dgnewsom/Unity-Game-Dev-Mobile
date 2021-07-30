@@ -3,25 +3,44 @@ using UnityEngine;
 
 public class Asteroid : MonoBehaviour
 {
-    [SerializeField] private int damageAmount = 1;
+    [SerializeField] private AsteroidType asteroidType;
+    [SerializeField] private int damageAmount;
     [SerializeField] private Transform asteroidModel;
     [SerializeField] private Vector2 spinSpeedRange;
     [SerializeField] private float scoreAmount;
-
+    [SerializeField] private GameObject[] asteroidModels;
+    
     private float spinSpeed;
     private Rigidbody rb;
     private CollectibleIndicatorSpawner indicatorSpawner;
     private Scorer scorer;
     private Camera mainCamera;
+    private Transform asteroidPool;
 
     private void Start()
     {
+        CreateAsteroidModel();
+        SetAsteroidType();
         spinSpeed = GetSpinSpeed();
         asteroidModel.rotation = Quaternion.Euler(new Vector3(Random.Range(0f, 360f), Random.Range(0f, 360f), Random.Range(0f, 360f)));
         rb = GetComponent<Rigidbody>();
         indicatorSpawner = FindObjectOfType<CollectibleIndicatorSpawner>();
         scorer = FindObjectOfType<Scorer>();
         mainCamera = Camera.main;
+        asteroidPool = GameObject.Find("Asteroid Pool").transform;
+
+    }
+
+    private void SetAsteroidType()
+    {
+        asteroidModel.GetComponent<AsteroidModel>().SetMaterial(asteroidType);
+        damageAmount = (int) asteroidType + 1;
+        scoreAmount = ((int) asteroidType + 1) * 1000;
+    }
+
+    private void CreateAsteroidModel()
+    {
+        asteroidModel = Instantiate(asteroidModels[Random.Range(0, asteroidModels.Length)], transform.position, Quaternion.identity, transform).transform;
     }
 
     private float GetSpinSpeed()
@@ -39,6 +58,16 @@ public class Asteroid : MonoBehaviour
     {
         ApplySpinToAsteroid();
         CheckAsteroidOnScreen();
+    }
+
+    void OnEnable()
+    {
+        if (asteroidModel != null)
+        {
+            spinSpeed = GetSpinSpeed();
+            asteroidModel.rotation = Quaternion.Euler(new Vector3(Random.Range(0f, 360f), Random.Range(0f, 360f), Random.Range(0f, 360f)));
+            asteroidModel.GetComponent<AsteroidModel>().Reset();
+        }
     }
 
     /// <summary>
@@ -62,7 +91,7 @@ public class Asteroid : MonoBehaviour
     {
         scorer.AddToScore(scoreAmount * scorer.GetCurrentMultiplier());
         Vector3 indicatorPosition = Camera.main.WorldToScreenPoint(this.transform.position);
-        indicatorSpawner.SpawnIndicator(CollectibleType.ScoreUp,$"+{scoreAmount * scorer.GetCurrentMultiplier()}",indicatorPosition);
+        indicatorSpawner.SpawnIndicator(CollectibleType.ScoreUp,$"{scoreAmount * scorer.GetCurrentMultiplier()}",indicatorPosition);
         Explode();
 
     }
@@ -78,7 +107,7 @@ public class Asteroid : MonoBehaviour
             scorer.AddToScore(scoreAmount * scorer.GetCurrentMultiplier());
             indicatorSpawner.SpawnIndicator(
                 CollectibleType.ScoreUp, 
-                $"-{scoreAmount * scorer.GetCurrentMultiplier()}",
+                $"{scoreAmount * scorer.GetCurrentMultiplier()}",
                 FindObjectOfType<PlayerMovement>().GetPlayerScreenPosition()
             );
         }
@@ -88,7 +117,7 @@ public class Asteroid : MonoBehaviour
             scorer.RemoveFromScore(scoreAmount * scorer.GetCurrentMultiplier());
             indicatorSpawner.SpawnIndicator(
                                             CollectibleType.ScoreDown, 
-                                            $"-{scoreAmount * scorer.GetCurrentMultiplier()}",
+                                            $"{scoreAmount * scorer.GetCurrentMultiplier()}",
                                             FindObjectOfType<PlayerMovement>().GetPlayerScreenPosition()
                                             );
         }
@@ -103,10 +132,11 @@ public class Asteroid : MonoBehaviour
     {
         SoundManager.Instance.PlayAsteroidExplosionSound();
         EnableColliders(false);
-        asteroidModel.gameObject.SetActive(false);
+        //asteroidModel.gameObject.SetActive(false);
         rb.velocity /= 3;
+        asteroidModel.GetComponent<AsteroidModel>().Explode();
         GetComponentInChildren<ParticleSystem>().Play();
-        StartCoroutine(DisableAsteroid(5f));
+        StartCoroutine(DisableAsteroid(1.1f));
     }
 
     private void EnableColliders(bool enabled)
@@ -121,8 +151,9 @@ public class Asteroid : MonoBehaviour
     IEnumerator DisableAsteroid(float delay)
     {
         yield return new WaitForSeconds(delay);
-        asteroidModel.gameObject.SetActive(true);
+        //asteroidModel.gameObject.SetActive(true);
         EnableColliders(true);
+        transform.parent = asteroidPool;
         gameObject.SetActive(false);
     }
 }

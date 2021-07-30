@@ -29,7 +29,6 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 8269573219115785479}
   - {fileID: 541855976007120660}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -46,10 +45,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bfdd0821390b8c1409283fca3b576dd9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  asteroidType: 0
   damageAmount: 1
-  asteroidModel: {fileID: 8269573219115785479}
-  spinSpeedRange: {x: -5, y: 5}
+  asteroidModel: {fileID: 0}
+  spinSpeedRange: {x: -10, y: 10}
   scoreAmount: 0
+  asteroidModels:
+  - {fileID: 1697716047291672041, guid: 5b66625f904f2014981e2a1fc465b3f9, type: 3}
 --- !u!54 &853578148
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -66,36 +68,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 8
   m_CollisionDetection: 0
---- !u!1 &7017000986114052712
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 8269573219115785479}
-  m_Layer: 0
-  m_Name: AsteroidModel
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &8269573219115785479
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7017000986114052712}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1329746602396885454}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &6722745087166652554
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -109,7 +81,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6543433572651472798, guid: be47e6a23b85d8549a448bd56e7e6fc8, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6543433572651472798, guid: be47e6a23b85d8549a448bd56e7e6fc8, type: 3}
       propertyPath: m_LocalPosition.x
@@ -158,6 +130,14 @@ PrefabInstance:
     - target: {fileID: 7656025639839831719, guid: be47e6a23b85d8549a448bd56e7e6fc8, type: 3}
       propertyPath: ShapeModule.radiusThickness
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7656025639839831719, guid: be47e6a23b85d8549a448bd56e7e6fc8, type: 3}
+      propertyPath: InitialModule.startColor.maxGradient.key1.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7656025639839831719, guid: be47e6a23b85d8549a448bd56e7e6fc8, type: 3}
+      propertyPath: InitialModule.startColor.maxGradient.key1.g
+      value: 0.30576426
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: be47e6a23b85d8549a448bd56e7e6fc8, type: 3}
