@@ -110,7 +110,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &4497301306807702252
 Transform:
   m_ObjectHideFlags: 0
@@ -180,7 +180,7 @@ MonoBehaviour:
   forceMagnitude: 850
   maxVelocity: 7
   touchIndicator: {fileID: 0}
-  rotationSpeed: 7.5
+  rotationSpeed: 10
 --- !u!114 &4020782491226056624
 MonoBehaviour:
   m_ObjectHideFlags: 0

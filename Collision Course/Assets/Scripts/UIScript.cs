@@ -405,4 +405,11 @@ public class UIScript : MonoBehaviour
         currentLevelText.text = $"Level {currentLevel}";
         nextLevelText.text = $"Next level - {nextLevel:#,###0}";
     }
+
+    public void StopAllPickups()
+    {
+        StopLasers();
+        StopShield();
+        StopMultiplier();
+    }
 }

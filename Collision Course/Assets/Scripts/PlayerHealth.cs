@@ -51,6 +51,7 @@ public class PlayerHealth : MonoBehaviour
         GetComponent<Rigidbody>().velocity /= 3;
         SoundManager.Instance.PlayPlayerExplosionSound();
         GetComponentInChildren<ParticleSystem>().Play();
+        uiScript.StopAllPickups();
         UIScript.IsRunning = false;
         Invoke(nameof(ShowGameOverScreen),2f);
     }
