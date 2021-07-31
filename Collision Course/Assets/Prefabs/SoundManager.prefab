@@ -41,7 +41,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: a5697a90b5cdd284abe6e9d7e87817a2, type: 3}
+  m_audioClip: {fileID: 8300000, guid: c23ae611411dabb4f84476993fc9d9b9, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 0.5
   m_Pitch: 1.1
@@ -170,7 +170,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 3c99619eabb4e854f85395d8647ff0e5, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.7
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -439,3 +439,4 @@ MonoBehaviour:
   continuePickupSound: {fileID: 8300000, guid: cb7c1c2815810854fbb50f19924a75ad, type: 3}
   countdownBeepSound: {fileID: 8300000, guid: 7a271b3986e131845b8a911e60990dbf, type: 3}
   startBeepSound: {fileID: 8300000, guid: f434f27629d6b2b4d9a150d9539dfa6c, type: 3}
+  laserChargeSound: {fileID: 8300000, guid: 5cbca60185678f84bbb5ad91fc694b8c, type: 3}

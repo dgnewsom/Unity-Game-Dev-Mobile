@@ -302,7 +302,9 @@ public class UIScript : MonoBehaviour
     /// <param name="effectTime">Time to set Lasers active for</param>
     public void StartLasers(float effectTime)
     {
-        
+        //Play Laser charge sound
+        SoundManager.Instance.PlayLaserChargeSound();
+
         //Set timer value and icon visibility
         laserIcon.color = Color.white;
         laserTimer += effectTime;

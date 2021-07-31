@@ -373,7 +373,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5901255284623861571, guid: 97009870359f1c849af4753bdfddf2e1, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 97009870359f1c849af4753bdfddf2e1, type: 3}
 --- !u!4 &4865460885714344862 stripped
 Transform:
@@ -753,6 +754,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: Laser
       objectReference: {fileID: 0}
+    - target: {fileID: 2233390870573954588, guid: 97009870359f1c849af4753bdfddf2e1, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2233390870573954588, guid: 97009870359f1c849af4753bdfddf2e1, type: 3}
+      propertyPath: m_Center.z
+      value: 1.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 6177298808596374371, guid: 97009870359f1c849af4753bdfddf2e1, type: 3}
+      propertyPath: TriggerModule.enter
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6177298808596374371, guid: 97009870359f1c849af4753bdfddf2e1, type: 3}
+      propertyPath: TriggerModule.radiusScale
+      value: 4.42
+      objectReference: {fileID: 0}
+    - target: {fileID: 6177298808596374371, guid: 97009870359f1c849af4753bdfddf2e1, type: 3}
+      propertyPath: TriggerModule.colliderQueryMode
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 7972014577505723596, guid: 97009870359f1c849af4753bdfddf2e1, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -797,7 +818,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5901255284623861571, guid: 97009870359f1c849af4753bdfddf2e1, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 97009870359f1c849af4753bdfddf2e1, type: 3}
 --- !u!4 &1323965156303183412 stripped
 Transform:

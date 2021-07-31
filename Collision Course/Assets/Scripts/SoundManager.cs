@@ -20,6 +20,7 @@ public class SoundManager : MonoBehaviour
     [SerializeField] private AudioClip continuePickupSound;
     [SerializeField] private AudioClip countdownBeepSound;
     [SerializeField] private AudioClip startBeepSound;
+    [SerializeField] private AudioClip laserChargeSound;
 
     private int playBGM = 1;
     private int playSFX = 1;
@@ -227,6 +228,15 @@ public class SoundManager : MonoBehaviour
         if (playSFX == 1)
         {
             backgroundMusic.PlayOneShot(startBeepSound, SFXVolume);
+        }
+    }
+
+    public void PlayLaserChargeSound()
+    {
+
+        if (playSFX == 1)
+        {
+            backgroundMusic.PlayOneShot(laserChargeSound, SFXVolume);
         }
     }
 }
