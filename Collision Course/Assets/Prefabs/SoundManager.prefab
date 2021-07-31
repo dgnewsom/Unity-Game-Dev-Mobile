@@ -437,3 +437,5 @@ MonoBehaviour:
   shieldPickupSound: {fileID: 8300000, guid: eb613bfa0749e76468efd751b629b13d, type: 3}
   shieldOffSound: {fileID: 8300000, guid: 2d0690b6b3fcf3c408b07f671dd50890, type: 3}
   continuePickupSound: {fileID: 8300000, guid: cb7c1c2815810854fbb50f19924a75ad, type: 3}
+  countdownBeepSound: {fileID: 8300000, guid: 7a271b3986e131845b8a911e60990dbf, type: 3}
+  startBeepSound: {fileID: 8300000, guid: f434f27629d6b2b4d9a150d9539dfa6c, type: 3}

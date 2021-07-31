@@ -199,16 +199,14 @@ public class ObjectSpawner : MonoBehaviour
 
     private CollectibleType GetPickupToSpawn()
     {
-        float random = Random.Range(0,100);
+        float random = Random.Range(0f,100f);
 
-        if (random > 98)
+        if (random > 99)
         {
-            print($"random ({random}) - Continue ");
             return CollectibleType.Continue;
         }
         else
         {
-            print("Other");
             return (CollectibleType)Random.Range(0, System.Enum.GetValues(typeof(CollectibleType)).Length-1);
         }
     }

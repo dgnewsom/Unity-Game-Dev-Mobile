@@ -114,10 +114,10 @@ public class Asteroid : MonoBehaviour
         else if (other.CompareTag("Player"))
         {
             other.gameObject.GetComponent<PlayerHealth>().TakeDamage(damageAmount);
-            scorer.RemoveFromScore(scoreAmount * scorer.GetCurrentMultiplier());
+            scorer.RemoveFromScore(scoreAmount);
             indicatorSpawner.SpawnIndicator(
                                             CollectibleType.ScoreDown, 
-                                            $"{scoreAmount * scorer.GetCurrentMultiplier()}",
+                                            $"{scoreAmount}",
                                             FindObjectOfType<PlayerMovement>().GetPlayerScreenPosition()
                                             );
         }

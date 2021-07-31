@@ -112,11 +112,14 @@ public class UIScript : MonoBehaviour
         countdownText.text = countdown.ToString();
         while (countdown > 0)
         {
+            SoundManager.Instance.PlayCountdownBeepSound();
             yield return new WaitForSecondsRealtime(1);
             countdown--;
             countdownText.text = countdown.ToString();
+            
         }
 
+        SoundManager.Instance.PlayStartBeepSound();
         countdownText.text = "GO!";
 
         IsRunning = true;
@@ -409,7 +412,7 @@ public class UIScript : MonoBehaviour
     public void StopAllPickups()
     {
         StopLasers();
-        StopShield();
+        StopShield(false);
         StopMultiplier();
     }
 }

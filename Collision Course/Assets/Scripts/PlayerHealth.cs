@@ -9,6 +9,10 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] private GameObject playerModel;
     [SerializeField] private GameObject shield;
     [SerializeField] private GameObject lasers;
+    [SerializeField] private ParticleSystem explosion;
+    [SerializeField] private GameObject boosters;
+    
+    private SpaceshipModel spaceshipModel;
     private UIScript uiScript;
     private float currentHealth;
     
@@ -18,6 +22,7 @@ public class PlayerHealth : MonoBehaviour
         currentHealth = maxHealth;
         uiScript = FindObjectOfType<UIScript>();
         uiScript.SetHealthBarValue(currentHealth / maxHealth);
+        spaceshipModel = GetComponentInChildren<SpaceshipModel>();
         SetShieldActive(false);
         SetLasersActive(false);
     }
@@ -46,19 +51,24 @@ public class PlayerHealth : MonoBehaviour
     /// </summary>
     private void DeathBehaviour()
     {
-        playerModel.SetActive(false);
+        //playerModel.SetActive(false);
+        GameObject.FindObjectOfType<CollectibleIndicatorSpawner>().ClearAllIndicators();
+        spaceshipModel.Explode();
         GetComponent<Collider>().enabled = false;
         GetComponent<Rigidbody>().velocity /= 3;
         SoundManager.Instance.PlayPlayerExplosionSound();
-        GetComponentInChildren<ParticleSystem>().Play();
+        explosion.Play();
+        boosters.SetActive(false);
+        SoundManager.Instance.StopBoostSound();
         uiScript.StopAllPickups();
         UIScript.IsRunning = false;
-        Invoke(nameof(ShowGameOverScreen),2f);
+        Invoke(nameof(ShowGameOverScreen),3f);
     }
 
     public void ResetPlayerHealth()
     {
-        playerModel.SetActive(true);
+        //playerModel.SetActive(true);
+        spaceshipModel.Reset();
         GetComponent<Collider>().enabled = true;
         currentHealth = maxHealth;
         UpdateHealthBar();

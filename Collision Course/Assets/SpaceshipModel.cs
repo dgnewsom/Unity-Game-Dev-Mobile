@@ -1,20 +1,16 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
-public class AsteroidModel : MonoBehaviour
+public class SpaceshipModel : MonoBehaviour
 {
     [SerializeField] float minForce = 500f;
     [SerializeField] float maxForce = 750f;
     [SerializeField] private float radius = 1f;
-    [SerializeField] private Material[] asteroidMaterials;
 
     private Transform[] cells;
     private Vector3[] originalCellPositions;
     private Vector3[] originalCellRotations;
-    private GameObject interior;
 
     void Awake()
     {
@@ -34,21 +30,20 @@ public class AsteroidModel : MonoBehaviour
             originalCellRotations[i] = cells[i].localEulerAngles;
             
         }
-
-        interior = cells[cells.Length - 1].gameObject;
         Reset();
     }
 
-// Start is called before the first frame update
+    // Start is called before the first frame update
     void Start()
     {
         /*Explode();
-        Invoke(nameof(Reset),5f);*/
+        Invoke(nameof(Reset),3f);*/
     }
 
     public void Explode()
     {
-        interior.SetActive(false);
+
+        //FindObjectOfType<CollectibleIndicatorSpawner>().ClearAllIndicators();
         foreach (Transform cell in cells)
         {
             Rigidbody rb = cell.GetComponent<Rigidbody>();
@@ -64,7 +59,6 @@ public class AsteroidModel : MonoBehaviour
 
     public void Reset()
     {
-        interior.SetActive(true);
         for (int i = 0; i < cells.Length; i++)
         {
             cells[i].localPosition = originalCellPositions[i];
@@ -77,23 +71,6 @@ public class AsteroidModel : MonoBehaviour
             }
         }
     }
+    
 
-    public void SetMaterial(AsteroidType asteroidType)
-    {
-        try
-        {
-            foreach (Transform cell in cells)
-            {
-                Renderer renderer = cell.GetComponent<Renderer>();
-                if (renderer != null)
-                {
-                    renderer.material = asteroidMaterials[(int) asteroidType];
-                }
-            }
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine("Cannot set asteroid colour - {e}");
-        }
-    }
 }

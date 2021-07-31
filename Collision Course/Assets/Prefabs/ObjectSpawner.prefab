@@ -144,7 +144,7 @@ MonoBehaviour:
   collectibleSpeedRange: {x: 2, y: 4}
   isMenuScene: 0
   asteroidsOn: 1
-  collectiblesOn: 0
+  collectiblesOn: 1
 --- !u!1001 &1990488752911449834
 PrefabInstance:
   m_ObjectHideFlags: 0

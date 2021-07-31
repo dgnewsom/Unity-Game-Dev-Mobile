@@ -7,6 +7,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float maxVelocity;
     [SerializeField] private GameObject touchIndicator;
     [SerializeField] private float rotationSpeed;
+    [SerializeField] private ParticleSystem boosters;
 
     private PlayerHealth playerHealth;
     private Camera mainCamera;
@@ -57,6 +58,8 @@ public class PlayerMovement : MonoBehaviour
 
             SetTouchIndicator(worldPosition);
 
+            SetBooster();
+
             movementDirection = worldPosition - transform.position;
             movementDirection.z = 0f;
             movementDirection.Normalize();
@@ -64,9 +67,23 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
+            SetBooster(false);
             SoundManager.Instance.StopBoostSound();
             SetTouchIndicator(Vector3.zero);
             movementDirection = Vector3.zero;
+        }
+    }
+
+    private void SetBooster(bool isBoosting = true)
+    {
+        ParticleSystem.MainModule main = boosters.main;
+        if (isBoosting)
+        {
+            main.startSpeed = 10f;
+        }
+        else
+        {
+            main.startSpeed = 2f;
         }
     }
 
@@ -142,6 +159,8 @@ public class PlayerMovement : MonoBehaviour
         rb.velocity = Vector3.zero;
         transform.position = initialPosition;
         transform.rotation = initialRotation;
+        movementDirection = Vector3.zero;
+        boosters.gameObject.SetActive(true);
     }
 
     public Vector3 GetPlayerScreenPosition()

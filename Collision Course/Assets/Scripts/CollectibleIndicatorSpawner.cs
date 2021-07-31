@@ -18,9 +18,20 @@ public class CollectibleIndicatorSpawner : MonoBehaviour
 
     public void SpawnIndicator(CollectibleType collectibleType, string collectibleAmount, Vector3 spawnPosition)
     {
-        GameObject indicatorPrefab = Resources.Load<GameObject>("CollectibleIndicator");
-        GameObject indicatorInstance = Instantiate(indicatorPrefab, transform.position, Quaternion.identity, this.transform);
-        indicatorInstance.GetComponent<IndicatorScript>().SetIndicatorValues(collectibleType,collectibleAmount,new Vector2(spawnPosition.x,spawnPosition.y));
-        indicatorInstance.GetComponent<IndicatorScript>().StartMoving();
+        if (UIScript.IsRunning)
+        {
+            GameObject indicatorPrefab = Resources.Load<GameObject>("CollectibleIndicator");
+            GameObject indicatorInstance = Instantiate(indicatorPrefab, transform.position, Quaternion.identity, this.transform);
+            indicatorInstance.GetComponent<IndicatorScript>().SetIndicatorValues(collectibleType,collectibleAmount,new Vector2(spawnPosition.x,spawnPosition.y));
+            indicatorInstance.GetComponent<IndicatorScript>().StartMoving();
+        }
+    }
+
+    public void ClearAllIndicators()
+    {
+        foreach (Transform indicator in transform)
+        {
+            Destroy(indicator.gameObject);
+        }
     }
 }

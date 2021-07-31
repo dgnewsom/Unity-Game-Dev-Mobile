@@ -506,9 +506,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f134bc0b9daa7c4ca53bdd2b52a22a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scoreMultiplier: 10000
+  scoreMultiplier: 5000
   continuesAllowed: 3
   levelUpIncrements: 250000
+  score: 0
 --- !u!1 &440874272
 GameObject:
   m_ObjectHideFlags: 0

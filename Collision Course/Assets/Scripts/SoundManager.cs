@@ -18,6 +18,8 @@ public class SoundManager : MonoBehaviour
     [SerializeField] private AudioClip shieldPickupSound;
     [SerializeField] private AudioClip shieldOffSound;
     [SerializeField] private AudioClip continuePickupSound;
+    [SerializeField] private AudioClip countdownBeepSound;
+    [SerializeField] private AudioClip startBeepSound;
 
     private int playBGM = 1;
     private int playSFX = 1;
@@ -83,46 +85,6 @@ public class SoundManager : MonoBehaviour
         PlayerPrefs.SetInt(PlaySFXKey,playSFX);
         return playSFX;
     }
-
-    /*public void SetBGMActive(bool isActive)
-    {
-        if (isActive)
-        {
-            if (playBGM != 1)
-            {
-                BGMVolume = savedBGMVolume;
-                playBGM = 1;
-            }
-        }
-        else
-        {
-            savedBGMVolume = BGMVolume;
-            BGMVolume = 0f;
-            playBGM = 0;
-        }
-        PlayerPrefs.SetInt(PlayBGMKey, playBGM);
-        
-    }
-
-    public void SetSFXActive(bool isActive)
-    {
-        if (isActive)
-        {
-            if (playSFX != 1)
-            {
-                SFXVolume = savedSFXVolume;
-                playSFX = 1;
-            }
-        }
-        else
-        {
-            savedSFXVolume = SFXVolume;
-            SFXVolume = 0f;
-            playSFX = 0;
-        }
-        PlayerPrefs.SetInt(PlaySFXKey, playSFX);
-    }*/
-
     public void SetBGMVolume(float volume)
     {
         BGMVolume = Mathf.Clamp01(volume);
@@ -162,7 +124,7 @@ public class SoundManager : MonoBehaviour
     {
         if (!rocketBoostSound.isPlaying && playSFX.Equals(1))
         {
-            rocketBoostSound.volume = SFXVolume;
+            rocketBoostSound.volume = SFXVolume / 2;
             rocketBoostSound.Play();
         }
     }
@@ -247,6 +209,24 @@ public class SoundManager : MonoBehaviour
         if (playSFX == 1)
         {
             backgroundMusic.PlayOneShot(asteroidExplosionSound, SFXVolume);
+        }
+    }
+
+    public void PlayCountdownBeepSound()
+    {
+
+        if (playSFX == 1)
+        {
+            backgroundMusic.PlayOneShot(countdownBeepSound, SFXVolume);
+        }
+    }
+
+    public void PlayStartBeepSound()
+    {
+
+        if (playSFX == 1)
+        {
+            backgroundMusic.PlayOneShot(startBeepSound, SFXVolume);
         }
     }
 }
