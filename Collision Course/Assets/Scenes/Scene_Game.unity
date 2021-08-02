@@ -1978,10 +1978,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: UI
       objectReference: {fileID: 0}
-    - target: {fileID: 7054446009788756121, guid: 61e3afd80ba1f0849ab0bf212efc2f53, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 61e3afd80ba1f0849ab0bf212efc2f53, type: 3}
 --- !u!1001 &9006603656828295884
@@ -2038,6 +2034,10 @@ PrefabInstance:
     - target: {fileID: 9006603657654357009, guid: 118d01023e3c7944d9bbd2e0bd1489c4, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9006603657654357010, guid: 118d01023e3c7944d9bbd2e0bd1489c4, type: 3}
+      propertyPath: rotationSpeed
+      value: 500
       objectReference: {fileID: 0}
     - target: {fileID: 9006603657654357010, guid: 118d01023e3c7944d9bbd2e0bd1489c4, type: 3}
       propertyPath: touchIndicator

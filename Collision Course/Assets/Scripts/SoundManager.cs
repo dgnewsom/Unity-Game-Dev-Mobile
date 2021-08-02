@@ -123,7 +123,7 @@ public class SoundManager : MonoBehaviour
 
     public void PlayBoostSound()
     {
-        if (!rocketBoostSound.isPlaying && playSFX.Equals(1))
+        if (!rocketBoostSound.isPlaying && playSFX.Equals(1) && UIScript.IsRunning)
         {
             rocketBoostSound.volume = SFXVolume / 2;
             rocketBoostSound.Play();
@@ -138,7 +138,7 @@ public class SoundManager : MonoBehaviour
     public void PlayLasersSound()
     {
         
-        if (!lasersSound.isPlaying && playSFX.Equals(1))
+        if (!lasersSound.isPlaying && playSFX.Equals(1) && UIScript.IsRunning)
         {
             lasersSound.volume = SFXVolume;
             lasersSound.Play();

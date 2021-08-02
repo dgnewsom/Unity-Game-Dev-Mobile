@@ -75,7 +75,7 @@ public class Asteroid : MonoBehaviour
     /// </summary>
     private void ApplySpinToAsteroid()
     {
-        transform.Rotate(new Vector3(0f, 0f, 1f), spinSpeed);
+        transform.Rotate(new Vector3(0f, 0f, 1f), spinSpeed * Time.deltaTime);
     }
 
     private void CheckAsteroidOnScreen()

@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum CollectibleType {ScoreUp, ScoreDown, ScoreMultiply, HealthUp, Lasers, Shield, Continue}
+public enum CollectibleType {ScoreUp, ScoreDown, HealthUp, Lasers, Shield, ScoreMultiply, Continue}
 public static class CollectibleTypes
 {
     public static Sprite GetIconFromCollectibleType(CollectibleType collectibleType)

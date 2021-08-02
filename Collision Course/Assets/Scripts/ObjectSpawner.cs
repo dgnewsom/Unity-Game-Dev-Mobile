@@ -199,15 +199,23 @@ public class ObjectSpawner : MonoBehaviour
 
     private CollectibleType GetPickupToSpawn()
     {
-        float random = Random.Range(0f,100f);
-
-        if (random > 99)
+        float random = Random.value;
+        print(random);
+        if (random > 0.99)
         {
             return CollectibleType.Continue;
         }
+        else if(random > 0.75f) 
+        {
+            return CollectibleType.ScoreMultiply;
+        }
+        else if(random > 0.5f)
+        {
+            return (CollectibleType) Random.Range(2, 5);
+        }
         else
         {
-            return (CollectibleType)Random.Range(0, System.Enum.GetValues(typeof(CollectibleType)).Length-1);
+            return (CollectibleType) Random.Range(0, 2);
         }
     }
 
@@ -216,5 +224,10 @@ public class ObjectSpawner : MonoBehaviour
         asteroidSpawnTimeRange.y = Mathf.Clamp(asteroidSpawnTimeRange.y -= 0.1f,asteroidSpawnTimeRange.x,asteroidSpawnTimeRange.y);
         asteroidSpeedRange.x = Mathf.Clamp(asteroidSpeedRange.x += 0.1f, 0, 5);
         asteroidSpeedRange.y = asteroidSpeedRange.y += 0.1f;
+    }
+
+    public void Continue()
+    {
+        asteroidSpeedRange.y = Mathf.Clamp(asteroidSpeedRange.y / 2,asteroidSpeedRange.x, asteroidSpeedRange.y);
     }
 }

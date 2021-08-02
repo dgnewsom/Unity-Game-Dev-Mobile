@@ -33,6 +33,11 @@ public class UIScript : MonoBehaviour
     [SerializeField] private TMP_Text currentLevelText;
     [SerializeField] private TMP_Text nextLevelText;
 
+    [Header("Pause Menu")]
+    [SerializeField] private GameObject pauseScreen;
+    [SerializeField] private GameObject pauseButton;
+
+
     [SerializeField] private bool TestMode;
 
     public static bool IsRunning = false;
@@ -98,6 +103,7 @@ public class UIScript : MonoBehaviour
     private void RunCountdownTimer(int seconds)
     {
         IsRunning = false;
+        pauseButton.SetActive(false);
         StartCoroutine(CountdownTimer(seconds));
     }
 
@@ -108,6 +114,7 @@ public class UIScript : MonoBehaviour
     /// <returns></returns>
     IEnumerator CountdownTimer(int seconds)
     {
+
         int countdown = seconds;
         countdownText.text = countdown.ToString();
         while (countdown > 0)
@@ -121,6 +128,7 @@ public class UIScript : MonoBehaviour
 
         SoundManager.Instance.PlayStartBeepSound();
         countdownText.text = "GO!";
+        pauseButton.SetActive(true);
 
         IsRunning = true;
         yield return new WaitForSecondsRealtime(1);
@@ -200,6 +208,7 @@ public class UIScript : MonoBehaviour
     public void ContinueGame()
     {
         Scorer.ReduceContinues();
+        FindObjectOfType<ObjectSpawner>().Continue();
         gameOverScreen.SetActive(false);
         RunCountdownTimer(secondsToCountdown);
         FindObjectOfType<PlayerMovement>().ResetPlayerMovement();
@@ -228,16 +237,19 @@ public class UIScript : MonoBehaviour
     /// </summary>
     public void ShowRestartAd()
     {
+        Time.timeScale = 1f;
         AdManager.Instance.ShowAd(this,AdManager.restartAdString);
     }
 
     public void ShowContinueAd()
     {
+        Time.timeScale = 1f;
         AdManager.Instance.ShowAd(this,AdManager.continueAdString);
     }
 
     public void ShowMainMenuAd()
     {
+        Time.timeScale = 1f;
         AdManager.Instance.ShowAd(this,AdManager.mainMenuAdString);
     }
 
@@ -416,5 +428,17 @@ public class UIScript : MonoBehaviour
         StopLasers();
         StopShield(false);
         StopMultiplier();
+    }
+
+    public void Pause()
+    {
+        pauseScreen.SetActive(true);
+        Time.timeScale = 0;
+    }
+
+    public void Unpause()
+    {
+        pauseScreen.SetActive(false);
+        Time.timeScale = 1f;
     }
 }
