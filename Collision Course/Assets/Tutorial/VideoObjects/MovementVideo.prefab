@@ -58,7 +58,7 @@ PrefabInstance:
     - target: {fileID: 1905847013332286979, guid: 04eee488e23703b4b82afdf9e0ee6d09, type: 3}
       propertyPath: tutorialVideo
       value: 
-      objectReference: {fileID: 32900000, guid: f9bd8cd4a11117a428ddbf2eaa6dc8c0, type: 3}
+      objectReference: {fileID: 32900000, guid: 8e0a0b722d344a8448ec0b40b3459986, type: 3}
     - target: {fileID: 6402933188596539742, guid: 04eee488e23703b4b82afdf9e0ee6d09, type: 3}
       propertyPath: m_Name
       value: MovementVideo

@@ -15,9 +15,9 @@ public class Collectible : MonoBehaviour
     [SerializeField] private Material[] particleMaterials;
     [SerializeField] private GameObject pickupModel;
     [SerializeField] private ParticleSystem pickupEffect;
-    [SerializeField] private readonly int[] percentages = new[] {10, 15, 20, 25, 30, 35, 40, 50};
-    [SerializeField] private readonly int[] multipliers = new[] {2, 3, 4, 5, 10, 15, 20, 25};
-    [SerializeField] private readonly int[] effectTimes = new[] {10, 15, 20, 30, 45, 60};
+    [SerializeField] private readonly int[] scorePercentages = new[] {10, 15, 20, 25};
+    [SerializeField] private readonly int[] multipliers = new[] { 2, 3, 4, 5, 10 };
+    [SerializeField] private readonly int[] effectTimes = new[] {15, 20, 30, 45, 60};
 
     private UIScript uiScript;
     private Image collectibleIconImage;
@@ -79,10 +79,10 @@ public class Collectible : MonoBehaviour
     {
         collectibleAmount = collectibleType switch
         {
-            CollectibleType.ScoreUp => GetRandomAmountFromArrayWithProbability(percentages),
-            CollectibleType.ScoreDown => GetRandomAmountFromArrayWithProbability(percentages),
+            CollectibleType.ScoreUp => GetRandomAmountFromArrayWithProbability(scorePercentages),
+            CollectibleType.ScoreDown => GetRandomAmountFromArrayWithProbability(scorePercentages),
             CollectibleType.ScoreMultiply => GetRandomAmountFromArrayWithProbability(multipliers),
-            CollectibleType.HealthUp => GetRandomAmountFromArrayWithProbability(percentages),
+            CollectibleType.HealthUp => GetRandomAmountFromArrayWithProbability(scorePercentages),
             _ => 0
         };
     }

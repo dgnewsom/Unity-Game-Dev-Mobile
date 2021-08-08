@@ -6,7 +6,7 @@ public class Scorer : MonoBehaviour
 {
     [SerializeField] private float scoreMultiplier = 50f;
     [SerializeField] private int continuesAllowed;
-    [SerializeField] private float levelUpIncrements;
+    [SerializeField] private float originalLevelUpIncrement;
 
     [SerializeField] private float score = 0;
     private int level = 1;
@@ -15,6 +15,7 @@ public class Scorer : MonoBehaviour
     private float originalMultiplier;
     private float nextLevelAmount;
     private ObjectSpawner spawner;
+    private float levelUpIncrement;
 
     public static string HighscoreKey = "HighScore";
     public static string LevelHighscoreKey = "LevelHighcore";
@@ -28,7 +29,8 @@ public class Scorer : MonoBehaviour
     private void Awake()
     {
         originalMultiplier = scoreMultiplier;
-        nextLevelAmount = levelUpIncrements;
+        levelUpIncrement = originalLevelUpIncrement;
+        nextLevelAmount = levelUpIncrement;
     }
 
     private void Start()
@@ -55,8 +57,12 @@ public class Scorer : MonoBehaviour
     private void LevelUp()
     {
         level++;
+        if (level % 10 == 0)
+        {
+            levelUpIncrement += originalLevelUpIncrement;
+        }
         print($"Level up - {level}");
-        nextLevelAmount += levelUpIncrements;
+        nextLevelAmount += levelUpIncrement;
         spawner.LevelUp();
     }
 
@@ -120,4 +126,5 @@ public class Scorer : MonoBehaviour
     {
         score = Mathf.Clamp(score -= amountToRemove,0,float.MaxValue);
     }
+    
 }

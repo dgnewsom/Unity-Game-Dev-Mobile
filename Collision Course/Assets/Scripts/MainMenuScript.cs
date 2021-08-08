@@ -15,18 +15,19 @@ public class MainMenuScript : MonoBehaviour
     {
         ShowMainMenuPanel();
     }*/
+
     private void OnEnable()
     {
         ShowMainMenuPanel();
-        highscoreText.text = $"HighScore\n " +
-                             $"Level {PlayerPrefs.GetInt(Scorer.LevelHighscoreKey,0)} - {PlayerPrefs.GetInt(Scorer.HighscoreKey,0):0000000000}";
+        
     }
 
     public void ShowMainMenuPanel()
     {
         HideAllPanels();
         mainmenuPanel.SetActive(true);
-
+        highscoreText.text = $"HighScore\n " +
+                             $"Level {PlayerPrefs.GetInt(Scorer.LevelHighscoreKey,0)} - {PlayerPrefs.GetInt(Scorer.HighscoreKey,0):0000000000}";
     }
 
     public void ShowSettingsMenu()
@@ -50,7 +51,20 @@ public class MainMenuScript : MonoBehaviour
 
     public void StartGame()
     {
-        SceneManager.LoadScene(1);
+        if (PlayerPrefs.GetInt("FirstPlay", 1).Equals(1))
+        {
+            ShowTutorialPanel();
+        }
+        else
+        {
+            SceneManager.LoadScene(1);
+        }
+    }
+
+    public void ResetHighscore()
+    {
+        PlayerPrefs.SetInt(Scorer.LevelHighscoreKey,0);
+        PlayerPrefs.SetInt(Scorer.HighscoreKey,0);
     }
 
     public void QuitGame()

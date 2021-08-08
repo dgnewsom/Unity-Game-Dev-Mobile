@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class PlayerHealth : MonoBehaviour
 {
-    [SerializeField] private int maxHealth = 1;
+    [SerializeField] private int maxHealth = 10;
     [SerializeField] private GameObject playerModel;
     [SerializeField] private GameObject shield;
     [SerializeField] private GameObject lasers;
@@ -94,5 +94,10 @@ public class PlayerHealth : MonoBehaviour
         float amountToIncrease = (currentHealth / 100) * percentage;
         currentHealth = Mathf.Clamp((currentHealth += amountToIncrease),0,maxHealth);
         UpdateHealthBar();
+    }
+
+    public bool HealthFull()
+    {
+        return !(currentHealth < maxHealth);
     }
 }

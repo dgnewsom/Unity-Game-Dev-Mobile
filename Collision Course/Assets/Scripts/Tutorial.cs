@@ -13,6 +13,7 @@ public class Tutorial : MonoBehaviour
     [SerializeField] private TMP_Text titleText;
     [SerializeField] private Button nextButton;
     [SerializeField] private Button previousButton;
+    [SerializeField] private Button startGameButton;
 
     private int imageIndex = 0;
     private Animator animator;
@@ -28,13 +29,13 @@ public class Tutorial : MonoBehaviour
         imageIndex = 0;
         videoPlayer.clip = InstructionImages[imageIndex].Video;
         titleText.text = InstructionImages[imageIndex].Title;
-        animator.SetBool("ShowVideo",true);
+        //animator.SetBool("ShowVideo",true);
         SetButtonsEnabled();
     }
 
     private void OnDisable()
     {
-        animator.SetBool("ShowVideo",false);
+        //animator.SetBool("ShowVideo",false);
         renderTexture.Release();
     }
 
@@ -51,14 +52,19 @@ public class Tutorial : MonoBehaviour
 
     IEnumerator SwitchNextVideo(float delay)
     {
-        animator.SetBool("ShowVideo", false);
+        //animator.SetBool("ShowVideo", false);
         yield return new WaitForSeconds(delay);
         renderTexture.Release();
         imageIndex++;
+        if (imageIndex >= InstructionImages.Length - 1)
+        {
+            PlayerPrefs.SetInt("FirstPlay", 0);
+        }
         videoPlayer.clip = InstructionImages[imageIndex].Video;
         titleText.text = InstructionImages[imageIndex].Title;
         SetButtonsEnabled();
-        animator.SetBool("ShowVideo", true);
+        //animator.SetBool("ShowVideo", true);
+        
     }
 
     /// <summary>
@@ -74,14 +80,14 @@ public class Tutorial : MonoBehaviour
 
     IEnumerator SwitchPrevVideo(float delay)
     {
-        animator.SetBool("ShowVideo", false);
+        //animator.SetBool("ShowVideo", false);
         yield return new WaitForSeconds(delay);
         renderTexture.Release();
         imageIndex--;
         videoPlayer.clip = InstructionImages[imageIndex].Video;
         titleText.text = InstructionImages[imageIndex].Title;
         SetButtonsEnabled();
-        animator.SetBool("ShowVideo", true);
+        //animator.SetBool("ShowVideo", true);
     }
 
     /// <summary>
@@ -93,6 +99,7 @@ public class Tutorial : MonoBehaviour
         SetButtonFontColour(previousButton);
         nextButton.interactable = !(imageIndex >= InstructionImages.Length - 1);
         SetButtonFontColour(nextButton);
+        SetStartButton();
     }
 
     private void SetButtonFontColour(Button button)
@@ -104,6 +111,20 @@ public class Tutorial : MonoBehaviour
         else
         {
             button.GetComponentInChildren<TMP_Text>().color = Color.gray;
+        }
+    }
+
+    void SetStartButton()
+    {
+        if (PlayerPrefs.GetInt("FirstPlay",1).Equals(0))
+        {
+            startGameButton.interactable = true;
+            startGameButton.GetComponentInChildren<TMP_Text>().color = new Color(0, 1, 0, 1);
+        }
+        else
+        {
+            startGameButton.interactable = false;
+            startGameButton.GetComponentInChildren<TMP_Text>().color = Color.gray;
         }
     }
 }

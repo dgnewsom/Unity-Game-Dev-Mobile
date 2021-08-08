@@ -1817,6 +1817,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1990488754468218532, guid: e79c888328ba0cc4eaa2aa1c24a89bdb, type: 3}
+      propertyPath: asteroidSpawnTimeRange.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1990488754468218532, guid: e79c888328ba0cc4eaa2aa1c24a89bdb, type: 3}
+      propertyPath: asteroidSpawnTimeRange.y
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1990488754468218532, guid: e79c888328ba0cc4eaa2aa1c24a89bdb, type: 3}
+      propertyPath: collectibleSpawnTimeRange.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1990488754468218532, guid: e79c888328ba0cc4eaa2aa1c24a89bdb, type: 3}
+      propertyPath: collectibleSpawnTimeRange.y
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 1990488754468218533, guid: e79c888328ba0cc4eaa2aa1c24a89bdb, type: 3}
       propertyPath: m_RootOrder
       value: 6
@@ -1874,6 +1890,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 418343957, guid: 61e3afd80ba1f0849ab0bf212efc2f53, type: 3}
+      propertyPath: score
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 418343957, guid: 61e3afd80ba1f0849ab0bf212efc2f53, type: 3}
+      propertyPath: scoreMultiplier
+      value: 1000
+      objectReference: {fileID: 0}
+    - target: {fileID: 418343957, guid: 61e3afd80ba1f0849ab0bf212efc2f53, type: 3}
+      propertyPath: levelUpIncrements
+      value: 250000
+      objectReference: {fileID: 0}
+    - target: {fileID: 418343957, guid: 61e3afd80ba1f0849ab0bf212efc2f53, type: 3}
+      propertyPath: originalLevelUpIncrement
+      value: 250000
+      objectReference: {fileID: 0}
     - target: {fileID: 995942281, guid: 61e3afd80ba1f0849ab0bf212efc2f53, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -1921,6 +1953,10 @@ PrefabInstance:
     - target: {fileID: 1120607066, guid: 61e3afd80ba1f0849ab0bf212efc2f53, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1177004589, guid: 61e3afd80ba1f0849ab0bf212efc2f53, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 6.8200684
       objectReference: {fileID: 0}
     - target: {fileID: 1790718048459299077, guid: 61e3afd80ba1f0849ab0bf212efc2f53, type: 3}
       propertyPath: m_RootOrder
@@ -1987,6 +2023,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4020782491226056624, guid: 118d01023e3c7944d9bbd2e0bd1489c4, type: 3}
+      propertyPath: maxHealth
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 9006603657654357008, guid: 118d01023e3c7944d9bbd2e0bd1489c4, type: 3}
       propertyPath: m_Name
       value: Player

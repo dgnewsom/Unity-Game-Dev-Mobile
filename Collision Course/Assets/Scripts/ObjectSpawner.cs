@@ -31,12 +31,18 @@ public class ObjectSpawner : MonoBehaviour
     private float collectibleSpawnTimer = 0f;
     private Vector2 spawnForceDirection = Vector2.zero;
     private Vector3 worldSpawnPoint;
+    private PlayerHealth playerHealth;
+    private Scorer scorer;
+    private UIScript uiScript;
 
 
     private void Start()
     {
         ResetCollectibleSpawnTimer();
         mainCamera = Camera.main;
+        playerHealth = FindObjectOfType<PlayerHealth>();
+        scorer = FindObjectOfType<Scorer>();
+        uiScript = FindObjectOfType<UIScript>();
         PopulateAsteroidPool();
     }
 
@@ -199,35 +205,75 @@ public class ObjectSpawner : MonoBehaviour
 
     private CollectibleType GetPickupToSpawn()
     {
-        float random = Random.value;
-        print(random);
-        if (random > 0.99)
+        CollectibleType toReturn = CollectibleType.ScoreUp;
+        bool isValid = false;
+
+        while (!isValid)
         {
-            return CollectibleType.Continue;
+            float random = Random.value;
+            print(random);
+            if (random > 0.99)
+            {
+                toReturn = CollectibleType.Continue;
+                if (Scorer.ContinuesRemaining <= 5)
+                {
+                    isValid = true;
+                }
+            }
+            else if(random > 0.75f) 
+            {
+                toReturn = CollectibleType.ScoreMultiply;
+                if (scorer.GetCurrentMultiplier() <= 100 && uiScript.MultiplierTimer <= 20f)
+                {
+                    isValid = true;
+                }
+            }
+            else if(random > 0.5f)
+            {
+                toReturn = (CollectibleType) Random.Range(2, 5);
+                if (toReturn.Equals(CollectibleType.HealthUp))
+                {
+                    if (!playerHealth.HealthFull())
+                    {
+                        isValid = true;
+                    }
+                }
+                if (toReturn.Equals(CollectibleType.Shield))
+                {
+                    if (uiScript.ShieldTimer <= 15f)
+                    {
+                        isValid = true;
+                    }
+                }
+
+                if (toReturn.Equals(CollectibleType.Lasers))
+                {
+                    if (uiScript.LaserTimer <= 15f)
+                    {
+                        isValid = true;
+                    }
+                }
+            }
+            else
+            {
+                toReturn = (CollectibleType) Random.Range(0, 2);
+                isValid = true;
+            }
         }
-        else if(random > 0.75f) 
-        {
-            return CollectibleType.ScoreMultiply;
-        }
-        else if(random > 0.5f)
-        {
-            return (CollectibleType) Random.Range(2, 5);
-        }
-        else
-        {
-            return (CollectibleType) Random.Range(0, 2);
-        }
+
+        return toReturn;
     }
 
     public void LevelUp()
     {
-        asteroidSpawnTimeRange.y = Mathf.Clamp(asteroidSpawnTimeRange.y -= 0.1f,asteroidSpawnTimeRange.x,asteroidSpawnTimeRange.y);
+        asteroidSpawnTimeRange.y = Mathf.Clamp(asteroidSpawnTimeRange.y -= 0.2f,asteroidSpawnTimeRange.x,asteroidSpawnTimeRange.y);
         asteroidSpeedRange.x = Mathf.Clamp(asteroidSpeedRange.x += 0.1f, 0, 5);
-        asteroidSpeedRange.y = asteroidSpeedRange.y += 0.1f;
+        asteroidSpeedRange.y = Mathf.Clamp(asteroidSpeedRange.y += 0.25f,asteroidSpeedRange.y,20f);
     }
 
     public void Continue()
     {
-        asteroidSpeedRange.y = Mathf.Clamp(asteroidSpeedRange.y / 2,asteroidSpeedRange.x, asteroidSpeedRange.y);
+        asteroidSpeedRange.y = Mathf.Clamp(asteroidSpeedRange.y / 4,asteroidSpeedRange.x, asteroidSpeedRange.y);
+        asteroidSpawnTimeRange.y = Mathf.Clamp(asteroidSpawnTimeRange.y * 3,asteroidSpawnTimeRange.x,6);
     }
 }

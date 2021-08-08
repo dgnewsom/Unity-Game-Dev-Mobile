@@ -45,14 +45,20 @@ public class UIScript : MonoBehaviour
     private bool multiplierActive = false;
     private bool lasersActive = false;
     private bool shieldActive = false;
+    private float multiplierTimer;
+    private float shieldTimer;
+    private float laserTimer;
 
     public bool MultiplierActive => multiplierActive;
     public bool LasersActive => lasersActive;
     public bool ShieldActive => shieldActive;
 
-    private float multiplierTimer;
-    private float shieldTimer;
-    private float laserTimer;
+    public float MultiplierTimer => multiplierTimer;
+
+    public float ShieldTimer => shieldTimer;
+
+    public float LaserTimer => laserTimer;
+
 
     private void Start()
     {
@@ -388,6 +394,7 @@ public class UIScript : MonoBehaviour
     private void StopMultiplier()
     {
         multiplierActive = false;
+        multiplierTimer = 0f;
         FindObjectOfType<Scorer>().ResetMultiplier();
         ClearMultiplierDisplay();
     }
@@ -402,6 +409,7 @@ public class UIScript : MonoBehaviour
             SoundManager.Instance.PlayShieldOffSound();
         }
         shieldActive = false;
+        shieldTimer = 0f;
         FindObjectOfType<PlayerHealth>().SetShieldActive(shieldActive);
         ClearShieldDisplay();
     }
@@ -412,6 +420,7 @@ public class UIScript : MonoBehaviour
     private void StopLasers()
     {
         lasersActive = false;
+        laserTimer = 0f;
         FindObjectOfType<PlayerHealth>().SetLasersActive(lasersActive);
         SoundManager.Instance.StopLasersSound();
         ClearLasersDisplay();
